@@ -4,6 +4,7 @@
 
 # Session Data files
 .RData
+.vscode
 
 # User-specific files
 .Ruserdata
@@ -39,3 +40,4 @@ vignettes/*.pdf
 .Renviron
 
 .DS_Store
+_book
