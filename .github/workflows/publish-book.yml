@@ -1,9 +1,15 @@
 on:
-  workflow_dispatch:
   push:
     branches: main
+  pull_request:
+    branches: main
+  # to be able to trigger a manual build
+  workflow_dispatch:
+  schedule:
+    # run every day at 11 PM
+    - cron: '0 23 * * *'
 
-name: Quarto Publish
+name: Render and publish book
 
 jobs:
   build-deploy:
