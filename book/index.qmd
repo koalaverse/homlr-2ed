@@ -1,5 +1,5 @@
 # Preface {.unnumbered}
 
-This is a Quarto book.
+Welcome to the 2nd edition of *Hands-On Machine Learning with R*.
 
 To learn more about Quarto books visit <https://quarto.org/docs/books>.
