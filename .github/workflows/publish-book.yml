@@ -7,9 +7,6 @@ name: Quarto Publish
 
 jobs:
   build-deploy:
-    defaults:
-      run:
-        working-directory: book
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -29,5 +26,6 @@ jobs:
         uses: quarto-dev/quarto-actions/publish@v2
         with:
           target: gh-pages
+          path: book
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
