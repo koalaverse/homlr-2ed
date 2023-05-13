@@ -1,0 +1,9 @@
+# Preface to the second edition {.unnumbered}
+
+Welcome to the second edition of *Hands-On Machine Learning with R*.! This is a major reworking of the first edition, removing material we no longer think is useful, adding material we wish we included in the first edition, and generally updating the text and code to reflect changes in best practices.
+
+A brief summary of the biggest changes follows:
+
+* TBD
+* TBD
+* TBD

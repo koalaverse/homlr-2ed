@@ -9,12 +9,14 @@ book:
   repo-url: https://github.com/koalaverse/homlr-2ed
   repo-branch: main
   repo-actions: [edit, issue]
+  downloads: [pdf, epub]
   favicon: homl-cover.jpg
   cover-image: homl-cover.jpg
   sharing: [twitter]
 
   chapters:
     - index.qmd
+    - preface-2e.qmd
     - intro.qmd
     - summary.qmd
     - references.qmd
@@ -23,7 +25,9 @@ bibliography: references.bib
 
 format:
   html:
-    theme: cosmo
+    theme:
+      - cosmo
+      - homl.scss
     code-link: true
     callout-appearance: simple
   pdf:
