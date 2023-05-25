@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Brad Boehmke &amp; Brandon Greenwell">
-<meta name="dcterms.date" content="2023-05-24">
+<meta name="dcterms.date" content="2023-05-25">
 
 <title>Hands-On Machine Learning with R, 2ed</title>
 <style>
@@ -22,7 +22,60 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -63,6 +116,8 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -161,7 +216,15 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome">Welcome</a></li>
+  <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome">Welcome</a>
+  <ul class="collapse">
+  <li><a href="#who-should-read-this" id="toc-who-should-read-this" class="nav-link" data-scroll-target="#who-should-read-this">Who should read this</a></li>
+  <li><a href="#why-r" id="toc-why-r" class="nav-link" data-scroll-target="#why-r">Why R</a></li>
+  <li><a href="#conventions-used-in-this-book" id="toc-conventions-used-in-this-book" class="nav-link" data-scroll-target="#conventions-used-in-this-book">Conventions used in this book</a></li>
+  <li><a href="#additional-resources" id="toc-additional-resources" class="nav-link" data-scroll-target="#additional-resources">Additional resources</a></li>
+  <li><a href="#acknowledgments" id="toc-acknowledgments" class="nav-link" data-scroll-target="#acknowledgments">Acknowledgments</a></li>
+  <li><a href="#software-information" id="toc-software-information" class="nav-link" data-scroll-target="#software-information">Software information</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/koalaverse/homlr-2ed/edit/main/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/koalaverse/homlr-2ed/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -187,7 +250,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 24, 2023</p>
+      <p class="date">May 25, 2023</p>
     </div>
   </div>
   
@@ -200,9 +263,244 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="welcome" class="level1 unnumbered">
 <h1 class="unnumbered">Welcome</h1><p><img src="homl-cover.jpg" title="Hands-On Machine Learning with R, 2ed" class="quarto-cover-image img-fluid"></p>
-<p>Welcome to the second edition of <em>Hands-On Machine Learning with R</em>. This book is undergoing heavy restructuring and may be confusing or incomplete; however, we hope for the first draft to be completed by the fall of 2023. You can find the complete first edition at <a href="https://bradleyboehmke.github.io/HOML/">bradleyboehmke.github.io/HOML</a>.</p>
+<p>Welcome to the second edition of <em>Hands-On Machine Learning with R</em>. This book provides hands-on modules for many of the most common machine learning methods to include:</p>
+<ul>
+<li>Generalized low rank models</li>
+<li>Clustering algorithms</li>
+<li>Autoencoders</li>
+<li>Regularized models</li>
+<li>Random forests</li>
+<li>Gradient boosting machines</li>
+<li>Deep neural networks</li>
+<li>Stacking / super learners</li>
+<li>and more!</li>
+</ul>
+<p>You will learn how to build and tune these various models with R packages that have been tested and approved due to their ability to scale well. However, our motivation in almost every case is to describe the techniques in a way that helps develop intuition for its strengths and weaknesses. For the most part, we minimize mathematical complexity when possible but also provide resources to get deeper into the details if desired.</p>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>This book is undergoing heavy restructuring and may be confusing or incomplete; however, we hope for the first draft to be completed by the fall of 2023. You can find the complete first edition at <a href="https://bradleyboehmke.github.io/HOML/">bradleyboehmke.github.io/HOML</a>.</p>
+</div>
+</div>
+</div>
+<section id="who-should-read-this" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="who-should-read-this">Who should read this</h2>
+<p>We intend this work to be a practitioner’s guide to the machine learning process and a place where one can come to learn about the approach and to gain intuition about the many commonly used, modern, and powerful methods accepted in the machine learning community. If you are familiar with the analytic methodologies, this book may still serve as a reference for how to work with the various R packages for implementation.</p>
+<p>This book is not meant to be an introduction to R or to programming in general; as we assume the reader has familiarity with the R language to include defining functions, managing R objects, controlling the flow of a program, and other basic tasks. If not, we would refer you to <a href="http://r4ds.had.co.nz/index.html">R for Data Science</a> <span class="citation" data-cites="wickham2016r">(<a href="references.html#ref-wickham2016r" role="doc-biblioref">Wickham and Grolemund 2016</a>)</span> to learn the fundamentals of data science with R such as importing, cleaning, transforming, visualizing, and exploring your data. For those looking to advance their R programming skills and knowledge of the language, we would refer you to <a href="http://adv-r.had.co.nz/">Advanced R</a> <span class="citation" data-cites="wickham2014advanced">(<a href="references.html#ref-wickham2014advanced" role="doc-biblioref">Wickham 2014</a>)</span>. Nor is this book designed to be a deep dive into the theory and math underpinning machine learning algorithms. Several books already exist that do great justice in this arena (i.e.&nbsp;<a href="https://web.stanford.edu/~hastie/ElemStatLearn/">Elements of Statistical Learning</a> <span class="citation" data-cites="esl">(<a href="references.html#ref-esl" role="doc-biblioref">Hastie, Tibshirani, and Friedman 2009</a>)</span>, <a href="https://web.stanford.edu/~hastie/CASI/">Computer Age Statistical Inference</a> <span class="citation" data-cites="efron2016computer">(<a href="references.html#ref-efron2016computer" role="doc-biblioref">Efron and Hastie 2016</a>)</span>, <a href="http://www.deeplearningbook.org/">Deep Learning</a> <span class="citation" data-cites="goodfellow2016deep">(<a href="references.html#ref-goodfellow2016deep" role="doc-biblioref">Goodfellow, Bengio, and Courville 2016</a>)</span>).</p>
+<p>Instead, this book is meant to help R users learn to use the machine learning stack within R, which includes using various R packages such as the <a href="https://www.tidymodels.org/packages/"><strong>tidymodels</strong></a> ecosystem of packages for model development, <a href="https://github.com/koalaverse/vip"><strong>vip</strong></a> and <a href="https://github.com/bgreenwell/pdp"><strong>pdp</strong></a> for model interpretation, TODO (add others as we develop) and others to effectively model and gain insight from your data. The book favors a hands-on approach, growing an intuitive understanding of machine learning through concrete examples and just a little bit of theory. While you can read this book without opening R, we highly recommend you experiment with the code examples provided throughout.</p>
+</section>
+<section id="why-r" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="why-r">Why R</h2>
+<p>In this book we focus on implementing machine learning tasks with R. R has emerged over the last couple decades as a first-class tool for scientific computing tasks, and has been a consistent leader in implementing statistical methodologies for analyzing data. The usefulness of R for data science stems from the large, active, and growing ecosystem of third-party packages. We are not ignoring other languages such as Python or Julia because we think these tools are inferior. They’re not! And in practice, most organizations and data science teams use a mix of languages. In fact, throughout this book we may reference methods or implementations in other languages and we may even provide a few examples in Python. However, we strongly believe that it’s best to master one tool at a time, and R is a great place to start.</p>
+</section>
+<section id="conventions-used-in-this-book" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="conventions-used-in-this-book">Conventions used in this book</h2>
+<p>The following typographical conventions are used in this book:</p>
+<ul>
+<li><strong><em>strong italic</em></strong>: indicates new terms,</li>
+<li><strong>bold</strong>: indicates package &amp; file names,</li>
+<li><code>inline code</code>: monospaced highlighted text indicates functions or other commands that could be typed literally by the user,</li>
+<li>code chunk: indicates commands or other text that could be typed literally by the user</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In addition to the general text used throughout, you will notice the following code chunks with images:</p>
+<div class="callout callout-style-simple callout-tip">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Signifies a tip or suggestion</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Signifies a general note</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-warning">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Signifies a warning or caution</p>
+</div>
+</div>
+</div>
+</section>
+<section id="additional-resources" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="additional-resources">Additional resources</h2>
+<p>There are many great resources available to learn about machine learning. Throughout the chapters we try to include many of the resources that we have found extremely useful for digging deeper into the methodology and applying with code. However, due to print restrictions, the hard copy version of this book limits the concepts and methods discussed. Online supplementary material exists at https://koalaverse.github.io/homlr/. The additional material will accumulate over time and include extended chapter material (i.e., random forest package benchmarking) along with brand new content we couldn’t fit in (i.e., random hyperparameter search). In addition, you can download the data used throughout the book, find teaching resources (i.e., slides and exercises), and more.</p>
+</section>
+<section id="acknowledgments" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="acknowledgments">Acknowledgments</h2>
+<p>We’d like to thank everyone who contributed feedback, typo corrections, and discussions while the book was being written. GitHub contributors included <span class="math inline">\(@\)</span>agailloty, <span class="math inline">\(@\)</span>asimumba, <span class="math inline">\(@\)</span>benprew, <span class="math inline">\(@\)</span>bfgray3, <span class="math inline">\(@\)</span>bragks, <span class="math inline">\(@\)</span>cunningjames, <span class="math inline">\(@\)</span>DesmondChoy, <span class="math inline">\(@\)</span>erickeniuk, <span class="math inline">\(@\)</span>j-ryanhart, <span class="math inline">\(@\)</span>lcreteig, <span class="math inline">\(@\)</span>liangwu82, <span class="math inline">\(@\)</span>Lianta, <span class="math inline">\(@\)</span>mccurcio, <span class="math inline">\(@\)</span>mmelcher76, <span class="math inline">\(@\)</span>MMonterosso89, <span class="math inline">\(@\)</span>nsharkey, <span class="math inline">\(@\)</span>raycblai, <span class="math inline">\(@\)</span>schoonees, <span class="math inline">\(@\)</span>tpristavec and <span class="math inline">\(@\)</span>william3031. We’d also like to thank folks such as Alex Gutman, Greg Anderson, Jay Cunningham, Joe Keller, Mike Pane, Scott Crawford, and several other co-workers who provided great input around much of this machine learning content.</p>
+</section>
+<section id="software-information" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="software-information">Software information</h2>
+<p>This book was built with the following packages and R version. All code was executed on 2019 MacBook Pro with a 2.6 GHz 6-Core Intel Core i7 processor, 16 GB of memory, 2667 MHz speed, and double data rate synchronous dynamic random access memory (DDR4).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># packages used</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>pkgs <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"tidymodels"</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"vip"</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># package &amp; session info</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>sessioninfo<span class="sc">::</span><span class="fu">session_info</span>(pkgs)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ─ Session info ───────────────────────────────────────────────────────────────</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  setting  value</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  version  R version 4.2.0 (2022-04-22)</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  os       Ubuntu 22.04.2 LTS</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  system   x86_64, linux-gnu</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ui       X11</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  language (EN)</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  collate  C.UTF-8</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ctype    C.UTF-8</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  tz       UTC</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  date     2023-05-25</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  pandoc   2.9.2.1 @ /usr/bin/ (via rmarkdown)</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ─ Packages ───────────────────────────────────────────────────────────────────</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  package      * version    date (UTC) lib source</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  backports      1.4.1      2021-12-13 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  broom          1.0.4      2023-03-11 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  cachem         1.0.8      2023-05-01 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  class          7.3-20     2022-01-16 [3] CRAN (R 4.2.0)</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  cli            3.6.1      2023-03-23 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  clock          0.7.0      2023-05-15 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  codetools      0.2-18     2020-11-04 [3] CRAN (R 4.2.0)</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  colorspace     2.1-0      2023-01-23 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  conflicted     1.2.0      2023-02-01 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  cpp11          0.4.3      2022-10-12 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  data.table     1.14.8     2023-02-17 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  diagram        1.6.5      2020-09-30 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  dials          1.2.0      2023-04-03 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  DiceDesign     1.9        2021-02-13 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  digest         0.6.31     2022-12-11 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  dplyr          1.1.2      2023-04-20 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ellipsis       0.3.2      2021-04-29 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  fansi          1.0.4      2023-01-22 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  farver         2.1.1      2022-07-06 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  fastmap        1.1.1      2023-02-24 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  foreach        1.5.2      2022-02-02 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  furrr          0.3.1      2022-08-15 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  future         1.32.0     2023-03-07 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  future.apply   1.11.0     2023-05-21 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  generics       0.1.3      2022-07-05 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ggplot2        3.4.2      2023-04-03 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  globals        0.16.2     2022-11-21 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  glue           1.6.2      2022-02-24 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  gower          1.0.1      2022-12-22 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  GPfit          1.0-8      2019-02-08 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  gridExtra      2.3        2017-09-09 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  gtable         0.3.3      2023-03-21 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  hardhat        1.3.0      2023-03-30 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  infer          1.0.4      2022-12-02 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ipred          0.9-14     2023-03-09 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  isoband        0.2.7      2022-12-20 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  iterators      1.0.14     2022-02-05 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  KernSmooth     2.23-20    2021-05-03 [3] CRAN (R 4.2.0)</span></span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  labeling       0.4.2      2020-10-20 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  lattice        0.20-45    2021-09-22 [3] CRAN (R 4.2.0)</span></span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  lava           1.7.2.1    2023-02-27 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  lhs            1.1.6      2022-12-17 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  lifecycle      1.0.3      2022-10-07 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  listenv        0.9.0      2022-12-16 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  lubridate      1.9.2      2023-02-10 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  magrittr       2.0.3      2022-03-30 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  MASS           7.3-56     2022-03-23 [3] CRAN (R 4.2.0)</span></span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Matrix         1.4-1      2022-03-23 [3] CRAN (R 4.2.0)</span></span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  memoise        2.0.1      2021-11-26 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  mgcv           1.8-40     2022-03-29 [3] CRAN (R 4.2.0)</span></span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  modeldata      1.1.0      2023-01-25 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  modelenv       0.1.1      2023-03-08 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  munsell        0.5.0      2018-06-12 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  nlme           3.1-157    2022-03-25 [3] CRAN (R 4.2.0)</span></span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  nnet           7.3-17     2022-01-16 [3] CRAN (R 4.2.0)</span></span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  numDeriv       2016.8-1.1 2019-06-06 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  parallelly     1.35.0     2023-03-23 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  parsnip        1.1.0      2023-04-12 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  patchwork      1.1.2      2022-08-19 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  pillar         1.9.0      2023-03-22 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  pkgconfig      2.0.3      2019-09-22 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  plyr           1.8.8      2022-11-11 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  prettyunits    1.1.1      2020-01-24 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  prodlim        2023.03.31 2023-04-02 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  progressr      0.13.0     2023-01-10 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  purrr          1.0.1      2023-01-10 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  R6             2.5.1      2021-08-19 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  RColorBrewer   1.1-3      2022-04-03 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Rcpp           1.0.10     2023-01-22 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  recipes        1.0.6      2023-04-25 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  rlang          1.1.1      2023-04-28 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  rpart          4.1.16     2022-01-24 [3] CRAN (R 4.2.0)</span></span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  rsample        1.1.1      2022-12-07 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  rstudioapi     0.14       2022-08-22 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  scales         1.2.1      2022-08-20 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  shape          1.4.6      2021-05-19 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  slider         0.3.0      2022-11-16 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  SQUAREM        2021.1     2021-01-13 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  stringi        1.7.12     2023-01-11 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  stringr        1.5.0      2022-12-02 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  survival       3.3-1      2022-03-03 [3] CRAN (R 4.2.0)</span></span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  tibble         3.2.1      2023-03-20 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  tidymodels     1.1.0      2023-05-01 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  tidyr          1.3.0      2023-01-24 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  tidyselect     1.2.0      2022-10-10 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  timechange     0.2.0      2023-01-11 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  timeDate       4022.108   2023-01-07 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  tune           1.1.1      2023-04-11 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  tzdb           0.4.0      2023-05-12 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  utf8           1.2.3      2023-01-31 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  vctrs          0.6.2      2023-04-19 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  vip            0.3.2      2020-12-17 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  viridisLite    0.4.2      2023-05-02 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  warp           0.2.0      2020-10-21 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  withr          2.5.0      2022-03-03 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  workflows      1.1.3      2023-02-22 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  workflowsets   1.0.1      2023-04-06 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  yardstick      1.2.0      2023-04-21 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] /home/runner/work/_temp/Library</span></span>
+<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [2] /opt/R/4.2.0/lib/R/site-library</span></span>
+<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [3] /opt/R/4.2.0/lib/R/library</span></span>
+<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ──────────────────────────────────────────────────────────────────────────────</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-efron2016computer" class="csl-entry" role="listitem">
+Efron, Bradley, and Trevor Hastie. 2016. <em>Computer Age Statistical Inference</em>. Vol. 5. Cambridge University Press.
+</div>
+<div id="ref-goodfellow2016deep" class="csl-entry" role="listitem">
+Goodfellow, Ian, Yoshua Bengio, and Aaron Courville. 2016. <em>Deep Learning</em>. Vol. 1. MIT Press Cambridge.
+</div>
+<div id="ref-esl" class="csl-entry" role="listitem">
+Hastie, Trevor, Robert Tibshirani, and Jerome Friedman. 2009. <em>The Elements of Statistical Learning: Data Mining, Inference, and Prediction</em>. Vol. 2. Springer Science+ Business Media.
+</div>
+<div id="ref-wickham2014advanced" class="csl-entry" role="listitem">
+Wickham, Hadley. 2014. <em>Advanced r</em>. CRC Press.
+</div>
+<div id="ref-wickham2016r" class="csl-entry" role="listitem">
+Wickham, Hadley, and Garrett Grolemund. 2016. <em>R for Data Science: Import, Tidy, Transform, Visualize, and Model Data</em>. O’Reilly Media, Inc.
+</div>
+</div>
+</section>
 </section>
 
 </main> <!-- /main -->
