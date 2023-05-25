@@ -1,3 +1,81 @@
 # Welcome {.unnumbered}
 
-Welcome to the second edition of *Hands-On Machine Learning with R*. This book is undergoing heavy restructuring and may be confusing or incomplete; however, we hope for the first draft to be completed by the fall of 2023. You can find the complete first edition at [bradleyboehmke.github.io/HOML](https://bradleyboehmke.github.io/HOML/).
+Welcome to the second edition of *Hands-On Machine Learning with R*. This book provides hands-on modules for many of the most common machine learning methods to include:
+
+- Generalized low rank models
+- Clustering algorithms
+- Autoencoders
+- Regularized models
+- Random forests
+- Gradient boosting machines
+- Deep neural networks
+- Stacking / super learners
+- and more!
+
+You will learn how to build and tune these various models with R packages that have been tested and approved due to their ability to scale well. However, our motivation in almost every case is to describe the techniques in a way that helps develop intuition for its strengths and weaknesses.  For the most part, we minimize mathematical complexity when possible but also provide resources to get deeper into the details if desired.
+
+::: {.callout-note}
+This book is undergoing heavy restructuring and may be confusing or incomplete; however, we hope for the first draft to be completed by the fall of 2023. You can find the complete first edition at [bradleyboehmke.github.io/HOML](https://bradleyboehmke.github.io/HOML/).
+:::
+
+## Who should read this {-}
+
+We intend this work to be a practitioner's guide to the machine learning process and a place where one can come to learn about the approach and to gain intuition about the many commonly used, modern, and powerful methods accepted in the machine learning community. If you are familiar with the analytic methodologies, this book may still serve as a reference for how to work with the various R packages for implementation.
+
+This book is not meant to be an introduction to R or to programming in general; as we assume the reader has familiarity with the R language to include defining functions, managing R objects, controlling the flow of a program, and other basic tasks.  If not, we would refer you to [R for Data Science](http://r4ds.had.co.nz/index.html) [@wickham2016r] to learn the fundamentals of data science with R such as importing, cleaning, transforming, visualizing, and exploring your data. For those looking to advance their R programming skills and knowledge of the language, we would refer you to [Advanced R](http://adv-r.had.co.nz/) [@wickham2014advanced]. Nor is this book designed to be a deep dive into the theory and math underpinning machine learning algorithms. Several books already exist that do great justice in this arena (i.e. [Elements of Statistical Learning](https://web.stanford.edu/~hastie/ElemStatLearn/) [@esl], [Computer Age Statistical Inference](https://web.stanford.edu/~hastie/CASI/) [@efron2016computer], [Deep Learning](http://www.deeplearningbook.org/) [@goodfellow2016deep]).
+
+Instead, this book is meant to help R users learn to use the machine learning stack within R, which includes using various R packages such as the [__tidymodels__](https://www.tidymodels.org/packages/) ecosystem of packages for model development, [__vip__](https://github.com/koalaverse/vip) and [__pdp__](https://github.com/bgreenwell/pdp) for model interpretation, TODO (add others as we develop) and others to effectively model and gain insight from your data. The book favors a hands-on approach, growing an intuitive understanding of machine learning through concrete examples and just a little bit of theory.  While you can read this book without opening R, we highly recommend you experiment with the code examples provided throughout.
+
+## Why R {-}
+
+In this book we focus on implementing machine learning tasks with R. R has emerged over the last couple decades as a first-class tool for scientific computing tasks, and has been a consistent leader in implementing statistical methodologies for analyzing data. The usefulness of R for data science stems from the large, active, and growing ecosystem of third-party packages. We are not ignoring other languages such as Python or Julia because we think these tools are inferior. They’re not! And in practice, most organizations and data science teams use a mix of languages. In fact, throughout this book we may reference methods or implementations in other languages and we may even provide a few examples in Python. However, we strongly believe that it’s best to master one tool at a time, and R is a great place to start.
+
+## Conventions used in this book {-}
+
+The following typographical conventions are used in this book:
+
+* ___strong italic___: indicates new terms,
+* __bold__: indicates package & file names,
+* `inline code`: monospaced highlighted text indicates functions or other commands that could be typed literally by the user,
+* code chunk: indicates commands or other text that could be typed literally by the user
+
+```{r, first-code-chunk, collapse=TRUE}
+1 + 2
+```
+
+In addition to the general text used throughout, you will notice the following code chunks with images:
+
+::: {.callout-tip}
+Signifies a tip or suggestion
+:::
+
+::: {.callout-note}
+Signifies a general note
+:::
+
+::: {.callout-warning}
+Signifies a warning or caution
+:::
+
+## Additional resources {-}
+
+There are many great resources available to learn about machine learning.  Throughout the chapters we try to include many of the resources that we have found extremely useful for digging deeper into the methodology and applying with code. However, due to print restrictions, the hard copy version of this book limits the concepts and methods discussed. Online supplementary material exists at https://koalaverse.github.io/homlr/. The additional material will accumulate over time and include extended chapter material (i.e., random forest package benchmarking) along with brand new content we couldn't fit in (i.e., random hyperparameter search). In addition, you can download the data used throughout the book, find teaching resources (i.e., slides and exercises), and more.
+
+## Acknowledgments {-}
+
+We'd like to thank everyone who contributed feedback, typo corrections, and discussions while the book was being written. GitHub contributors included $@$agailloty, $@$asimumba, $@$benprew, $@$bfgray3, $@$bragks, $@$cunningjames, $@$DesmondChoy, $@$erickeniuk, $@$j-ryanhart, $@$lcreteig, $@$liangwu82, $@$Lianta, $@$mccurcio, $@$mmelcher76, $@$MMonterosso89, $@$nsharkey, $@$raycblai, $@$schoonees, $@$tpristavec and $@$william3031. We'd also like to thank folks such as Alex Gutman, Greg Anderson, Jay Cunningham, Joe Keller, Mike Pane, Scott Crawford, and several other co-workers who provided great input around much of this machine learning content.
+
+## Software information {-}
+
+This book was built with the following packages and R version.  All code was executed on 2019 MacBook Pro with a 2.6 GHz 6-Core Intel Core i7 processor, 16 GB of memory, 2667 MHz speed, and double data rate synchronous dynamic random access memory (DDR4).
+
+```{r, collapse=TRUE, comment = "#>"}
+# packages used
+pkgs <- c(
+    "tidymodels",
+    "vip"
+)
+
+# package & session info
+sessioninfo::session_info(pkgs)
+```
