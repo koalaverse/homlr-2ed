@@ -31,6 +31,9 @@ jobs:
         with:
           r-version: '4.2.0'
 
+      - name: Install R packages
+        uses: r-lib/actions/setup-r-dependencies@v2
+
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2
         with:
