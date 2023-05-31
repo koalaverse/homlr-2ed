@@ -1,3 +1,246 @@
-# Introduction
+# Introduction to Machine Learning
+
+```{r}
+#| label: setup
+#| include: FALSE
+knitr::opts_chunk$set(
+  echo = TRUE,
+  fig.align = "center",
+  message = FALSE,
+  warning = FALSE,
+  collapse = TRUE,
+  cache = TRUE
+)
+```
+
+Machine learning (ML) continues to grow in importance for many organizations across
+nearly all domains. Some example applications of machine learning in practice include:
+
+* Predicting the likelihood of a patient returning to the hospital (_readmission_) within
+30 days of discharge.
+* Segmenting customers based on common attributes or purchasing behavior for targeted
+marketing.
+* Predicting coupon redemption rates for a given marketing campaign.
+* Predicting customer churn so an organization can perform preventative intervention.
+* And many more!
+
+In essence, these tasks all seek to learn from data.  To address each scenario, we can
+use a given set of _features_\index{features} to train an algorithm and extract insights.
+These algorithms, or _learners_\index{learners}, can be classified according to the amount
+and type of supervision needed during training.  The two main groups this book focuses on
+are: ___supervised learners___ which construct predictive models, and ___unsupervised
+learners___ which build descriptive models. Which type you will need to use depends on
+the learning task you hope to accomplish.
+
+## Supervised learning
+
+A ___predictive model___\index{predictive model} is used for tasks that involve the
+prediction of a given output (or target) using other variables (or features) in the data
+set. Or, as stated by @apm [p. 2], predictive modeling is "...the process of developing
+a mathematical tool or model that generates an accurate prediction."  The learning algorithm
+in a predictive model attempts to discover and model the relationships among the
+<font color="red">target</font> variable (the variable being predicted) and the other
+<font color="blue">features</font> (aka predictor variables). Examples of predictive modeling
+include:
+
+* using <font color="blue">customer attributes</font> to predict the probability of the
+<font color="red">customer churning</font> in the next 6 weeks;
+* using <font color="blue">home attributes</font> to predict the <font color="red">sales price</font>;
+* using <font color="blue">employee attributes</font> to predict the likelihood of
+<font color="red">attrition</font>;
+* using <font color="blue">patient attributes</font> and symptoms to predict the risk of
+<font color="red">readmission</font>;
+* using <font color="blue">production attributes</font> to predict <font color="red">time
+to market</font>.
+
+Each of these examples has a defined learning task; they each intend to use attributes
+($X$) to predict an outcome measurement ($Y$).
+
+::: {.callout-note}
+Throughout this text we'll use various terms interchangeably for
+
+* $X$: "predictor variable", "independent variable", "attribute", "feature", "predictor"
+* $Y$: "target variable", "dependent variable", "response", "outcome measurement"
+:::
+
+The predictive modeling examples above describe what is known as _supervised learning_\index{supervised learning}.
+The supervision refers to the fact that the target values provide a supervisory role,
+which indicates to the learner the task it needs to learn. Specifically, given a set of
+data, the learning algorithm attempts to optimize a function (the algorithmic steps) to
+find the combination of feature values that results in a predicted value that is as close
+to the actual target output as possible.
+
+::: {.callout-note}
+In supervised learning, the training data you feed the algorithm includes the target
+values.  Consequently, the solutions can be used to help _supervise_ the training process
+to find the optimal algorithm parameters.
+:::
+
+Most supervised learning problems can be bucketed into one of two categories,
+_regression_\index{regression} or _classification_\index{classification}, which we
+discuss next.
+
+### Regression problems
+
+When the objective of our supervised learning is to predict a numeric outcome, we refer
+to this as a ___regression problem___ (not to be confused with linear regression modeling).
+Regression problems revolve around predicting output that falls on a continuum. In the
+examples above, predicting home sales prices and time to market reflect a regression problem
+because the output is numeric and continuous.  This means, given the combination of predictor
+values, the response value could fall anywhere along some continuous spectrum (e.g., the
+predicted sales price of a particular home could be between \$80,000 and \$755,000).
+@fig-intro-regression-problem illustrates average home sales prices as a
+function of two home features: year built and total square footage. Depending on the
+combination of these two features, the expected home sales price could fall anywhere along
+a plane.
+
+```{r}
+#| label: fig-intro-regression-problem
+#| echo: FALSE
+#| fig-cap: "Average home sales price as a function of year built and total square footage."
+#| fig-height: 3
+#| fig-width: 3
+
+library(plotly)
+df <- AmesHousing::make_ames()
+x <- matrix(sort(df$Gr_Liv_Area)[floor(seq(1, nrow(df), length.out = 15))], 15, 1)
+y <- matrix(sort(df$Year_Built)[floor(seq(1, nrow(df), length.out = 15))], 1, 15)
+z <- 25051 + 3505*(log(x^.9) %*% log(y)) - 5*as.vector(x)
+c <- matrix(c(.92, .95, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, .95), 1, 15)
+z <- sweep(z, MARGIN = 2, c, `*`)
+
+
+# plot_ly(x = as.vector(x), y = as.vector(y), z = z, showscale = FALSE) %>%
+#     add_surface() %>%
+#     layout(
+#         scene = list(
+#             xaxis = list(title = "Feature: square footage"),
+#             yaxis = list(title = "Feature: year built"),
+#             zaxis = list(title = "Response: sale price")
+#         )
+#     )
+
+# code for 3D print version
+par(mar = c(0.1, 0.1, 0.1, 0.1))  # remove extra white space
+persp(
+  x = x,
+  y = y,
+  z = z,
+  xlab = "Square footage",
+  ylab = "Year built",
+  zlab = "Sale price",
+  theta = -45,
+  phi = 25,
+  col = viridis::viridis(100)
+)
+```
+
+### Classification problems
+
+When the objective of our supervised learning is to predict a categorical outcome, we
+refer to this as a ___classification problem___.  Classification problems most commonly
+revolve around predicting a binary or multinomial response measure such as:
+
+* Did a customer redeem a coupon (coded as yes/no or 1/0)?
+* Did a customer churn (coded as yes/no or 1/0)?
+* Did a customer click on our online ad (coded as yes/no or 1/0)?
+* Classifying customer reviews:
+    * Binary: positive vs. negative.
+    * Multinomial: extremely negative to extremely positive on a 0--5 Likert scale.
+
+```{r}
+#| label: fig-intro-classification-problem
+#| echo: FALSE
+#| fig-cap: "Classification problem modeling 'Yes'/'No' response based on three features."
+#| output-height: 0.5
+#| output-width: 0.5
+
+# code to create graphic
+library(DiagrammeR)
+ grViz("
+
+   digraph boxes_and_circles {
+     node [shape = circle]
+     x1; x2; x3;
+
+     node [shape = box]
+     Model;
+
+     node [shape = triangle]
+     Yes; No;
+
+     x1->Model; x2->Model; x3->Model; Model->No; Model->Yes;
+ }")
+```
+
+However, when we apply machine learning models for classification problems, rather than
+predict a particular class (i.e., "yes" or "no"), we often want to predict the _probability_
+of a particular class (i.e., yes: 0.65, no: 0.35).  By default, the class with the highest
+predicted probability becomes the predicted class.  Consequently, even though we are
+performing a classification problem, we are still predicting a numeric output (probability).
+However, the essence of the problem still makes it a classification problem.
+
+Although there are machine learning algorithms that can be applied to regression problems
+but not classification and vice versa, most of the supervised learning algorithms we cover
+in this book can be applied to both.  These algorithms have become the most popular machine
+learning applications in recent years.
+
+## Unsupervised learning
+
+___Unsupervised learning___\index{unsupervised learning}, in contrast to supervised
+learning, includes a set of statistical tools to better understand and describe your data,
+but performs the analysis without a target variable.  In essence, unsupervised learning
+is concerned with identifying groups in a data set. The groups may be defined by the rows
+(i.e., *clustering*) or the columns (i.e., *dimension reduction*); however, the motive in
+each case is quite different.
+
+The goal of ___clustering___\index{clustering} is to segment observations into similar
+groups based on the observed variables; for example, to divide consumers into different
+homogeneous groups, a process known as market segmentation.  In __dimension
+reduction__\index{dimension reduction}, we are often concerned with reducing the number
+of variables in a data set. For example, classical linear regression models break down
+in the presence of highly correlated features.  Some dimension reduction techniques can
+be used to reduce the feature set to a potentially smaller set of uncorrelated variables.
+Such a reduced feature set is often used as input to downstream supervised learning models
+(e.g., principal component regression).
+
+Unsupervised learning is often performed as part of an exploratory data analysis (EDA).
+However, the exercise tends to be more subjective, and there is no simple goal for the
+analysis, such as prediction of a response. Furthermore, it can be hard to assess the
+quality of results obtained from unsupervised learning methods. The reason for this is
+simple. If we fit a predictive model using a supervised learning technique (i.e., linear
+regression), then it is possible to check our work by seeing how well our model predicts
+the response _Y_ on observations not used in fitting the model. However, in unsupervised
+learning, there is no way to check our work because we don’t know the true answer---the
+problem is unsupervised!
+
+Despite its subjectivity, the importance of unsupervised learning should not be overlooked
+and such techniques are often used in organizations to:
+
+- Divide consumers into different homogeneous groups so that tailored marketing strategies
+can be developed and deployed for each segment.
+- Identify groups of online shoppers with similar browsing and purchase histories, as well
+as items that are of particular interest to the shoppers within each group. Then an
+individual shopper can be preferentially shown the items in which he or she is particularly
+likely to be interested, based on the purchase histories of similar shoppers.
+- Identify products that have similar purchasing behavior so that managers can manage them
+as product groups.
+
+These questions, and many more, can be addressed with unsupervised learning.  Moreover,
+the outputs of unsupervised learning models can be used as inputs to downstream supervised
+learning models.
+
+## Roadmap
+
+The goal of this book is to provide effective tools for uncovering relevant and useful
+patterns in your data by using R's ML stack. We begin by providing an overview of the ML
+modeling process and discussing fundamental concepts that will carry through the rest of
+the book. These include feature engineering, data splitting, model validation and tuning,
+and performance measurement. These concepts will be discussed in Chapters ...
+
+TODO: Fill out roadmap as we progress
+
+## Data sets
 
 TBD
+

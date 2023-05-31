@@ -17,9 +17,10 @@ book:
   chapters:
     - index.qmd
     - preface-2e.qmd
-    - intro.qmd
-    - summary.qmd
-    - references.qmd
+    - part: "Fundamentals"
+      chapters:
+        - intro.qmd
+        - references.qmd
 
 bibliography: references.bib
 
