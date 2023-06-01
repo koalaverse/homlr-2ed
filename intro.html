@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Hands-On Machine Learning with R, 2ed - 1&nbsp; Introduction</title>
+<title>Hands-On Machine Learning with R, 2ed - 1&nbsp; Introduction to Machine Learning</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,7 +20,60 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -30,7 +83,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./summary.html" rel="next">
+<link href="./references.html" rel="next">
 <link href="./preface-2e.html" rel="prev">
 <link href="./homl-cover.jpg" rel="icon" type="image/jpeg">
 <script src="site_libs/quarto-html/quarto.js"></script>
@@ -62,7 +115,20 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="site_libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<script src="site_libs/plotly-binding-4.10.1/plotly.js"></script>
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+<script src="site_libs/jquery-3.5.1/jquery.min.js"></script>
+<link href="site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="site_libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="site_libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+<script src="site_libs/viz-1.8.2/viz.js"></script>
+<link href="site_libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
+<script src="site_libs/grViz-binding-1.0.10/grViz.js"></script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -75,7 +141,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./intro.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./intro.html">Fundamentals</a></li><li class="breadcrumb-item"><a href="./intro.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to Machine Learning</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -133,38 +199,65 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Preface to the second edition</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Fundamentals</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./intro.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to Machine Learning</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./summary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
 </li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#supervised-learning" id="toc-supervised-learning" class="nav-link active" data-scroll-target="#supervised-learning"><span class="header-section-number">1.1</span> Supervised learning</a>
+  <ul class="collapse">
+  <li><a href="#regression-problems" id="toc-regression-problems" class="nav-link" data-scroll-target="#regression-problems"><span class="header-section-number">1.1.1</span> Regression problems</a></li>
+  <li><a href="#classification-problems" id="toc-classification-problems" class="nav-link" data-scroll-target="#classification-problems"><span class="header-section-number">1.1.2</span> Classification problems</a></li>
+  <li><a href="#knowledge-check" id="toc-knowledge-check" class="nav-link" data-scroll-target="#knowledge-check"><span class="header-section-number">1.1.3</span> Knowledge check</a></li>
+  </ul></li>
+  <li><a href="#unsupervised-learning" id="toc-unsupervised-learning" class="nav-link" data-scroll-target="#unsupervised-learning"><span class="header-section-number">1.2</span> Unsupervised learning</a>
+  <ul class="collapse">
+  <li><a href="#knowledge-check-1" id="toc-knowledge-check-1" class="nav-link" data-scroll-target="#knowledge-check-1"><span class="header-section-number">1.2.1</span> Knowledge check</a></li>
+  </ul></li>
+  <li><a href="#machine-learning-in" id="toc-machine-learning-in" class="nav-link" data-scroll-target="#machine-learning-in"><span class="header-section-number">1.3</span> Machine Learning in <svg aria-hidden="true" role="img" viewbox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"></path></svg></a>
+  <ul class="collapse">
+  <li><a href="#knowledge-check-2" id="toc-knowledge-check-2" class="nav-link" data-scroll-target="#knowledge-check-2"><span class="header-section-number">1.3.1</span> Knowledge check</a></li>
+  </ul></li>
+  <li><a href="#roadmap" id="toc-roadmap" class="nav-link" data-scroll-target="#roadmap"><span class="header-section-number">1.4</span> Roadmap</a></li>
+  <li><a href="#data-sets" id="toc-data-sets" class="nav-link" data-scroll-target="#data-sets"><span class="header-section-number">1.5</span> Data sets</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">1.6</span> Exercises</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/koalaverse/homlr-2ed/edit/main/intro.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/koalaverse/homlr-2ed/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></h1>
+<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to Machine Learning</span></h1>
 </div>
 
 
@@ -179,9 +272,268 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<p>Machine learning (ML) continues to grow in importance for many organizations across nearly all domains. Some example applications of machine learning in practice include:</p>
+<ul>
+<li>Predicting the likelihood of a patient returning to the hospital (<em>readmission</em>) within 30 days of discharge.</li>
+<li>Segmenting customers based on common attributes or purchasing behavior for targeted marketing.</li>
+<li>Predicting coupon redemption rates for a given marketing campaign.</li>
+<li>Predicting customer churn so an organization can perform preventative intervention.</li>
+<li>And many more!</li>
+</ul>
+<p>In essence, these tasks all seek to learn from data. To address each scenario, we can use a given set of <em>features</em> to train an algorithm and extract insights. These algorithms, or <em>learners</em>, can be classified according to the amount and type of supervision needed during training. The two main groups this book focuses on are: <strong><em>supervised learners</em></strong> which construct predictive models, and <strong><em>unsupervised learners</em></strong> which build descriptive models. Which type you will need to use depends on the learning task you hope to accomplish.</p>
+<section id="supervised-learning" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="supervised-learning"><span class="header-section-number">1.1</span> Supervised learning</h2>
+<p>A <strong><em>predictive model</em></strong> is used for tasks that involve the prediction of a given output (or target) using other variables (or features) in the data set. Or, as stated by <span class="citation" data-cites="apm">Kuhn and Johnson (<a href="references.html#ref-apm" role="doc-biblioref">2013, 26:2</a>)</span>, predictive modeling is “…the process of developing a mathematical tool or model that generates an accurate prediction.” The learning algorithm in a predictive model attempts to discover and model the relationships among the <font color="red">target</font> variable (the variable being predicted) and the other <font color="blue">features</font> (aka predictor variables). Examples of predictive modeling include:</p>
+<ul>
+<li>using <font color="blue">customer attributes</font> to predict the probability of the <font color="red">customer churning</font> in the next 6 weeks;</li>
+<li>using <font color="blue">home attributes</font> to predict the <font color="red">sales price</font>;</li>
+<li>using <font color="blue">employee attributes</font> to predict the likelihood of <font color="red">attrition</font>;</li>
+<li>using <font color="blue">patient attributes</font> and symptoms to predict the risk of <font color="red">readmission</font>;</li>
+<li>using <font color="blue">production attributes</font> to predict <font color="red">time to market</font>.</li>
+</ul>
+<p>Each of these examples has a defined learning task; they each intend to use attributes (<span class="math inline">\(X\)</span>) to predict an outcome measurement (<span class="math inline">\(Y\)</span>).</p>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Throughout this text we’ll use various terms interchangeably for</p>
+<ul>
+<li><span class="math inline">\(X\)</span>: “predictor variable”, “independent variable”, “attribute”, “feature”, “predictor”</li>
+<li><span class="math inline">\(Y\)</span>: “target variable”, “dependent variable”, “response”, “outcome measurement”</li>
+</ul>
+</div>
+</div>
+</div>
+<p>The predictive modeling examples above describe what is known as <em>supervised learning</em>. The supervision refers to the fact that the target values provide a supervisory role, which indicates to the learner the task it needs to learn. Specifically, given a set of data, the learning algorithm attempts to optimize a function (the algorithmic steps) to find the combination of feature values that results in a predicted value that is as close to the actual target output as possible.</p>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>In supervised learning, the training data you feed the algorithm includes the target values. Consequently, the solutions can be used to help <em>supervise</em> the training process to find the optimal algorithm parameters.</p>
+</div>
+</div>
+</div>
+<p>Most supervised learning problems can be bucketed into one of two categories, <em>regression</em> or <em>classification</em>, which we discuss next.</p>
+<section id="regression-problems" class="level3" data-number="1.1.1">
+<h3 data-number="1.1.1" class="anchored" data-anchor-id="regression-problems"><span class="header-section-number">1.1.1</span> Regression problems</h3>
+<p>When the objective of our supervised learning is to predict a numeric outcome, we refer to this as a <strong><em>regression problem</em></strong> (not to be confused with linear regression modeling). Regression problems revolve around predicting output that falls on a continuum. In the examples above, predicting home sales prices and time to market reflect a regression problem because the output is numeric and continuous. This means, given the combination of predictor values, the response value could fall anywhere along some continuous spectrum (e.g., the predicted sales price of a particular home could be between $80,000 and $755,000). <a href="#fig-intro-regression-problem-html">Figure&nbsp;<span>1.1</span></a> illustrates average home sales prices as a function of two home features: year built and total square footage. Depending on the combination of these two features, the expected home sales price could fall anywhere along a plane.</p>
+<div class="cell" data-layout-align="center" data-hash="intro_cache/html/fig-intro-regression-problem-html_7e5e32768419c15b036ad08f8c2315b4">
+<div id="fig-intro-regression-problem-html" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<div class="plotly html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-374bec47ccee3656f2ce" style="width:100%;height:650px;"></div>
+<script type="application/json" data-for="htmlwidget-374bec47ccee3656f2ce">{"x":{"visdat":{"3b085489f77":["function () ","plotlyVisDat"]},"cur_data":"3b085489f77","attrs":{"3b085489f77":{"x":[334,882,988,1082,1177,1268,1358,1442,1520,1614,1696,1808,1982,2315,5642],"y":[1872,1920,1935,1949,1956,1962,1967,1973,1979,1993,1998,2003,2005,2006,2010],"z":[[148582.368746955,153868.347564933,162109.337964625,162241.48962845,162307.209908747,162363.354651755,162410.0109362,162465.842180157,162521.503895785,162650.727703662,162696.659184125,162742.475864468,162760.770520939,162769.911006924,154666.106069741],[167295.480289638,173265.344633435,182551.06771714,182705.302137827,182782.004383304,182847.531003718,182901.983628788,182967.144363953,183032.107242329,183182.924557601,183236.531262773,183290.003984538,183311.355707708,183322.023583691,174196.409875262],[169289.572900254,175333.072739417,184730.409672929,184887.224994192,184965.210746092,185031.833864237,185087.19767898,185153.44878929,185219.498731951,185372.839767247,185427.343506788,185481.711020894,185503.42003574,185514.266423932,176279.718075545],[170844.522308742,176945.622532147,186430.061591219,186588.943708027,186667.957297024,186735.458494956,186791.551994049,186858.676281154,186925.59674926,187080.958789685,187136.180877951,187191.264945357,187213.260080811,187224.249422299,177904.744470357],[172247.792216477,178401.036431262,187964.142187936,188124.938141149,188204.903499208,188273.217792109,188329.986973165,188397.919815109,188465.646382924,188622.87985819,188678.76713172,188734.514721841,188756.774802727,188767.89651784,179371.711604784],[173457.667288051,179656.014275681,189286.999693937,189449.489222024,189530.296810988,189599.330620566,189656.69772002,189725.346061029,189793.785955338,189952.675483867,190009.15138715,190065.486135816,190087.980669827,190099.219523816,180636.913034135],[174543.130615764,180782.075839113,190474.011017404,190638.059951257,190719.64304755,190789.339371951,190847.257021256,190916.56417776,190985.660887108,191146.075272345,191203.093172705,191259.968563792,191282.678976983,191294.025689822,181772.388245311],[175469.140599147,181742.835473086,191486.81031574,191652.224124383,191734.485985901,191804.762178478,191863.16169827,191933.045485102,192002.717073875,192164.466094732,192221.958379734,192279.306969797,192302.206331917,192313.647448553,182741.387204016],[176262.27539834,182565.830235198,192354.413803149,192521.025596254,192603.883226848,192674.668384108,192733.490853579,192803.880763156,192874.05693786,193036.977401508,193094.886065678,193152.649994221,193175.715201504,193187.239178695,183571.613825837],[177142.006037372,183478.800446524,193316.908132462,193484.884509846,193568.420761191,193639.785663204,193699.089900595,193770.056317766,193840.807249533,194005.062064725,194063.445012566,194121.682039365,194144.936155359,194156.554516255,184492.821608167],[177848.465079361,184212.056171444,194089.972826159,194259.076182861,194343.172891748,194415.016591851,194474.71871048,194546.161252244,194617.38686288,194782.743688858,194841.518336863,194900.146084821,194923.556216251,194935.252526514,185232.880556819],[178731.627753711,185128.869531836,195056.609383331,195227.167003552,195311.98693153,195384.448476684,195444.664024585,195516.720961499,195588.55910171,195755.337971605,195814.618072774,195873.750010575,195897.361465627,195909.158362406,186158.472853909],[179940.474980516,186384.107181103,196380.167839301,196552.815028272,196638.674118678,196712.023418834,196772.976691187,196845.916426088,196918.634683719,197087.456827401,197147.463192495,197207.319579015,197231.220307326,197243.161732545,187426.324580009],[181804.681259652,188320.88592864,198422.694812959,198598.873766711,198686.48923736,198761.339010686,198823.539176325,198897.971006106,198972.17682796,199144.452489217,199205.686377147,199266.767218458,199291.156873065,199303.342578571,189384.423493407],[185980.180437336,192700.131459099,203054.29569757,203250.733069552,203348.423244415,203431.879823379,203501.232244963,203584.222822002,203666.961402974,203859.046651712,203927.321685505,203995.426074198,204022.620239859,204036.207151998,193885.962795802]],"showscale":false,"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"surface","inherit":true}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"scene":{"xaxis":{"title":"Feature: square footage"},"yaxis":{"title":"Feature: year built"},"zaxis":{"title":"Response: sale price"}},"hovermode":"closest","showlegend":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"colorbar":{"title":"","ticklen":2},"colorscale":[["0","rgba(68,1,84,1)"],["0.0416666666666668","rgba(70,19,97,1)"],["0.0833333333333336","rgba(72,32,111,1)"],["0.125","rgba(71,45,122,1)"],["0.166666666666667","rgba(68,58,128,1)"],["0.208333333333333","rgba(64,70,135,1)"],["0.25","rgba(60,82,138,1)"],["0.291666666666667","rgba(56,93,140,1)"],["0.333333333333333","rgba(49,104,142,1)"],["0.375","rgba(46,114,142,1)"],["0.416666666666667","rgba(42,123,142,1)"],["0.458333333333333","rgba(38,133,141,1)"],["0.5","rgba(37,144,140,1)"],["0.541666666666667","rgba(33,154,138,1)"],["0.583333333333333","rgba(39,164,133,1)"],["0.625","rgba(47,174,127,1)"],["0.666666666666667","rgba(53,183,121,1)"],["0.708333333333334","rgba(79,191,110,1)"],["0.75","rgba(98,199,98,1)"],["0.791666666666667","rgba(119,207,85,1)"],["0.833333333333333","rgba(147,214,70,1)"],["0.875","rgba(172,220,52,1)"],["0.916666666666666","rgba(199,225,42,1)"],["0.958333333333333","rgba(226,228,40,1)"],["1","rgba(253,231,37,1)"]],"showscale":false,"x":[334,882,988,1082,1177,1268,1358,1442,1520,1614,1696,1808,1982,2315,5642],"y":[1872,1920,1935,1949,1956,1962,1967,1973,1979,1993,1998,2003,2005,2006,2010],"z":[[148582.368746955,153868.347564933,162109.337964625,162241.48962845,162307.209908747,162363.354651755,162410.0109362,162465.842180157,162521.503895785,162650.727703662,162696.659184125,162742.475864468,162760.770520939,162769.911006924,154666.106069741],[167295.480289638,173265.344633435,182551.06771714,182705.302137827,182782.004383304,182847.531003718,182901.983628788,182967.144363953,183032.107242329,183182.924557601,183236.531262773,183290.003984538,183311.355707708,183322.023583691,174196.409875262],[169289.572900254,175333.072739417,184730.409672929,184887.224994192,184965.210746092,185031.833864237,185087.19767898,185153.44878929,185219.498731951,185372.839767247,185427.343506788,185481.711020894,185503.42003574,185514.266423932,176279.718075545],[170844.522308742,176945.622532147,186430.061591219,186588.943708027,186667.957297024,186735.458494956,186791.551994049,186858.676281154,186925.59674926,187080.958789685,187136.180877951,187191.264945357,187213.260080811,187224.249422299,177904.744470357],[172247.792216477,178401.036431262,187964.142187936,188124.938141149,188204.903499208,188273.217792109,188329.986973165,188397.919815109,188465.646382924,188622.87985819,188678.76713172,188734.514721841,188756.774802727,188767.89651784,179371.711604784],[173457.667288051,179656.014275681,189286.999693937,189449.489222024,189530.296810988,189599.330620566,189656.69772002,189725.346061029,189793.785955338,189952.675483867,190009.15138715,190065.486135816,190087.980669827,190099.219523816,180636.913034135],[174543.130615764,180782.075839113,190474.011017404,190638.059951257,190719.64304755,190789.339371951,190847.257021256,190916.56417776,190985.660887108,191146.075272345,191203.093172705,191259.968563792,191282.678976983,191294.025689822,181772.388245311],[175469.140599147,181742.835473086,191486.81031574,191652.224124383,191734.485985901,191804.762178478,191863.16169827,191933.045485102,192002.717073875,192164.466094732,192221.958379734,192279.306969797,192302.206331917,192313.647448553,182741.387204016],[176262.27539834,182565.830235198,192354.413803149,192521.025596254,192603.883226848,192674.668384108,192733.490853579,192803.880763156,192874.05693786,193036.977401508,193094.886065678,193152.649994221,193175.715201504,193187.239178695,183571.613825837],[177142.006037372,183478.800446524,193316.908132462,193484.884509846,193568.420761191,193639.785663204,193699.089900595,193770.056317766,193840.807249533,194005.062064725,194063.445012566,194121.682039365,194144.936155359,194156.554516255,184492.821608167],[177848.465079361,184212.056171444,194089.972826159,194259.076182861,194343.172891748,194415.016591851,194474.71871048,194546.161252244,194617.38686288,194782.743688858,194841.518336863,194900.146084821,194923.556216251,194935.252526514,185232.880556819],[178731.627753711,185128.869531836,195056.609383331,195227.167003552,195311.98693153,195384.448476684,195444.664024585,195516.720961499,195588.55910171,195755.337971605,195814.618072774,195873.750010575,195897.361465627,195909.158362406,186158.472853909],[179940.474980516,186384.107181103,196380.167839301,196552.815028272,196638.674118678,196712.023418834,196772.976691187,196845.916426088,196918.634683719,197087.456827401,197147.463192495,197207.319579015,197231.220307326,197243.161732545,187426.324580009],[181804.681259652,188320.88592864,198422.694812959,198598.873766711,198686.48923736,198761.339010686,198823.539176325,198897.971006106,198972.17682796,199144.452489217,199205.686377147,199266.767218458,199291.156873065,199303.342578571,189384.423493407],[185980.180437336,192700.131459099,203054.29569757,203250.733069552,203348.423244415,203431.879823379,203501.232244963,203584.222822002,203666.961402974,203859.046651712,203927.321685505,203995.426074198,204022.620239859,204036.207151998,193885.962795802]],"type":"surface","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<figcaption class="figure-caption">Figure&nbsp;1.1: Average home sales price as a function of year built and total square footage.</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="classification-problems" class="level3" data-number="1.1.2">
+<h3 data-number="1.1.2" class="anchored" data-anchor-id="classification-problems"><span class="header-section-number">1.1.2</span> Classification problems</h3>
+<p>When the objective of our supervised learning is to predict a categorical outcome, we refer to this as a <strong><em>classification problem</em></strong>. Classification problems most commonly revolve around predicting a binary or multinomial response measure such as:</p>
+<ul>
+<li>Did a customer redeem a coupon (coded as yes/no or 1/0)?</li>
+<li>Did a customer churn (coded as yes/no or 1/0)?</li>
+<li>Did a customer click on our online ad (coded as yes/no or 1/0)?</li>
+<li>Classifying customer reviews:
+<ul>
+<li>Binary: positive vs.&nbsp;negative.</li>
+<li>Multinomial: extremely negative to extremely positive on a 0–5 Likert scale.</li>
+</ul></li>
+</ul>
+<div class="cell" data-layout-align="center" data-output-height="50%" data-output-width="50%" data-hash="intro_cache/html/fig-intro-classification-problem_b827533dfd29e8e35aebb62eb917274b">
+<div id="fig-intro-classification-problem" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-a5c62acb29a58ae03ac5" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-a5c62acb29a58ae03ac5">{"x":{"diagram":"\n\n   digraph boxes_and_circles {\n     node [shape = circle]\n     x1; x2; x3;\n\n     node [shape = box]\n     Model;\n\n     node [shape = triangle]\n     Yes; No;\n\n     x1->Model; x2->Model; x3->Model; Model->No; Model->Yes;\n }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<figcaption class="figure-caption">Figure&nbsp;1.2: Classification problem modeling ‘Yes’/‘No’ response based on three features.</figcaption>
+</figure>
+</div>
+</div>
+<p>However, when we apply machine learning models for classification problems, rather than predict a particular class (i.e., “yes” or “no”), we often want to predict the <em>probability</em> of a particular class (i.e., yes: 0.65, no: 0.35). By default, the class with the highest predicted probability becomes the predicted class. Consequently, even though we are performing a classification problem, we are still predicting a numeric output (probability). However, the essence of the problem still makes it a classification problem.</p>
+<p>Although there are machine learning algorithms that can be applied to regression problems but not classification and vice versa, most of the supervised learning algorithms we cover in this book can be applied to both. These algorithms have become the most popular machine learning applications in recent years.</p>
+</section>
+<section id="knowledge-check" class="level3" data-number="1.1.3">
+<h3 data-number="1.1.3" class="anchored" data-anchor-id="knowledge-check"><span class="header-section-number">1.1.3</span> Knowledge check</h3>
+<div class="callout callout-style-simple callout-caution no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Identify the features, response variable, and the type of supervised model required for the following tasks:</p>
+<ul>
+<li>There is an online retailer that wants to predict whether you will click on a certain featured product given your demographics, the current products in your online basket, and the time since your previous purchase.</li>
+<li>A bank wants to use a customers historical data such as the number of loans they’ve had, the time it took to payoff those loans, previous loan defaults, the number of new loans within the past two years, along with the customers income and level of education to determine if they should issue a new loan for a car.</li>
+<li>If the bank above does issue a new loan, they want to use the same information to determine the interest rate of the new loan issued.</li>
+<li>To better plan incoming and outgoing flights, an airline wants to use flight information such as scheduled flight time, day/month of year, number of passengers, airport departing from, airport arriving to, distance to travel, and weather warnings to determine if a flight will be delayed.</li>
+<li>What if the above airline wants to use the same information to predict the number of minutes a flight will arrive late or early?</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="unsupervised-learning" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="unsupervised-learning"><span class="header-section-number">1.2</span> Unsupervised learning</h2>
+<p><strong><em>Unsupervised learning</em></strong>, in contrast to supervised learning, includes a set of statistical tools to better understand and describe your data, but performs the analysis without a target variable. In essence, unsupervised learning is concerned with identifying groups in a data set. The groups may be defined by the rows (i.e., <em>clustering</em>) or the columns (i.e., <em>dimension reduction</em>); however, the motive in each case is quite different.</p>
+<p>The goal of <strong><em>clustering</em></strong> is to segment observations into similar groups based on the observed variables; for example, to divide consumers into different homogeneous groups, a process known as market segmentation. In <strong>dimension reduction</strong>, we are often concerned with reducing the number of variables in a data set. For example, classical linear regression models break down in the presence of highly correlated features. Some dimension reduction techniques can be used to reduce the feature set to a potentially smaller set of uncorrelated variables. Such a reduced feature set is often used as input to downstream supervised learning models (e.g., principal component regression).</p>
+<p>Unsupervised learning is often performed as part of an exploratory data analysis (EDA). However, the exercise tends to be more subjective, and there is no simple goal for the analysis, such as prediction of a response. Furthermore, it can be hard to assess the quality of results obtained from unsupervised learning methods. The reason for this is simple. If we fit a predictive model using a supervised learning technique (i.e., linear regression), then it is possible to check our work by seeing how well our model predicts the response <em>Y</em> on observations not used in fitting the model. However, in unsupervised learning, there is no way to check our work because we don’t know the true answer—the problem is unsupervised!</p>
+<p>Despite its subjectivity, the importance of unsupervised learning should not be overlooked and such techniques are often used in organizations to:</p>
+<ul>
+<li>Divide consumers into different homogeneous groups so that tailored marketing strategies can be developed and deployed for each segment.</li>
+<li>Identify groups of online shoppers with similar browsing and purchase histories, as well as items that are of particular interest to the shoppers within each group. Then an individual shopper can be preferentially shown the items in which he or she is particularly likely to be interested, based on the purchase histories of similar shoppers.</li>
+<li>Identify products that have similar purchasing behavior so that managers can manage them as product groups.</li>
+</ul>
+<p>These questions, and many more, can be addressed with unsupervised learning. Moreover, the outputs of unsupervised learning models can be used as inputs to downstream supervised learning models.</p>
+<section id="knowledge-check-1" class="level3" data-number="1.2.1">
+<h3 data-number="1.2.1" class="anchored" data-anchor-id="knowledge-check-1"><span class="header-section-number">1.2.1</span> Knowledge check</h3>
+<div class="callout callout-style-simple callout-caution no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Identify the type of unsupervised model required for the following tasks:</p>
+<ul>
+<li>Say you have a YouTube channel. You may have a lot of data about the subscribers of your channel. What if you want to use that data to detect groups of similar subscribers?</li>
+<li>Say you’d like to group Ohio counties together based on the demographics of their residents.</li>
+<li>A retailer has collected hundreds of attributes about all their customers; however, many of those features are highly correlated. They’d like to reduce the number of features down by combining all those highly correlated features into groups.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="machine-learning-in" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="machine-learning-in"><span class="header-section-number">1.3</span> Machine Learning in <svg aria-hidden="true" role="img" viewbox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"></path></svg></h2>
+<p>Historically, the R ecosystem provides a wide variety of ML algorithm implementations. This has its benefits; however, this also has drawbacks as it requires the users to learn many different formula interfaces and syntax nuances.</p>
+<p>More recently, development on a group of packages called <a href="https://www.tidymodels.org/"><strong>Tidymodels</strong></a> has helped to make implementation easier. The <strong>tidymodels</strong> collection allows you to perform discrete parts of the ML workflow with discrete packages:</p>
+<ul>
+<li><a href="https://rsample.tidymodels.org/">rsample</a> for data splitting and resampling</li>
+<li><a href="https://recipes.tidymodels.org/">recipes</a> for data pre-processing and feature engineering</li>
+<li><a href="https://parsnip.tidymodels.org/">parsnip</a> for applying algorithms</li>
+<li><a href="https://tune.tidymodels.org/">tune</a> for hyperparameter tuning</li>
+<li><a href="https://yardstick.tidymodels.org/">yardstick</a> for measuring model performance</li>
+<li>and several others!</li>
+</ul>
+<p>Throughout this book you’ll be exposed to several of these packages. Go ahead and make sure you have the following packages installed.</p>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>The <strong>tidymodels</strong> package is a meta package, or a package of packages, that will install several packages that exist in the <strong>tidymodels</strong> ecosystem.</p>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center" data-hash="intro_cache/html/packages-to-install_17267584855efc218cce48d5dc7e8b0b">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># data wrangling</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"here"</span>, <span class="st">"tidyverse"</span>))</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># modeling</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidymodels"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># model interpretability</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"pdp"</span>, <span class="st">"vip"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center" data-hash="intro_cache/html/load-tidymodels_b903deea0c28aa2776edbfcc81d13b4f">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">packageVersion</span>(<span class="st">"tidymodels"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] '1.1.0'</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="do">## ── Attaching packages ────────────────────────────────────── tidymodels 1.1.0 ──</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="do">## ✔ broom        1.0.4     ✔ rsample      1.1.1</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="do">## ✔ dials        1.2.0     ✔ tibble       3.2.1</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="do">## ✔ dplyr        1.1.2     ✔ tidyr        1.3.0</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="do">## ✔ infer        1.0.4     ✔ tune         1.1.1</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="do">## ✔ modeldata    1.1.0     ✔ workflows    1.1.3</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="do">## ✔ parsnip      1.1.0     ✔ workflowsets 1.0.1</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="do">## ✔ purrr        1.0.1     ✔ yardstick    1.2.0</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="do">## ✔ recipes      1.0.6</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="do">## ── Conflicts ───────────────────────────────────────── tidymodels_conflicts() ──</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="do">## ✖ purrr::discard() masks scales::discard()</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="do">## ✖ dplyr::filter()  masks plotly::filter(), stats::filter()</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="do">## ✖ dplyr::lag()     masks stats::lag()</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="do">## ✖ recipes::step()  masks stats::step()</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="do">## • Use suppressPackageStartupMessages() to eliminate package startup messages</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="knowledge-check-2" class="level3" data-number="1.3.1">
+<h3 data-number="1.3.1" class="anchored" data-anchor-id="knowledge-check-2"><span class="header-section-number">1.3.1</span> Knowledge check</h3>
+<div class="callout callout-style-simple callout-caution no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Check out the Tidymodels website: https://www.tidymodels.org/. Identify which packages can be used for:</p>
+<ol type="1">
+<li>Efficiently splitting your data</li>
+<li>Optimizing hyperparameters</li>
+<li>Measuring the effectiveness of your model</li>
+<li>Working with correlation matrices</li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="roadmap" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="roadmap"><span class="header-section-number">1.4</span> Roadmap</h2>
+<p>The goal of this book is to provide effective tools for uncovering relevant and useful patterns in your data by using R’s ML stack. We begin by providing an overview of the ML modeling process and discussing fundamental concepts that will carry through the rest of the book. These include feature engineering, data splitting, model validation and tuning, and performance measurement. These concepts will be discussed in Chapters …</p>
+<div class="callout callout-style-simple callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Fill out roadmap as we progress</p>
+</div>
+</div>
+</section>
+<section id="data-sets" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="data-sets"><span class="header-section-number">1.5</span> Data sets</h2>
 <p>TBD</p>
+</section>
+<section id="exercises" class="level2" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="exercises"><span class="header-section-number">1.6</span> Exercises</h2>
+<ol type="1">
+<li>Identify four real-life applications of supervised and unsupervised problems.
+<ul>
+<li>Explain what makes these problems supervised versus unsupervised.</li>
+<li>For each problem identify the target variable (if applicable) and potential features.</li>
+</ul></li>
+<li>Identify and contrast a regression problem with a classification problem.
+<ul>
+<li>What is the target variable in each problem and why would being able to accurately predict this target be beneficial to society?</li>
+<li>What are potential features and where could you collect this information?</li>
+<li>What is determining if the problem is a regression or a classification problem?</li>
+</ul></li>
+<li>Identify three open source data sets suitable for machine learning (e.g., https://bit.ly/35wKu5c).
+<ul>
+<li>Explain the type of machine learning models that could be constructed from the data (e.g., supervised versus unsupervised and regression versus classification).</li>
+<li>What are the dimensions of the data?</li>
+<li>Is there a code book that explains who collected the data, why it was originally collected, and what each variable represents?</li>
+<li>If the data set is suitable for supervised learning, which variable(s) could be considered as a useful target? Which variable(s) could be considered as features?</li>
+</ul></li>
+<li>Identify examples of misuse of machine learning in society. What was the ethical concern?</li>
+</ol>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-apm" class="csl-entry" role="listitem">
+Kuhn, Max, and Kjell Johnson. 2013. <em>Applied Predictive Modeling</em>. Vol. 26. Springer.
+</div>
+</div>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -424,8 +776,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./summary.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Summary</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./references.html" class="pagination-link">
+        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -433,4 +785,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/koalaverse/homlr-2ed/edit/main/intro.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/koalaverse/homlr-2ed/issues/new" class="toc-action">Report an issue</a></p></div></div></div></div></footer></body></html>
+</body></html>
