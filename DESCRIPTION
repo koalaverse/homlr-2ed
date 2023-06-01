@@ -20,5 +20,7 @@ Imports:
   tidymodels,
   tidyverse,
   viridis,
-  vip
+  vip,
+  webshot,
+  webshot2
 Encoding: UTF-8
