@@ -15,6 +15,7 @@ Imports:
   pdp,
   plotly,
   rmarkdown,
+  rsvg,
   sessioninfo,
   tidymodels,
   tidyverse,
