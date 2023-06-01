@@ -34,6 +34,8 @@ the learning task you hope to accomplish.
 
 ## Supervised learning
 
+::: {.content-hidden when-format="html"}
+
 A ___predictive model___\index{predictive model} is used for tasks that involve the
 prediction of a given output (or target) using other variables (or features) in the data
 set. Or, as stated by @apm [p. 2], predictive modeling is "...the process of developing
@@ -52,6 +54,27 @@ include:
 <font color="red">readmission</font>;
 * using <font color="blue">production attributes</font> to predict <font color="red">time
 to market</font>.
+
+:::
+
+::: {.content-hidden when-format="pdf"}
+
+A ___predictive model___\index{predictive model} is used for tasks that involve the
+prediction of a given output (or target) using other variables (or features) in the data
+set. Or, as stated by @apm [p. 2], predictive modeling is "...the process of developing
+a mathematical tool or model that generates an accurate prediction."  The learning algorithm
+in a predictive model attempts to discover and model the relationships among the
+target variable (the variable being predicted) and the other features (aka predictor
+variables). Examples of predictive modeling include:
+
+* using customer attributes to predict the probability of the customer churning in the
+next 6 weeks;
+* using home attributes to predict the sales price;
+* using employee attributes to predict the likelihood of attrition;
+* using patient attributes and symptoms to predict the risk of readmission;
+* using production attributes to predict time to market.
+
+:::
 
 Each of these examples has a defined learning task; they each intend to use attributes
 ($X$) to predict an outcome measurement ($Y$).
@@ -82,6 +105,19 @@ discuss next.
 
 ### Regression problems
 
+```{r}
+#| echo: FALSE
+
+df <- AmesHousing::make_ames()
+x <- matrix(sort(df$Gr_Liv_Area)[floor(seq(1, nrow(df), length.out = 15))], 15, 1)
+y <- matrix(sort(df$Year_Built)[floor(seq(1, nrow(df), length.out = 15))], 1, 15)
+z <- 25051 + 3505*(log(x^.9) %*% log(y)) - 5*as.vector(x)
+c <- matrix(c(.92, .95, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, .95), 1, 15)
+z <- sweep(z, MARGIN = 2, c, `*`)
+```
+
+::: {.content-hidden unless-format="html"}
+
 When the objective of our supervised learning is to predict a numeric outcome, we refer
 to this as a ___regression problem___ (not to be confused with linear regression modeling).
 Regression problems revolve around predicting output that falls on a continuum. In the
@@ -89,37 +125,51 @@ examples above, predicting home sales prices and time to market reflect a regres
 because the output is numeric and continuous.  This means, given the combination of predictor
 values, the response value could fall anywhere along some continuous spectrum (e.g., the
 predicted sales price of a particular home could be between \$80,000 and \$755,000).
-@fig-intro-regression-problem illustrates average home sales prices as a
+@fig-intro-regression-problem-html illustrates average home sales prices as a
+function of two home features: year built and total square footage. Depending on the
+combination of these two features, the expected home sales price could fall anywhere along
+a plane.
+
+
+```{r}
+#| label: fig-intro-regression-problem-html
+#| echo: FALSE
+#| fig-cap: "Average home sales price as a function of year built and total square footage."
+#| fig-height: 3
+#| fig-width: 3
+library(plotly)
+plot_ly(x = as.vector(x), y = as.vector(y), z = z, showscale = FALSE) %>%
+    add_surface() %>%
+    layout(
+        scene = list(
+            xaxis = list(title = "Feature: square footage"),
+            yaxis = list(title = "Feature: year built"),
+            zaxis = list(title = "Response: sale price")
+        )
+    )
+```
+:::
+
+::: {.content-hidden unless-format="pdf"}
+
+When the objective of our supervised learning is to predict a numeric outcome, we refer
+to this as a ___regression problem___ (not to be confused with linear regression modeling).
+Regression problems revolve around predicting output that falls on a continuum. In the
+examples above, predicting home sales prices and time to market reflect a regression problem
+because the output is numeric and continuous.  This means, given the combination of predictor
+values, the response value could fall anywhere along some continuous spectrum (e.g., the
+predicted sales price of a particular home could be between \$80,000 and \$755,000).
+@fig-intro-regression-problem-pdf illustrates average home sales prices as a
 function of two home features: year built and total square footage. Depending on the
 combination of these two features, the expected home sales price could fall anywhere along
 a plane.
 
 ```{r}
-#| label: fig-intro-regression-problem
+#| label: fig-intro-regression-problem-pdf
 #| echo: FALSE
 #| fig-cap: "Average home sales price as a function of year built and total square footage."
 #| fig-height: 3
 #| fig-width: 3
-
-library(plotly)
-df <- AmesHousing::make_ames()
-x <- matrix(sort(df$Gr_Liv_Area)[floor(seq(1, nrow(df), length.out = 15))], 15, 1)
-y <- matrix(sort(df$Year_Built)[floor(seq(1, nrow(df), length.out = 15))], 1, 15)
-z <- 25051 + 3505*(log(x^.9) %*% log(y)) - 5*as.vector(x)
-c <- matrix(c(.92, .95, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, .95), 1, 15)
-z <- sweep(z, MARGIN = 2, c, `*`)
-
-
-# plot_ly(x = as.vector(x), y = as.vector(y), z = z, showscale = FALSE) %>%
-#     add_surface() %>%
-#     layout(
-#         scene = list(
-#             xaxis = list(title = "Feature: square footage"),
-#             yaxis = list(title = "Feature: year built"),
-#             zaxis = list(title = "Response: sale price")
-#         )
-#     )
-
 # code for 3D print version
 par(mar = c(0.1, 0.1, 0.1, 0.1))  # remove extra white space
 persp(
@@ -134,6 +184,7 @@ persp(
   col = viridis::viridis(100)
 )
 ```
+:::
 
 ### Classification problems
 
@@ -152,8 +203,8 @@ revolve around predicting a binary or multinomial response measure such as:
 #| label: fig-intro-classification-problem
 #| echo: FALSE
 #| fig-cap: "Classification problem modeling 'Yes'/'No' response based on three features."
-#| output-height: 0.5
-#| output-width: 0.5
+#| output-height: "50%"
+#| output-width: "50%"
 
 # code to create graphic
 library(DiagrammeR)
@@ -184,6 +235,29 @@ Although there are machine learning algorithms that can be applied to regression
 but not classification and vice versa, most of the supervised learning algorithms we cover
 in this book can be applied to both.  These algorithms have become the most popular machine
 learning applications in recent years.
+
+### Knowledge check
+
+::: {.callout-caution icon=false}
+Identify the features, response variable, and the type of supervised model required for
+the following tasks:
+
+* There is an online retailer that wants to predict whether you will click on a certain
+featured product given your demographics, the current products in your online basket, and
+the time since your previous purchase.
+* A bank wants to use a customers historical data such as the number of loans they've had,
+the time it took to payoff those loans, previous loan defaults, the number of new loans
+within the past two years, along with the customers income and level of education to
+determine if they should issue a new loan for a car.
+* If the bank above does issue a new loan, they want to use the same information to
+determine the interest rate of the new loan issued.
+* To better plan incoming and outgoing flights, an airline wants to use flight information
+such as scheduled flight time, day/month of year, number of passengers, airport departing
+from, airport arriving to, distance to travel, and weather warnings to determine if a
+flight will be delayed.
+* What if the above airline wants to use the same information to predict the number of
+minutes a flight will arrive late or early?
+:::
 
 ## Unsupervised learning
 
@@ -230,6 +304,77 @@ These questions, and many more, can be addressed with unsupervised learning.  Mo
 the outputs of unsupervised learning models can be used as inputs to downstream supervised
 learning models.
 
+### Knowledge check
+
+::: {.callout-caution icon=false}
+Identify the type of unsupervised model required for the following tasks:
+
+* Say you have a YouTube channel. You may have a lot of data about the subscribers of
+your channel. What if you want to use that data to detect groups of similar subscribers?
+* Say you'd like to group Ohio counties together based on the demographics of their
+residents.
+* A retailer has collected hundreds of attributes about all their customers; however,
+many of those features are highly correlated. They'd like to reduce the number of features
+down by combining all those highly correlated features into groups.
+:::
+
+## Machine Learning in `r fontawesome::fa("r-project")`
+
+Historically, the R ecosystem provides a wide variety of ML algorithm implementations.
+This has its benefits; however, this also has drawbacks as it requires the users to learn
+many different formula interfaces and syntax nuances.
+
+More recently, development on a group of packages called [**Tidymodels**](https://www.tidymodels.org/)
+has helped to make implementation easier. The **tidymodels** collection allows you to perform
+discrete parts of the ML workflow with discrete packages:
+
+- [rsample](https://rsample.tidymodels.org/) for data splitting and resampling
+- [recipes](https://recipes.tidymodels.org/) for data pre-processing and feature engineering
+- [parsnip](https://parsnip.tidymodels.org/) for applying algorithms
+- [tune](https://tune.tidymodels.org/) for hyperparameter tuning
+- [yardstick](https://yardstick.tidymodels.org/) for measuring model performance
+- and several others!
+
+Throughout this book you'll be exposed to several of these packages. Go ahead and make
+sure you have the following packages installed.
+
+::: {.callout-note}
+The **tidymodels** package is a meta package, or a package of packages, that will install
+several packages that exist in the **tidymodels** ecosystem.
+:::
+
+```{r}
+#| eval: FALSE
+
+# data wrangling
+install.packages(c("here", "tidyverse"))
+
+# modeling
+install.packages("tidymodels")
+
+# model interpretability
+install.packages(c("pdp", "vip"))
+```
+
+```{r}
+#| message: TRUE
+packageVersion("tidymodels")
+
+library(tidymodels)
+```
+
+### Knowledge check
+
+::: {.callout-caution icon=false}
+Check out the Tidymodels website: https://www.tidymodels.org/. Identify which packages
+can be used for:
+
+1. Efficiently splitting your data
+2. Optimizing hyperparameters
+3. Measuring the effectiveness of your model
+4. Working with correlation matrices
+:::
+
 ## Roadmap
 
 The goal of this book is to provide effective tools for uncovering relevant and useful
@@ -238,9 +383,41 @@ modeling process and discussing fundamental concepts that will carry through the
 the book. These include feature engineering, data splitting, model validation and tuning,
 and performance measurement. These concepts will be discussed in Chapters ...
 
-TODO: Fill out roadmap as we progress
+::: {.callout-warning}
+# TODO
+Fill out roadmap as we progress
+:::
+
 
 ## Data sets
 
 TBD
 
+## Exercises
+
+1. Identify four real-life applications of supervised and unsupervised problems.
+   - Explain what makes these problems supervised versus unsupervised.
+   - For each problem identify the target variable (if applicable) and potential
+     features.
+
+2. Identify and contrast a regression problem with a classification problem.
+   - What is the target variable in each problem and why would being able to
+     accurately predict this target be beneficial to society?
+   - What are potential features and where could you collect this information?
+   - What is determining if the problem is a regression or a classification
+     problem?
+
+3. Identify three open source data sets suitable for machine learning (e.g.,
+   https://bit.ly/35wKu5c).
+   - Explain the type of machine learning models that could be constructed from
+     the data (e.g., supervised versus unsupervised and regression versus
+     classification).
+   - What are the dimensions of the data?
+   - Is there a code book that explains who collected the data, why it was
+     originally collected, and what each variable represents?
+   - If the data set is suitable for supervised learning, which variable(s) could
+     be considered as a useful target? Which variable(s) could be considered as
+     features?
+
+4. Identify examples of misuse of machine learning in society. What was the
+   ethical concern?
