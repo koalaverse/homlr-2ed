@@ -33,6 +33,3 @@ format:
     callout-appearance: simple
   pdf:
     documentclass: scrreprt
-
-
-

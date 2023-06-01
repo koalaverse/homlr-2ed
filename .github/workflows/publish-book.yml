@@ -34,6 +34,10 @@ jobs:
       - name: Install R packages
         uses: r-lib/actions/setup-r-dependencies@v2
 
+      - name: Install webshot dependency
+        run: webshot::install_phantomjs()
+        shell: Rscript {0}
+
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2
         with:
