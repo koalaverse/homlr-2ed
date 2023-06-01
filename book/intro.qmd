@@ -34,7 +34,7 @@ the learning task you hope to accomplish.
 
 ## Supervised learning
 
-::: {.content-hidden when-format="html"}
+::: {.content-hidden unless-format="html"}
 
 A ___predictive model___\index{predictive model} is used for tasks that involve the
 prediction of a given output (or target) using other variables (or features) in the data
@@ -57,7 +57,7 @@ to market</font>.
 
 :::
 
-::: {.content-hidden when-format="pdf"}
+::: {.content-hidden unless-format="pdf"}
 
 A ___predictive model___\index{predictive model} is used for tasks that involve the
 prediction of a given output (or target) using other variables (or features) in the data
@@ -344,6 +344,7 @@ several packages that exist in the **tidymodels** ecosystem.
 :::
 
 ```{r}
+#| label: packages-to-install
 #| eval: FALSE
 
 # data wrangling
@@ -357,6 +358,7 @@ install.packages(c("pdp", "vip"))
 ```
 
 ```{r}
+#| label: load-tidymodels
 #| message: TRUE
 packageVersion("tidymodels")
 
