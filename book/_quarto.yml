@@ -10,8 +10,8 @@ book:
   repo-branch: main
   repo-actions: [edit, issue]
   downloads: [pdf, epub]
-  favicon: homl-cover.jpg
-  cover-image: homl-cover.jpg
+  favicon: figures/homl-cover.jpg
+  cover-image: figures/homl-cover.jpg
   sharing: [twitter]
 
   chapters:
@@ -19,7 +19,8 @@ book:
     - preface-2e.qmd
     - part: "Fundamentals"
       chapters:
-        - intro.qmd
+        - 01-intro.qmd
+        - 02-modeling-process.qmd
         - references.qmd
 
 bibliography: references.bib

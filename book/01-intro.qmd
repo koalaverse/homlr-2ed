@@ -106,6 +106,7 @@ discuss next.
 ### Regression problems
 
 ```{r}
+#| label: fig-intro-regression-problem-data
 #| echo: FALSE
 
 df <- AmesHousing::make_ames()

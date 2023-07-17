@@ -1,0 +1,57 @@
+# Modeling Process
+
+```{r}
+#| label: setup
+#| include: FALSE
+knitr::opts_chunk$set(
+  echo = TRUE,
+  fig.align = "center",
+  message = FALSE,
+  warning = FALSE,
+  collapse = TRUE,
+  cache = TRUE
+)
+
+library(tidyverse)
+# Set the graphical theme
+theme_set(theme_light())
+```
+Much like EDA, the ML process is very iterative and heurstic-based. With minimal knowledge
+of the problem or data at hand, it is difficult to know which ML method will perform best.
+This is known as the _no free lunch_\index{no free lunch} theorem for ML [@wolpert1996lack].
+Consequently, it is common for many ML approaches to be applied, evaluated, and modified
+before a final, optimal model can be determined. Performing this process correctly provides
+great confidence in our outcomes. If not, the results will be useless and, potentially,
+damaging ^[See https://www.fatml.org/resources/relevant-scholarship for many discussions
+regarding implications of poorly applied and interpreted ML.].
+
+Approaching ML modeling correctly means approaching it strategically by spending our data
+wisely on learning and validation procedures, properly pre-processing the feature and target
+variables, minimizing _data leakage_\index{data leakage}, tuning
+hyperparameters, and assessing model performance. Many books and courses portray the modeling
+process as a short sprint. A better analogy would be a marathon where many iterations of
+these steps are repeated before eventually finding the final optimal model. This process
+is illustrated in @fig-modeling-process-modeling-process.
+
+```{r}
+#| label: fig-modeling-process-modeling-process
+#| fig.cap: "General predictive machine learning process."
+#| echo: FALSE
+#| out.height: "90%"
+#| out.width: "90%"
+knitr::include_graphics("figures/modeling_process.png")
+```
+
+Before introducing specific algorithms, this chapter, and the next, introduce concepts
+that are fundamental to the ML modeling process and that you’ll see briskly covered in
+future modeling chapters. More specifically, this chapter is designed to get you acquainted
+with building predictive models using the [Tidymodels](https://www.tidymodels.org/) construct.
+We'll focus on the process of splitting our data and applying resampling procedures for
+improved generalizability, training a basic model, tuning a model's hyperparameter(s),
+and, finally, evaluating a model's performance.
+
+::: {.callout-note}
+Although the discussions in this chapter focus on supervised ML modeling, many of the topics
+also apply to unsupervised methods.
+:::
+
