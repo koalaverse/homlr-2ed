@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Hands-On Machine Learning with R, 2ed - Preface to the second edition</title>
+<title>Hands-On Machine Learning with R, 2ed - 2&nbsp; Modeling Process</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,7 +20,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -30,8 +49,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./01-intro.html" rel="next">
-<link href="./index.html" rel="prev">
+<link href="./references.html" rel="next">
+<link href="./01-intro.html" rel="prev">
 <link href="./figures/homl-cover.jpg" rel="icon" type="image/jpeg">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -75,7 +94,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./preface-2e.html">Preface to the second edition</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-intro.html">Fundamentals</a></li><li class="breadcrumb-item"><a href="./02-modeling-process.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Modeling Process</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -129,7 +148,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./preface-2e.html" class="sidebar-item-text sidebar-link active">
+  <a href="./preface-2e.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Preface to the second edition</span></a>
   </div>
 </li>
@@ -150,7 +169,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02-modeling-process.html" class="sidebar-item-text sidebar-link">
+  <a href="./02-modeling-process.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Modeling Process</span></span></a>
   </div>
 </li>
@@ -175,7 +194,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Preface to the second edition</h1>
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Modeling Process</span></h1>
 </div>
 
 
@@ -190,15 +209,42 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>Welcome to the second edition of <em>Hands-On Machine Learning with R</em>! This is a major reworking of the first edition, removing material we no longer think is useful, adding material we wish we included in the first edition, and generally updating the text and code to reflect changes in best practices.</p>
-<p>A brief summary of the biggest changes follows:</p>
-<ul>
-<li>TBD</li>
-<li>TBD</li>
-<li>TBD</li>
-</ul>
+<p>Much like EDA, the ML process is very iterative and heurstic-based. With minimal knowledge of the problem or data at hand, it is difficult to know which ML method will perform best. This is known as the <em>no free lunch</em> theorem for ML <span class="citation" data-cites="wolpert1996lack">(<a href="references.html#ref-wolpert1996lack" role="doc-biblioref">Wolpert 1996</a>)</span>. Consequently, it is common for many ML approaches to be applied, evaluated, and modified before a final, optimal model can be determined. Performing this process correctly provides great confidence in our outcomes. If not, the results will be useless and, potentially, damaging <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<p>Approaching ML modeling correctly means approaching it strategically by spending our data wisely on learning and validation procedures, properly pre-processing the feature and target variables, minimizing <em>data leakage</em>, tuning hyperparameters, and assessing model performance. Many books and courses portray the modeling process as a short sprint. A better analogy would be a marathon where many iterations of these steps are repeated before eventually finding the final optimal model. This process is illustrated in <a href="#fig-modeling-process-modeling-process">Figure&nbsp;<span>2.1</span></a>.</p>
+<div class="cell" data-layout-align="center" data-hash="02-modeling-process_cache/html/fig-modeling-process-modeling-process_eb1732438638ec4dd1c6694e9183d6ff">
+<div class="cell-output-display">
+<div id="fig-modeling-process-modeling-process" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/modeling_process.png" style="width:90.0%;height:90.0%" class="figure-img"></p>
+<figcaption class="figure-caption">Figure&nbsp;2.1: General predictive machine learning process.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Before introducing specific algorithms, this chapter, and the next, introduce concepts that are fundamental to the ML modeling process and that you’ll see briskly covered in future modeling chapters. More specifically, this chapter is designed to get you acquainted with building predictive models using the <a href="https://www.tidymodels.org/">Tidymodels</a> construct. We’ll focus on the process of splitting our data and applying resampling procedures for improved generalizability, training a basic model, tuning a model’s hyperparameter(s), and, finally, evaluating a model’s performance.</p>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Although the discussions in this chapter focus on supervised ML modeling, many of the topics also apply to unsupervised methods.</p>
+</div>
+</div>
+</div>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-wolpert1996lack" class="csl-entry" role="listitem">
+Wolpert, David H. 1996. <span>“The Lack of a Priori Distinctions Between Learning Algorithms.”</span> <em>Neural Computation</em> 8 (7): 1341–90.
+</div>
+</div>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>See https://www.fatml.org/resources/relevant-scholarship for many discussions regarding implications of poorly applied and interpreted ML.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -436,13 +482,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./index.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Welcome</span>
+      <a href="./01-intro.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to Machine Learning</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./01-intro.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to Machine Learning</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./references.html" class="pagination-link">
+        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -450,4 +496,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/koalaverse/homlr-2ed/edit/main/preface-2e.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/koalaverse/homlr-2ed/issues/new" class="toc-action">Report an issue</a></p></div></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/koalaverse/homlr-2ed/edit/main/02-modeling-process.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/koalaverse/homlr-2ed/issues/new" class="toc-action">Report an issue</a></p></div></div></div></div></footer></body></html>
