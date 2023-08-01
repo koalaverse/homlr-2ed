@@ -72,6 +72,7 @@ This book was built with the following packages and R version.  All code was exe
 ```{r, collapse=TRUE, comment = "#>"}
 # packages used
 pkgs <- c(
+    "modeldata",
     "tidymodels",
     "vip"
 )
