@@ -55,3 +55,247 @@ Although the discussions in this chapter focus on supervised ML modeling, many o
 also apply to unsupervised methods.
 :::
 
+## Prerequisites
+
+This chapter leverages the following packages.
+
+```{r}
+#| label: ch2-library-imports
+# Helper packages
+library(dplyr)     # for data manipulation
+library(ggplot2)   # for awesome graphics
+
+# Modeling process packages
+library(modeldata)  # accessing data
+library(tidymodels) # for modeling procedures
+```
+
+To illustrate some of the concepts, we’ll use the Ames Housing and employee attrition data sets introduced in @sec-data-intro.
+
+```{r}
+#| label: ch2-data-import
+# Ames housing data
+ames <- modeldata::ames
+
+# Job attrition data
+attrition <- modeldata::attrition
+```
+
+## Data splitting {#splitting}
+
+A major goal of the machine learning process is to find an algorithm $f\left(X\right)$ that most accurately predicts future values ($\hat{Y}$) based on a set of features ($X$).  In other words, we want an algorithm that not only fits well to our past data, but more importantly, one that predicts a future outcome accurately.  This is called the ___generalizability___\index{generalizability} of our algorithm.  How we "spend" our data will help us understand how well our algorithm generalizes to unseen data.
+
+To provide an accurate understanding of the generalizability of our final optimal model, we can split our data into training and test data sets:
+
+*  __Training set__: these data are used to develop feature sets, train our algorithms, tune hyperparameters, compare models, and all of the other activities required to choose a final model (e.g., the model we want to put into production).
+*  __Test set__: having chosen a final model, these data are used to estimate an unbiased assessment of the model’s performance, which we refer to as the _generalization error_.
+
+::: {.callout-warning}
+It is critical that the test set not be used prior to selecting your final model. Assessing results on the test set prior to final model selection biases the model selection process since the testing data will have become part of the model development process.
+:::
+
+```{r}
+#| label: fig-data-splitting-modeling-process
+#| fig.cap: "Splitting data into training and test sets.."
+#| echo: FALSE
+knitr::include_graphics("figures/data_split.png")
+```
+
+Given a fixed amount of data, typical recommendations for splitting your data into training-test splits include 60% (training)--40% (testing), 70%--30%, or 80%--20%. Generally speaking, these are appropriate guidelines to follow; however, it is good to keep the following points in mind:
+
+* Spending too much in training (e.g., $>80\%$) won't allow us to get a good assessment of predictive performance.  We may find a model that fits the training data very well, but is not generalizable (_overfitting_).
+* Sometimes too much spent in testing ($>40\%$) won't allow us to get a good assessment of model parameters.
+
+Other factors should also influence the allocation proportions. For example, very large training sets (e.g., $n > 100\texttt{K}$) often result in only marginal gains compared to smaller sample sizes.  Consequently, you may use a smaller training sample to increase computation speed (e.g., models built on larger training sets often take longer to score new data sets in production).  In contrast, as $p \geq n$ (where $p$ represents the number of features), larger samples sizes are often required to identify consistent signals in the features.
+
+The two most common ways of splitting data include ___simple random sampling___\index{simple random sampling} and ___stratified sampling___\index{stratified sampling}.
+
+### Simple random sampling
+
+The simplest way to split the data into training and test sets is to take a simple random sample. This does not control for any data attributes, such as the distribution of your response variable ($Y$).
+
+::: {.callout-note}
+Sampling is a random process so setting the random number generator with a common seed allows for reproducible results. Throughout this course we’ll often use the seed `123` for reproducibility but the number itself has no special meaning.
+:::
+
+```{r}
+#| label: data-splitting-modeling-process
+# create train/test split
+set.seed(123)  # for reproducibility
+split  <- initial_split(ames, prop = 0.7)
+train  <- training(split)
+test   <- testing(split)
+
+# dimensions of training data
+dim(train)
+
+# dimensions of test data
+dim(test)
+```
+
+::: {.content-hidden unless-format="html"}
+With sufficient sample size, this sampling approach will typically result in a similar distribution of $Y$ (e.g., `Sale_Price` in the `ames` data) between your <font color="blue">training</font> and <font color="red">test</font> sets, as illustrated below.
+:::
+
+::: {.content-hidden unless-format="pdf"}
+With sufficient sample size, this sampling approach will typically result in a similar distribution of $Y$ (e.g., `Sale_Price` in the `ames` data) between your training and test sets, as illustrated below.
+:::
+
+```{r r-random-sampling}
+#| label: data-split-density-plot-modeling-process
+#| fig.height: 3.5
+train %>%
+  mutate(id = 'train') %>%
+  bind_rows(test %>% mutate(id = 'test')) %>%
+  ggplot(aes(Sale_Price, color = id)) +
+  geom_density()
+```
+
+### Stratified sampling
+
+If we want to explicitly control the sampling so that our training and test sets have similar $Y$ distributions, we can use stratified sampling.  This is more common with classification problems where the response variable may be severely imbalanced (e.g., 90% of observations with response "Yes" and 10% with response "No"). However, we can also apply stratified sampling to regression problems for data sets that have a small sample size and where the response variable deviates strongly from normality (i.e., positively skewed like `Sale_Price`).  With a continuous response variable, stratified sampling will segment $Y$ into quantiles and randomly sample from each. Consequently, this will help ensure a balanced representation of the response distribution in both the training and test sets.
+
+To perform stratified sampling we simply apply the `strata` argument in `initial_split`.
+
+```{r}
+#| label: data-splitting-attrition-modeling-process
+set.seed(123)
+split_strat <- initial_split(attrition, prop = 0.7, strata = "Attrition")
+train_strat <- training(split_strat)
+test_strat  <- testing(split_strat)
+```
+
+The following illustrates that in our original employee attrition data we have an imbalanced response (No: 84%, Yes: 16%). By enforcing stratified sampling, both our training and testing sets have approximately equal response distributions.
+
+```{r}
+#| label: data-splitting-attrition-results-modeling-process
+# original response distribution
+table(attrition$Attrition) %>% prop.table()
+
+# response distribution for training data
+table(train_strat$Attrition) %>% prop.table()
+
+# response distribution for test data
+table(test_strat$Attrition) %>% prop.table()
+```
+
+::: {.callout-tip}
+There is very little downside to using stratified sampling so when trying to decide if you should use random sampling versus stratified sampling, error on the side of safety with stratified sampling.
+:::
+
+### Class imbalances
+
+Imbalanced data can have a significant impact on model predictions and performance [@apm].  Most often this involves classification problems where one class has a very small proportion of observations (e.g., defaults - 5% versus nondefaults - 95%). Several sampling methods have been developed to help remedy class imbalance and most of them can be categorized as either _up-sampling_\index{up-sampling} or _down-sampling_\index{down-sampling}.
+
+Down-sampling balances the dataset by reducing the size of the abundant class(es) to match the frequencies in the least prevalent class. This method is used when the quantity of data is sufficient. By keeping all samples in the rare class and randomly selecting an equal number of samples in the abundant class, a balanced new dataset can be retrieved for further modeling. Furthermore, the reduced sample size reduces the computation burden imposed by further steps in the ML process.
+
+On the contrary, up-sampling is used when the quantity of data is insufficient. It tries to balance the dataset by increasing the size of rarer samples. Rather than getting rid of abundant samples, new rare samples are generated by using repetition or bootstrapping (described further in @sec-bootstrapping).
+
+Note that there is no absolute advantage of one sampling method over another. Application of these two methods depends on the use case it applies to and the data set itself. A combination of over- and under-sampling is often successful and a common approach is known as Synthetic Minority Over-Sampling Technique, or SMOTE [@chawla2002smote].  This alternative sampling approach, as well as others, can be implemented in R with the **themis** package^[https://themis.tidymodels.org], which provides additional sampling procedures on top of the **rsample** package.
+
+### Knowledge check
+
+::: {.callout-caution icon=false}
+1. Import the penguins data from the **modeldata** package
+2. Create a 70-30 stratified train-test split (`species` is the target variable).
+3. What are the response variable proportions for the train and test data sets?
+:::
+
+## Building models
+
+The R ecosystem provides a wide variety of ML algorithm implementations. This makes many powerful algorithms available at your fingertips. Moreover, there are almost always more than one package to perform each algorithm (e.g., there are over 20 packages for fitting random forests). There are pros and cons to this wide selection; some implementations may be more computationally efficient while others may be more flexible. This also has resulted in some drawbacks as there are inconsistencies in how algorithms allow you to define the formula of interest and how the results and predictions are supplied.
+
+Fortunately, the tidymodels ecosystem simplifies this and, in particular, the [**parsnip**](https://parsnip.tidymodels.org/index.html) package^[https://parsnip.tidymodels.org] provides one common interface to train many different models supplied by other packages. Consequently, we'll focus on building models the tidymodels way.
+
+To create and fit a model with parsnip we follow 3 steps:
+
+1. Create a model type
+2. Choose an "engine"
+3. Fit our model
+
+Let's illustrate by building a linear regression model. For our first model we will simply use two features from our training data - total square feet of the home (`Gr_Liv_Area`) and year built (`Year_Built`) to predict the sale price (`Sale_Price`).
+
+::: {.callout-tip}
+We can use `tidy()` to get results of our model's parameter estimates and their statistical properties. Although the `summary()` function can provide this output, it gives the results back in an unwieldy format. Go ahead, and run `summary(lm_ols)` to compare the results to what we see below.
+
+Many models have a `tidy()` method that provides the summary results in a more predictable and useful format (e.g. a data frame with standard column names)
+:::
+
+```{r}
+#| label: first-model-modeling-process
+lm_ols <- linear_reg() %>%
+   fit(Sale_Price ~ Gr_Liv_Area + Year_Built, data = train)
+
+tidy(lm_ols)
+```
+
+::: {.callout-note}
+Don't worry about what these parameters mean at this point; we'll cover these details in a future chapter.
+:::
+
+Now, you may have noticed that we only applied two of the three steps mentioned previously:
+
+1. Create a model type
+2. ~~Choose an "engine"~~
+3. Fit our model
+
+The reason is because most model objects (`linear_reg()` in this example) have a default engine. `linear_reg()` by default uses `stats::lm` for ordinary least squares.^[`lm()` is the built in function provided by R to perform ordinary least squares regression. You can learn more about it by checking out the help docs with `?lm`.] But we can always change the engine. For example, say you wanted to use **keras** to perform gradient descent linear regression, then you could change the engine to **keras** but use the same code workflow.
+
+::: {.callout-warning}
+For this code to run successfully on your end you need to have the **keras** and **tensorflow** packages installed on your machine. Depending on your current setup this could be an easy process or you could run into problems. If you run into problems don't fret, this is primarily just to illustrate how we can change engines.
+:::
+
+```{r, message=TRUE}
+#| label: first-model-keras-modeling-process
+lm_sgd <- linear_reg() %>%
+   set_engine('keras') %>%
+   fit(Sale_Price ~ Gr_Liv_Area + Year_Built, data = train)
+```
+
+::: {.callout-tip}
+When we talk about 'engines' we're really just referring to packages that provide the desired algorithm. Each model object has different engines available to use and they are all documented. For example check out the help file for `linear_reg` (`?linear_reg`) and you'll see the different engines available (lm, brulee, glm, glmnet, etc.)
+:::
+
+The beauty of this workflow is that if we want to explore different models we can simply change the model object. For example, say we wanted to run a K-nearest neighbor model. We can just use `nearest_neighbor()`.
+
+In this example we have pretty much the same code as above except we added the line of code `set_mode()`. This is because most algorithms require you to specify if you are building a regression model or a classification model.
+
+::: {.callout-note}
+When you run this code you'll probably get an error message saying that _"This engine requires some package installs: 'kknn'."_ This just means you need to `install.packages('kknn')` and then you should be able to successfully run this code.
+:::
+
+```{r}
+knn <- nearest_neighbor() %>%
+   set_engine("kknn") %>%
+   set_mode("regression") %>%
+   fit(Sale_Price ~ Gr_Liv_Area + Year_Built, data = train)
+```
+
+::: {.callout-tip}
+You can see all the different model objects available at https://parsnip.tidymodels.org/reference/index.html
+:::
+
+### Knowledge check
+
+::: {.callout-caution icon=false}
+1. If you haven't already done so, create a 70-30 stratified train-test split on the `attrition` data (note: `Attrition` is the response variable).
+2. Using the `logistic_reg()` model object, fit a model using `Age`, `DistanceFromHome`, and `JobLevel` as the features.
+3. Now train a K-nearest neighbor model using the 'kknn' engine and be sure to set the mode to be a classification model.
+:::
+
+## Resampling methods
+
+### _k_-fold cross validation
+
+### Bootstrapping {#sec-bootstrapping}
+
+
+## Bias variance trade-off
+
+### Bias
+
+### Variance
+
+### Hyperparameter tuning
+
+## Model evaluation
