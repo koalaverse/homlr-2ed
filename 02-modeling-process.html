@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Hands-On Machine Learning with R, 2ed - 2&nbsp; Modeling Process</title>
+<title>Hands-On Machine Learning with R, 2ed - 2&nbsp; First model with Tidymodels</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -130,7 +130,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-intro.html">Fundamentals</a></li><li class="breadcrumb-item"><a href="./02-modeling-process.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Modeling Process</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-intro.html">Supervised Learning</a></li><li class="breadcrumb-item"><a href="./02-modeling-process.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">First model with Tidymodels</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -191,7 +191,7 @@ div.csl-indent {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
- <span class="menu-text">Fundamentals</span></a>
+ <span class="menu-text">Supervised Learning</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -206,7 +206,7 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./02-modeling-process.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Modeling Process</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">First model with Tidymodels</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -235,22 +235,21 @@ div.csl-indent {
   <li><a href="#class-imbalances" id="toc-class-imbalances" class="nav-link" data-scroll-target="#class-imbalances"><span class="header-section-number">2.2.3</span> Class imbalances</a></li>
   <li><a href="#knowledge-check" id="toc-knowledge-check" class="nav-link" data-scroll-target="#knowledge-check"><span class="header-section-number">2.2.4</span> Knowledge check</a></li>
   </ul></li>
-  <li><a href="#building-models" id="toc-building-models" class="nav-link" data-scroll-target="#building-models"><span class="header-section-number">2.3</span> Building models</a>
+  <li><a href="#sec-building-models" id="toc-sec-building-models" class="nav-link" data-scroll-target="#sec-building-models"><span class="header-section-number">2.3</span> Building models</a>
   <ul class="collapse">
   <li><a href="#knowledge-check-1" id="toc-knowledge-check-1" class="nav-link" data-scroll-target="#knowledge-check-1"><span class="header-section-number">2.3.1</span> Knowledge check</a></li>
   </ul></li>
-  <li><a href="#resampling-methods" id="toc-resampling-methods" class="nav-link" data-scroll-target="#resampling-methods"><span class="header-section-number">2.4</span> Resampling methods</a>
+  <li><a href="#making-predictions" id="toc-making-predictions" class="nav-link" data-scroll-target="#making-predictions"><span class="header-section-number">2.4</span> Making predictions</a>
   <ul class="collapse">
-  <li><a href="#k-fold-cross-validation" id="toc-k-fold-cross-validation" class="nav-link" data-scroll-target="#k-fold-cross-validation"><span class="header-section-number">2.4.1</span> <em>k</em>-fold cross validation</a></li>
-  <li><a href="#sec-bootstrapping" id="toc-sec-bootstrapping" class="nav-link" data-scroll-target="#sec-bootstrapping"><span class="header-section-number">2.4.2</span> Bootstrapping</a></li>
+  <li><a href="#knowledge-check-2" id="toc-knowledge-check-2" class="nav-link" data-scroll-target="#knowledge-check-2"><span class="header-section-number">2.4.1</span> Knowledge check</a></li>
   </ul></li>
-  <li><a href="#bias-variance-trade-off" id="toc-bias-variance-trade-off" class="nav-link" data-scroll-target="#bias-variance-trade-off"><span class="header-section-number">2.5</span> Bias variance trade-off</a>
+  <li><a href="#model-evaluation" id="toc-model-evaluation" class="nav-link" data-scroll-target="#model-evaluation"><span class="header-section-number">2.5</span> Model evaluation</a>
   <ul class="collapse">
-  <li><a href="#bias" id="toc-bias" class="nav-link" data-scroll-target="#bias"><span class="header-section-number">2.5.1</span> Bias</a></li>
-  <li><a href="#variance" id="toc-variance" class="nav-link" data-scroll-target="#variance"><span class="header-section-number">2.5.2</span> Variance</a></li>
-  <li><a href="#hyperparameter-tuning" id="toc-hyperparameter-tuning" class="nav-link" data-scroll-target="#hyperparameter-tuning"><span class="header-section-number">2.5.3</span> Hyperparameter tuning</a></li>
+  <li><a href="#regression-models" id="toc-regression-models" class="nav-link" data-scroll-target="#regression-models"><span class="header-section-number">2.5.1</span> Regression models</a></li>
+  <li><a href="#sec-classification-models" id="toc-sec-classification-models" class="nav-link" data-scroll-target="#sec-classification-models"><span class="header-section-number">2.5.2</span> Classification models</a></li>
+  <li><a href="#knowledge-check-3" id="toc-knowledge-check-3" class="nav-link" data-scroll-target="#knowledge-check-3"><span class="header-section-number">2.5.3</span> Knowledge check</a></li>
   </ul></li>
-  <li><a href="#model-evaluation" id="toc-model-evaluation" class="nav-link" data-scroll-target="#model-evaluation"><span class="header-section-number">2.6</span> Model evaluation</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">2.6</span> Exercises</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/koalaverse/homlr-2ed/edit/main/02-modeling-process.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/koalaverse/homlr-2ed/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -259,7 +258,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Modeling Process</span></h1>
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">First model with Tidymodels</span></h1>
 </div>
 
 
@@ -274,9 +273,9 @@ div.csl-indent {
 
 </header>
 
-<p>Much like EDA, the ML process is very iterative and heurstic-based. With minimal knowledge of the problem or data at hand, it is difficult to know which ML method will perform best. This is known as the <em>no free lunch</em> theorem for ML <span class="citation" data-cites="wolpert1996lack">(<a href="references.html#ref-wolpert1996lack" role="doc-biblioref">Wolpert 1996</a>)</span>. Consequently, it is common for many ML approaches to be applied, evaluated, and modified before a final, optimal model can be determined. Performing this process correctly provides great confidence in our outcomes. If not, the results will be useless and, potentially, damaging <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<p>Much like EDA, the ML process is very iterative and heuristic-based. With minimal knowledge of the problem or data at hand, it is difficult to know which ML method will perform best. This is known as the <em>no free lunch</em> theorem for ML <span class="citation" data-cites="wolpert1996lack">(<a href="references.html#ref-wolpert1996lack" role="doc-biblioref">Wolpert 1996</a>)</span>. Consequently, it is common for many ML approaches to be applied, evaluated, and modified before a final, optimal model can be determined. Performing this process correctly provides great confidence in our outcomes. If not, the results will be useless and, potentially, damaging <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
 <p>Approaching ML modeling correctly means approaching it strategically by spending our data wisely on learning and validation procedures, properly pre-processing the feature and target variables, minimizing <em>data leakage</em>, tuning hyperparameters, and assessing model performance. Many books and courses portray the modeling process as a short sprint. A better analogy would be a marathon where many iterations of these steps are repeated before eventually finding the final optimal model. This process is illustrated in <a href="#fig-modeling-process-modeling-process">Figure&nbsp;<span>2.1</span></a>.</p>
-<div class="cell" data-layout-align="center" data-hash="02-modeling-process_cache/html/fig-modeling-process-modeling-process_eb1732438638ec4dd1c6694e9183d6ff">
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div id="fig-modeling-process-modeling-process" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -286,21 +285,11 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>Before introducing specific algorithms, this chapter, and the next, introduce concepts that are fundamental to the ML modeling process and that you’ll see briskly covered in future modeling chapters. More specifically, this chapter is designed to get you acquainted with building predictive models using the <a href="https://www.tidymodels.org/">Tidymodels</a> construct. We’ll focus on the process of splitting our data and applying resampling procedures for improved generalizability, training a basic model, tuning a model’s hyperparameter(s), and, finally, evaluating a model’s performance.</p>
-<div class="callout callout-style-simple callout-note">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-body-container">
-<p>Although the discussions in this chapter focus on supervised ML modeling, many of the topics also apply to unsupervised methods.</p>
-</div>
-</div>
-</div>
+<p>Before introducing specific algorithms, this chapter, and the next, introduce concepts that are fundamental to the ML modeling process and that you’ll see briskly covered in future modeling chapters. More specifically, this chapter is designed to get you acquainted with building predictive models using the <a href="https://www.tidymodels.org/">Tidymodels</a> construct. We’ll focus on the process of splitting our data for improved generalizability, using Tidymodel’s parsnip package for constructing our models, along with yardstick to measure model performance. Future chapters will build upon these concepts by focusing on other parts of the machine learning process illustrated above such as applying resampling procedures to give you a more robust assessment of model performance and performing hyperparameter tuning to control the complexity of machine learning algorithms.</p>
 <section id="prerequisites" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="prerequisites"><span class="header-section-number">2.1</span> Prerequisites</h2>
 <p>This chapter leverages the following packages.</p>
-<div class="cell" data-layout-align="center" data-hash="02-modeling-process_cache/html/ch2-library-imports_8e9f43306391cfbda18d2b347e7edf05">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Helper packages</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)     <span class="co"># for data manipulation</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)   <span class="co"># for awesome graphics</span></span>
@@ -310,12 +299,13 @@ div.csl-indent {
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels) <span class="co"># for modeling procedures</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To illustrate some of the concepts, we’ll use the Ames Housing and employee attrition data sets introduced in <a href="01-intro.html#sec-data-intro"><span>Section&nbsp;1.5</span></a>.</p>
-<div class="cell" data-layout-align="center" data-hash="02-modeling-process_cache/html/ch2-data-import_05580f0bc8c4728e4aabaf4afb8dae2f">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ames housing data</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>ames <span class="ot">&lt;-</span> modeldata<span class="sc">::</span>ames</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Job attrition data</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>attrition <span class="ot">&lt;-</span> modeldata<span class="sc">::</span>attrition</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>attrition <span class="ot">&lt;-</span> modeldata<span class="sc">::</span>attrition <span class="sc">%&gt;%</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">Attrition =</span> <span class="fu">fct_relevel</span>(Attrition, <span class="st">"Yes"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="splitting" class="level2" data-number="2.2">
@@ -336,11 +326,11 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<div class="cell" data-layout-align="center" data-hash="02-modeling-process_cache/html/fig-data-splitting-modeling-process_c402b2827c8b89800225c04ccaf5eced">
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div id="fig-data-splitting-modeling-process" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="figures/data_split.png" class="img-fluid figure-img" width="112"></p>
+<p><img src="figures/data_split.png" style="width:30.0%;height:30.0%" class="figure-img"></p>
 <figcaption class="figure-caption">Figure&nbsp;2.2: Splitting data into training and test sets..</figcaption>
 </figure>
 </div>
@@ -366,7 +356,7 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<div class="cell" data-layout-align="center" data-hash="02-modeling-process_cache/html/data-splitting-modeling-process_56b897bca4ee9bbd73244e87ac5ec235">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create train/test split</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)  <span class="co"># for reproducibility</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>split  <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(ames, <span class="at">prop =</span> <span class="fl">0.7</span>)</span>
@@ -382,7 +372,7 @@ div.csl-indent {
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 879  74</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>With sufficient sample size, this sampling approach will typically result in a similar distribution of <span class="math inline">\(Y\)</span> (e.g., <code>Sale_Price</code> in the <code>ames</code> data) between your <font color="blue">training</font> and <font color="red">test</font> sets, as illustrated below.</p>
-<div class="cell" data-layout-align="center" data-hash="02-modeling-process_cache/html/data-split-density-plot-modeling-process_aba88b9a304044f31846a51c397eb5ef">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>train <span class="sc">%&gt;%</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id =</span> <span class="st">'train'</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(test <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">id =</span> <span class="st">'test'</span>)) <span class="sc">%&gt;%</span></span>
@@ -401,31 +391,31 @@ div.csl-indent {
 <h3 data-number="2.2.2" class="anchored" data-anchor-id="stratified-sampling"><span class="header-section-number">2.2.2</span> Stratified sampling</h3>
 <p>If we want to explicitly control the sampling so that our training and test sets have similar <span class="math inline">\(Y\)</span> distributions, we can use stratified sampling. This is more common with classification problems where the response variable may be severely imbalanced (e.g., 90% of observations with response “Yes” and 10% with response “No”). However, we can also apply stratified sampling to regression problems for data sets that have a small sample size and where the response variable deviates strongly from normality (i.e., positively skewed like <code>Sale_Price</code>). With a continuous response variable, stratified sampling will segment <span class="math inline">\(Y\)</span> into quantiles and randomly sample from each. Consequently, this will help ensure a balanced representation of the response distribution in both the training and test sets.</p>
 <p>To perform stratified sampling we simply apply the <code>strata</code> argument in <code>initial_split</code>.</p>
-<div class="cell" data-layout-align="center" data-hash="02-modeling-process_cache/html/data-splitting-attrition-modeling-process_2838a2944a24310a226de48248d0b539">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>split_strat <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(attrition, <span class="at">prop =</span> <span class="fl">0.7</span>, <span class="at">strata =</span> <span class="st">"Attrition"</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>train_strat <span class="ot">&lt;-</span> <span class="fu">training</span>(split_strat)</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>test_strat  <span class="ot">&lt;-</span> <span class="fu">testing</span>(split_strat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The following illustrates that in our original employee attrition data we have an imbalanced response (No: 84%, Yes: 16%). By enforcing stratified sampling, both our training and testing sets have approximately equal response distributions.</p>
-<div class="cell" data-layout-align="center" data-hash="02-modeling-process_cache/html/data-splitting-attrition-results-modeling-process_019bc0b38b1493f7d5f2b42fa2e85089">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># original response distribution</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(attrition<span class="sc">$</span>Attrition) <span class="sc">%&gt;%</span> <span class="fu">prop.table</span>()</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="do">##        No       Yes </span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 0.8387755 0.1612245</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="do">##       Yes        No </span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 0.1612245 0.8387755</span></span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># response distribution for training data</span></span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(train_strat<span class="sc">$</span>Attrition) <span class="sc">%&gt;%</span> <span class="fu">prop.table</span>()</span>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="do">##        No       Yes </span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 0.8394942 0.1605058</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="do">##       Yes        No </span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 0.1605058 0.8394942</span></span>
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co"># response distribution for test data</span></span>
 <span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(test_strat<span class="sc">$</span>Attrition) <span class="sc">%&gt;%</span> <span class="fu">prop.table</span>()</span>
 <span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="do">##        No       Yes </span></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="do">## 0.8371041 0.1628959</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="do">##       Yes        No </span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="do">## 0.1628959 0.8371041</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-simple callout-tip">
 <div class="callout-body d-flex">
@@ -442,7 +432,7 @@ div.csl-indent {
 <h3 data-number="2.2.3" class="anchored" data-anchor-id="class-imbalances"><span class="header-section-number">2.2.3</span> Class imbalances</h3>
 <p>Imbalanced data can have a significant impact on model predictions and performance <span class="citation" data-cites="apm">(<a href="references.html#ref-apm" role="doc-biblioref">Kuhn and Johnson 2013</a>)</span>. Most often this involves classification problems where one class has a very small proportion of observations (e.g., defaults - 5% versus nondefaults - 95%). Several sampling methods have been developed to help remedy class imbalance and most of them can be categorized as either <em>up-sampling</em> or <em>down-sampling</em>.</p>
 <p>Down-sampling balances the dataset by reducing the size of the abundant class(es) to match the frequencies in the least prevalent class. This method is used when the quantity of data is sufficient. By keeping all samples in the rare class and randomly selecting an equal number of samples in the abundant class, a balanced new dataset can be retrieved for further modeling. Furthermore, the reduced sample size reduces the computation burden imposed by further steps in the ML process.</p>
-<p>On the contrary, up-sampling is used when the quantity of data is insufficient. It tries to balance the dataset by increasing the size of rarer samples. Rather than getting rid of abundant samples, new rare samples are generated by using repetition or bootstrapping (described further in <a href="#sec-bootstrapping"><span>Section&nbsp;2.4.2</span></a>).</p>
+<p>On the contrary, up-sampling is used when the quantity of data is insufficient. It tries to balance the dataset by increasing the size of rarer samples. Rather than getting rid of abundant samples, new rare samples are generated by using repetition or bootstrapping (described further in <span class="quarto-unresolved-ref">?sec-bootstrapping</span>).</p>
 <p>Note that there is no absolute advantage of one sampling method over another. Application of these two methods depends on the use case it applies to and the data set itself. A combination of over- and under-sampling is often successful and a common approach is known as Synthetic Minority Over-Sampling Technique, or SMOTE <span class="citation" data-cites="chawla2002smote">(<a href="references.html#ref-chawla2002smote" role="doc-biblioref">Chawla et al. 2002</a>)</span>. This alternative sampling approach, as well as others, can be implemented in R with the <strong>themis</strong> package<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>, which provides additional sampling procedures on top of the <strong>rsample</strong> package.</p>
 </section>
 <section id="knowledge-check" class="level3" data-number="2.2.4">
@@ -463,8 +453,8 @@ div.csl-indent {
 </div>
 </section>
 </section>
-<section id="building-models" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="building-models"><span class="header-section-number">2.3</span> Building models</h2>
+<section id="sec-building-models" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="sec-building-models"><span class="header-section-number">2.3</span> Building models</h2>
 <p>The R ecosystem provides a wide variety of ML algorithm implementations. This makes many powerful algorithms available at your fingertips. Moreover, there are almost always more than one package to perform each algorithm (e.g., there are over 20 packages for fitting random forests). There are pros and cons to this wide selection; some implementations may be more computationally efficient while others may be more flexible. This also has resulted in some drawbacks as there are inconsistencies in how algorithms allow you to define the formula of interest and how the results and predictions are supplied.</p>
 <p>Fortunately, the tidymodels ecosystem simplifies this and, in particular, the <a href="https://parsnip.tidymodels.org/index.html"><strong>parsnip</strong></a> package<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> provides one common interface to train many different models supplied by other packages. Consequently, we’ll focus on building models the tidymodels way.</p>
 <p>To create and fit a model with parsnip we follow 3 steps:</p>
@@ -485,7 +475,7 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<div class="cell" data-layout-align="center" data-hash="02-modeling-process_cache/html/first-model-modeling-process_8b832994f3bcbf2e0dddea94274f65c0">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>lm_ols <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">fit</span>(Sale_Price <span class="sc">~</span> Gr_Liv_Area <span class="sc">+</span> Year_Built, <span class="at">data =</span> train)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -524,7 +514,7 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<div class="cell" data-layout-align="center" data-hash="02-modeling-process_cache/html/first-model-keras-modeling-process_9079debbbf7f6ca271cf9ac60ac20c0d">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>lm_sgd <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">set_engine</span>(<span class="st">'keras'</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">fit</span>(Sale_Price <span class="sc">~</span> Gr_Liv_Area <span class="sc">+</span> Year_Built, <span class="at">data =</span> train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -551,7 +541,7 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<div class="cell" data-layout-align="center" data-hash="02-modeling-process_cache/html/unnamed-chunk-11_9bd526173617515bd04261b87e74eb45">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>knn <span class="ot">&lt;-</span> <span class="fu">nearest_neighbor</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">set_engine</span>(<span class="st">"kknn"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">set_mode</span>(<span class="st">"regression"</span>) <span class="sc">%&gt;%</span></span>
@@ -585,37 +575,341 @@ div.csl-indent {
 </div>
 </section>
 </section>
-<section id="resampling-methods" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="resampling-methods"><span class="header-section-number">2.4</span> Resampling methods</h2>
-<section id="k-fold-cross-validation" class="level3" data-number="2.4.1">
-<h3 data-number="2.4.1" class="anchored" data-anchor-id="k-fold-cross-validation"><span class="header-section-number">2.4.1</span> <em>k</em>-fold cross validation</h3>
+<section id="making-predictions" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="making-predictions"><span class="header-section-number">2.4</span> Making predictions</h2>
+<p>We have fit a few different models. Now, if we want to see our predictions we can simply apply <code>predict()</code> and feed it the data set we want to make predictions on. Here, we can see the predictions made on our training data for our ordinary least square linear regression model.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>lm_ols <span class="sc">%&gt;%</span> <span class="fu">predict</span>(train)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 2,051 × 1</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="do">##      .pred</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="do">##      &lt;dbl&gt;</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 217657.</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  2 214276.</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  3 223425.</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  4 260324.</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  5 109338.</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  6 195106.</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  7 222217.</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  8 126175.</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  9  98550.</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 120811.</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="do">## # ℹ 2,041 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>And here we get the predicted values for our KNN model.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>knn <span class="sc">%&gt;%</span> <span class="fu">predict</span>(train)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 2,051 × 1</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="do">##      .pred</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="do">##      &lt;dbl&gt;</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 194967.</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  2 192240 </span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  3 174220 </span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  4 269760 </span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  5 113617.</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  6 173672 </span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  7 174820 </span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  8 120796 </span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 114560 </span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 121346 </span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="do">## # ℹ 2,041 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A similar process can be applied to make predictions for a classification model. For example, the following trains a classification model that predicts whether an employee will attrit based on their age. When we make predictions, the output is the predicted class (employee attrition is <code>Yes</code> or <code>No</code>).</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>simple_logit <span class="ot">&lt;-</span> <span class="fu">logistic_reg</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">fit</span>(Attrition <span class="sc">~</span> Age, <span class="at">data =</span> train_strat)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>simple_logit <span class="sc">%&gt;%</span> <span class="fu">predict</span>(train_strat)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1,028 × 1</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="do">##    .pred_class</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;fct&gt;      </span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 No         </span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  2 No         </span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  3 No         </span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  4 No         </span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  5 No         </span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  6 No         </span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  7 No         </span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  8 No         </span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 No         </span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 No         </span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="do">## # ℹ 1,018 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In general, machine learning classifiers don’t just give binary predictions, but instead provide some numerical value between 0 and 1 for their predictions. This number, sometimes called the model score or confidence, is a way for the model to express their certainty about what class the input data belongs to. In most applications, the exact probability is ignored and we use a threshold (typically <span class="math inline">\(\geq 0.5\)</span>) to round the score to a binary answer, yes or no, employee attrition or not attrition. But in some cases we do want the prediction probabilities and we can get those by adding <code>type = "prob"</code> to our <code>predict</code> call.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>simple_logit <span class="sc">%&gt;%</span> <span class="fu">predict</span>(train_strat, <span class="at">type =</span> <span class="st">"prob"</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1,028 × 2</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="do">##    .pred_Yes .pred_No</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="do">##        &lt;dbl&gt;    &lt;dbl&gt;</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  1    0.178     0.822</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  2    0.0485    0.952</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  3    0.204     0.796</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  4    0.155     0.845</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  5    0.162     0.838</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  6    0.213     0.787</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  7    0.195     0.805</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  8    0.213     0.787</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  9    0.0664    0.934</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 10    0.141     0.859</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="do">## # ℹ 1,018 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="knowledge-check-2" class="level3" data-number="2.4.1">
+<h3 data-number="2.4.1" class="anchored" data-anchor-id="knowledge-check-2"><span class="header-section-number">2.4.1</span> Knowledge check</h3>
+<div class="callout callout-style-simple callout-caution no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<ol type="1">
+<li>Using the logistic regression model you trained in the previous exercise, make predictions on the attrition training data.</li>
+<li>Now make predictions using the K-nearest neighbor model.</li>
+</ol>
+</div>
+</div>
+</div>
 </section>
-<section id="sec-bootstrapping" class="level3" data-number="2.4.2">
-<h3 data-number="2.4.2" class="anchored" data-anchor-id="sec-bootstrapping"><span class="header-section-number">2.4.2</span> Bootstrapping</h3>
+</section>
+<section id="model-evaluation" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="model-evaluation"><span class="header-section-number">2.5</span> Model evaluation</h2>
+<p>Historically, the performance of statistical models was largely based on goodness-of-fit tests and assessment of residuals. Unfortunately, misleading conclusions may follow from predictive models that pass these kinds of assessments <span class="citation" data-cites="breiman2001statistical">(<a href="references.html#ref-breiman2001statistical" role="doc-biblioref">Breiman et al. 2001</a>)</span>. Today, it has become widely accepted that a more sound approach to assessing model performance is to assess the predictive accuracy via <em>loss functions</em>. Loss functions are metrics that compare the predicted values to the actual value (the output of a loss function is often referred to as the <em>error</em> or pseudo <em>residual</em>).</p>
+<p>If we look at our predicted outputs for our ordinary least squares model, we can see that the predicted home value (<code>.pred</code>) was $149,091 for the first observation and the actual home value was $172,000, resulting in an error of nearly $23,000. The objective of the loss function is to aggregate the prediction errors for all the observations into a meaningful single value metric.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>lm_ols <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">predict</span>(test) <span class="sc">%&gt;%</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">bind_cols</span>(test <span class="sc">%&gt;%</span> <span class="fu">select</span>(Sale_Price)) <span class="sc">%&gt;%</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">prediction_error =</span> Sale_Price <span class="sc">-</span> .pred)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 879 × 3</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="do">##      .pred Sale_Price prediction_error</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="do">##      &lt;dbl&gt;      &lt;int&gt;            &lt;dbl&gt;</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 149091.     172000           22909.</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  2 219596.     195500          -24096.</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  3 195491.     212000           16509.</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  4  97418.     141000           43582.</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  5 152195.     170000           17805.</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  6 134471.     142000            7529.</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  7 119697.     115000           -4697.</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  8 195517.     184000          -11517.</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 141210.      88000          -53210.</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 239057.     306000           66943.</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="do">## # ℹ 869 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>There are many loss functions to choose from when assessing the performance of a predictive model, each providing a unique understanding of the predictive accuracy and differing between regression and classification models. Furthermore, the way a loss function is computed will tend to emphasize certain types of errors over others and can lead to drastic differences in how we interpret the “optimal model”. Its important to consider the problem context when identifying the preferred performance metric to use. And when comparing multiple models, we need to compare them across the same metric.</p>
+<section id="regression-models" class="level3" data-number="2.5.1">
+<h3 data-number="2.5.1" class="anchored" data-anchor-id="regression-models"><span class="header-section-number">2.5.1</span> Regression models</h3>
+<p>The most common loss functions for regression models include:</p>
+<ul>
+<li><p><strong>MSE</strong>: Mean squared error is the average of the squared error (<span class="math inline">\(MSE = \frac{1}{n} \sum^n_{i=1}(y_i - \hat y_i)^2\)</span>)<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>. The squared component results in larger errors having larger penalties. <strong>Objective: minimize</strong></p></li>
+<li><p><strong>RMSE</strong>: Root mean squared error. This simply takes the square root of the MSE metric (<span class="math inline">\(RMSE = \sqrt{\frac{1}{n} \sum^n_{i=1}(y_i - \hat y_i)^2}\)</span>) so that your error is in the same units as your response variable. If your response variable units are dollars, the units of MSE are dollars-squared, but the RMSE will be in dollars. <strong>Objective: minimize</strong></p></li>
+<li><p><strong><span class="math inline">\(R^2\)</span></strong>: This is a popular metric that represents the proportion of the variance in the dependent variable that is predictable from the independent variable(s). Unfortunately, it has several limitations. For example, two models built from two different data sets could have the exact same RMSE but if one has less variability in the response variable then it would have a lower <span class="math inline">\(R^2\)</span> than the other. You should not place too much emphasis on this metric. <strong>Objective: maximize</strong></p></li>
+</ul>
+<p>Let’s compute the RMSE of our OLS regression model. Remember, we want to assess our model’s performance on the test data not the training data since that gives us a better idea of how our model generalizes. To do so, the following:</p>
+<ol type="1">
+<li>Makes predictions with our test data,</li>
+<li>Adds the actual <code>Sale_Price</code> values from our test data,</li>
+<li>Computes the RMSE.</li>
+</ol>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>lm_ols <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">predict</span>(test) <span class="sc">%&gt;%</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">bind_cols</span>(test <span class="sc">%&gt;%</span> <span class="fu">select</span>(Sale_Price)) <span class="sc">%&gt;%</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">rmse</span>(<span class="at">truth =</span> Sale_Price, <span class="at">estimate =</span> .pred)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 × 3</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   .metric .estimator .estimate</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 rmse    standard      45445.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The RMSE value suggests that, on average, our model mispredicts the expected sale price of a home by about $45K.</p>
+<p>Other common loss functions for regression models include:</p>
+<ul>
+<li><p><strong>Deviance</strong>: Short for mean residual deviance. In essence, it provides a degree to which a model explains the variation in a set of data when using maximum likelihood estimation. Essentially this compares a saturated model (i.e.&nbsp;fully featured model) to an unsaturated model (i.e.&nbsp;intercept only or average). If the response variable distribution is Gaussian, then it will be approximately equal to MSE. When not, it usually gives a more useful estimate of error. Deviance is often used with classification models. <a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> <strong>Objective: minimize</strong></p></li>
+<li><p><strong>MAE</strong>: Mean absolute error. Similar to MSE but rather than squaring, it just takes the mean absolute difference between the actual and predicted values (<span class="math inline">\(MAE = \frac{1}{n} \sum^n_{i=1}(\vert y_i - \hat y_i \vert)\)</span>). This results in less emphasis on larger errors than MSE. <strong>Objective: minimize</strong></p></li>
+<li><p><strong>RMSLE</strong>: Root mean squared logarithmic error. Similar to RMSE but it performs a <code>log()</code> on the actual and predicted values prior to computing the difference (<span class="math inline">\(RMSLE = \sqrt{\frac{1}{n} \sum^n_{i=1}(log(y_i + 1) - log(\hat y_i + 1))^2}\)</span>). When your response variable has a wide range of values, large response values with large errors can dominate the MSE/RMSE metric. RMSLE minimizes this impact so that small response values with large errors can have just as meaningful of an impact as large response values with large errors. <strong>Objective: minimize</strong></p></li>
+</ul>
+</section>
+<section id="sec-classification-models" class="level3" data-number="2.5.2">
+<h3 data-number="2.5.2" class="anchored" data-anchor-id="sec-classification-models"><span class="header-section-number">2.5.2</span> Classification models</h3>
+<p>When applying classification models, we often use a <em>confusion matrix</em> to evaluate certain performance measures. A confusion matrix is simply a matrix that compares actual categorical levels (or events) to the predicted categorical levels. When we predict the right level, we refer to this as a <em>true positive</em>. However, if we predict a level or event that did not happen this is called a <em>false positive</em> (i.e.&nbsp;we predicted a customer would redeem a coupon and they did not). Alternatively, when we do not predict a level or event and it does happen that this is called a <em>false negative</em> (i.e.&nbsp;a customer that we did not predict to redeem a coupon does).</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-modeling-process-confusion-matrix1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/confusion-matrix.png" style="width:100.0%;height:100.0%" class="figure-img"></p>
+<figcaption class="figure-caption">Figure&nbsp;2.3: Confusion matrix and relationships to terms such as true-positive and false-negative.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Let’s go ahead and create a logistic regression classification model with the attrition data.</p>
+<div class="callout callout-style-simple callout-tip">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>In R, using a “.”” as in <code>Attrition ~ .</code> is a shortcut for saying use all available features to predict <code>Attrition</code>.</p>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>logit <span class="ot">&lt;-</span> <span class="fu">logistic_reg</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">fit</span>(Attrition <span class="sc">~</span> ., <span class="at">data =</span> train_strat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can use <code>conf_mat()</code> to view the confusion matrix for this model. In essence, this confusion matrix shows that our model has 34 true positive predictions, 353 true negative predictions, 17 false negative predictions, and 38 false predictions.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>logit <span class="sc">%&gt;%</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">predict</span>(test_strat) <span class="sc">%&gt;%</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">bind_cols</span>(test_strat <span class="sc">%&gt;%</span> <span class="fu">select</span>(Attrition)) <span class="sc">%&gt;%</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">conf_mat</span>(<span class="at">truth =</span> Attrition, <span class="at">estimate =</span> .pred_class, <span class="at">dnn =</span> <span class="fu">c</span>(<span class="st">"Truth"</span>, <span class="st">"Prediction"</span>))</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="do">##      Prediction</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Truth Yes  No</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="do">##   Yes  34  17</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="do">##   No   38 353</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Depending on the software and libraries used, you may see the prediction summaries on the rows and the actual value summaries in the columns or vice versa. <code>conf_mat</code> allows us to control that with the <code>dnn</code> argument to control the table dimension names.</p>
+</div>
+</div>
+</div>
+<p>This confusion matrix allows us to extract different levels of performance for our classification model. For example, we can assess:</p>
+<ul>
+<li><p><strong>Accuracy</strong>: Overall, how often is the classifier correct? Accuracy is the proportion of the data that are predicted correctly. Example: <span class="math inline">\(\frac{TP + TN}{total} = \frac{34+353}{442} = 0.867\)</span>. <strong>Objective: maximize</strong></p></li>
+<li><p><strong>Precision</strong>: How accurately does the classifier predict events (or positive events)? This metric is concerned with maximizing the true positives to false positive ratio. In other words, for the number of predictions that we made, how many were correct? This characterizes the “purity in retrieval performance” <span class="citation" data-cites="buckland1994relationship">(<a href="references.html#ref-buckland1994relationship" role="doc-biblioref">Buckland and Gey 1994</a>)</span>. Example: <span class="math inline">\(\frac{TP}{TP + FP} = \frac{34}{34+17} = 0.667\)</span>. <strong>Objective: maximize</strong></p></li>
+<li><p><strong>Sensitivity (aka recall)</strong>: How accurately does the classifier classify actual events? The sensitivity is defined as the proportion of positive results out of the number of samples which were actually positive. This metric is concerned with maximizing the true positives to false negatives ratio. In other words, for the events that occurred, how many did we predict? Example: <span class="math inline">\(\frac{TP}{TP + FN} = \frac{34}{34+38} = 0.472\)</span>. <strong>Objective: maximize</strong></p></li>
+<li><p><strong>Specificity</strong>: How accurately does the classifier classify actual non-events? The specificity measures the proportion of negatives that are correctly identified as negatives. Example: <span class="math inline">\(\frac{TN}{TN + FP} = \frac{353}{353+17} = 0.954\)</span>. <strong>Objective: maximize</strong></p></li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>predict_and_actuals <span class="ot">&lt;-</span> logit <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">predict</span>(test_strat) <span class="sc">%&gt;%</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">bind_cols</span>(test_strat <span class="sc">%&gt;%</span> <span class="fu">select</span>(Attrition))</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># accuracy</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>predict_and_actuals <span class="sc">%&gt;%</span> <span class="fu">accuracy</span>(<span class="at">truth =</span> Attrition, <span class="at">estimate =</span> .pred_class)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 × 3</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="do">##   .metric  .estimator .estimate</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt;</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 accuracy binary         0.876</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="co"># precision</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>predict_and_actuals <span class="sc">%&gt;%</span> <span class="fu">precision</span>(<span class="at">truth =</span> Attrition, <span class="at">estimate =</span> .pred_class)</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 × 3</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="do">##   .metric   .estimator .estimate</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;     &lt;chr&gt;          &lt;dbl&gt;</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 precision binary         0.667</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a><span class="co"># recall</span></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>predict_and_actuals <span class="sc">%&gt;%</span> <span class="fu">sensitivity</span>(<span class="at">truth =</span> Attrition, <span class="at">estimate =</span> .pred_class)</span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 × 3</span></span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a><span class="do">##   .metric     .estimator .estimate</span></span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;       &lt;chr&gt;          &lt;dbl&gt;</span></span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 sensitivity binary         0.472</span></span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a><span class="co"># specificity</span></span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>predict_and_actuals <span class="sc">%&gt;%</span> <span class="fu">specificity</span>(<span class="at">truth =</span> Attrition, <span class="at">estimate =</span> .pred_class)</span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 × 3</span></span>
+<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a><span class="do">##   .metric     .estimator .estimate</span></span>
+<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;       &lt;chr&gt;          &lt;dbl&gt;</span></span>
+<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 specificity binary         0.954</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Our results show that our model has high accuracy, which is mainly driven by our model’s ability to predict non-events (employees that do not attrit) accurately. However, our model does not do a very good job of predicting positive events (employees that do attrit), represented by the low precision and sensitivity values.</p>
+<p>A good binary classifier will have high precision and sensitivity. This means the classifier does well when it predicts an event will and will not occur, which minimizes false positives and false negatives. To capture this balance, we often use a <strong><em>receiver operator curve</em></strong> (ROC) that plots the sensitivity on the y-axis and 1-specificity on the x-axis. A line that is diagonal from the lower left corner to the upper right corner represents a random guess. The higher the line is in the upper left-hand corner, the better.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-modeling-process-roc" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="02-modeling-process_files/figure-html/fig-modeling-process-roc-1.png" class="img-fluid figure-img" width="480"></p>
+<figcaption class="figure-caption">Figure&nbsp;2.4: ROC curve.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>To plot the ROC curve we actually need to predict the probability of our classification model’s prediction. We then pass the predicted probabilities for the class we care about (here we are concerned with the probability of employees actually attriting) and the truth values to <code>roc_curve</code>.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>logit <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">predict</span>(test_strat, <span class="at">type =</span> <span class="st">"prob"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">bind_cols</span>(test_strat <span class="sc">%&gt;%</span> <span class="fu">select</span>(Attrition)) <span class="sc">%&gt;%</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">roc_curve</span>(<span class="at">truth =</span> Attrition, .pred_Yes) <span class="sc">%&gt;%</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>   <span class="fu">autoplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="02-modeling-process_files/figure-html/logit-model-predicted-probabilities-modeling-process-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Another common metric is the <strong><em>area under the curve</em></strong> (AUC). Generally, an ROC AUC value is between 0.5 and 1, with 1 being a perfect prediction model. If your value is between 0 and 0.5, then this implies that you have meaningful information in your model, but it is being applied incorrectly because doing the opposite of what the model predicts would result in an AUC &gt; 0.5. The benefit of the AUC metric is that it gives us a single metric value that incorporates both sensitivity and specificity of our model. The higher the AUC value, the more balanced our model is.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>logit <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">predict</span>(test_strat, <span class="at">type =</span> <span class="st">"prob"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">bind_cols</span>(test_strat <span class="sc">%&gt;%</span> <span class="fu">select</span>(Attrition)) <span class="sc">%&gt;%</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">roc_auc</span>(<span class="at">truth =</span> Attrition, .pred_Yes)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 × 3</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   .metric .estimator .estimate</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 roc_auc binary         0.835</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="knowledge-check-3" class="level3" data-number="2.5.3">
+<h3 data-number="2.5.3" class="anchored" data-anchor-id="knowledge-check-3"><span class="header-section-number">2.5.3</span> Knowledge check</h3>
+<div class="callout callout-style-simple callout-caution no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<ol type="1">
+<li>Compute and compare the <span class="math inline">\(R^2\)</span> of the <code>lm_ols</code> and <code>knn</code> models trained in <a href="#sec-building-models"><span>Section&nbsp;2.3</span></a>.</li>
+<li>Now compute the accuracy rate and AUC of the <code>simple_logit</code> model trained in <a href="#sec-building-models"><span>Section&nbsp;2.3</span></a> and compare it to the <code>logit</code> model trained in <a href="#sec-classification-models"><span>Section&nbsp;2.5.2</span></a>.</li>
+</ol>
+</div>
+</div>
+</div>
 </section>
 </section>
-<section id="bias-variance-trade-off" class="level2" data-number="2.5">
-<h2 data-number="2.5" class="anchored" data-anchor-id="bias-variance-trade-off"><span class="header-section-number">2.5</span> Bias variance trade-off</h2>
-<section id="bias" class="level3" data-number="2.5.1">
-<h3 data-number="2.5.1" class="anchored" data-anchor-id="bias"><span class="header-section-number">2.5.1</span> Bias</h3>
-</section>
-<section id="variance" class="level3" data-number="2.5.2">
-<h3 data-number="2.5.2" class="anchored" data-anchor-id="variance"><span class="header-section-number">2.5.2</span> Variance</h3>
-</section>
-<section id="hyperparameter-tuning" class="level3" data-number="2.5.3">
-<h3 data-number="2.5.3" class="anchored" data-anchor-id="hyperparameter-tuning"><span class="header-section-number">2.5.3</span> Hyperparameter tuning</h3>
-</section>
-</section>
-<section id="model-evaluation" class="level2" data-number="2.6">
-<h2 data-number="2.6" class="anchored" data-anchor-id="model-evaluation"><span class="header-section-number">2.6</span> Model evaluation</h2>
+<section id="exercises" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="exercises"><span class="header-section-number">2.6</span> Exercises</h2>
+<div class="callout callout-style-simple callout-caution no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>For this exercise use the Chicago ridership data set provided by the modeldata library.<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>. This data set is derived from <span class="citation" data-cites="kuhn2019feature">Kuhn and Johnson (<a href="references.html#ref-kuhn2019feature" role="doc-biblioref">2019</a>)</span> and contains an abbreviated training set for modeling the number of people (in thousands) who enter the Clark and Lake L station. The objective is to use the available features (i.e.&nbsp;<code>temp</code> (temparature), <code>wind</code> (wind speed), <code>Bulls_Home</code> (is there a Chicago Bulls game at home), etc. to predict the the number of people (in thousands) represented by the <code>ridership</code> column.</p>
+<p>Modeling tasks:</p>
+<ol type="1">
+<li>Load the Chicago ridership data set and remove the <code>date</code> column.</li>
+<li>Split the data into a training set and test set using a 70-30% split.</li>
+<li>How many observations are in the training set and test set?</li>
+<li>Compare the distribution of <code>ridership</code> between the training set and test set.</li>
+<li>Fit a linear regression model using all available features to predict <code>ridership</code> and compute the RMSE on the test data.</li>
+<li>Fit a K-nearest neighbor model that uses all available features to predict <code>ridership</code> and compute the RMSE on the test data.</li>
+<li>How do these models compare?</li>
+</ol>
+</div>
+</div>
+</div>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-breiman2001statistical" class="csl-entry" role="listitem">
+Breiman, Leo et al. 2001. <span>“Statistical Modeling: The Two Cultures (with Comments and a Rejoinder by the Author).”</span> <em>Statistical Science</em> 16 (3): 199–231.
+</div>
+<div id="ref-buckland1994relationship" class="csl-entry" role="listitem">
+Buckland, Michael, and Fredric Gey. 1994. <span>“The Relationship Between Recall and Precision.”</span> <em>Journal of the American Society for Information Science</em> 45 (1): 12–19.
+</div>
 <div id="ref-chawla2002smote" class="csl-entry" role="listitem">
 Chawla, Nitesh V, Kevin W Bowyer, Lawrence O Hall, and W Philip Kegelmeyer. 2002. <span>“SMOTE: Synthetic Minority over-Sampling Technique.”</span> <em>Journal of Artificial Intelligence Research</em> 16: 321–57.
 </div>
 <div id="ref-apm" class="csl-entry" role="listitem">
 Kuhn, Max, and Kjell Johnson. 2013. <em>Applied Predictive Modeling</em>. Vol. 26. Springer.
+</div>
+<div id="ref-kuhn2019feature" class="csl-entry" role="listitem">
+———. 2019. <em>Feature Engineering and Selection: A Practical Approach for Predictive Models</em>. Chapman; Hall/CRC.
 </div>
 <div id="ref-wolpert1996lack" class="csl-entry" role="listitem">
 Wolpert, David H. 1996. <span>“The Lack of a Priori Distinctions Between Learning Algorithms.”</span> <em>Neural Computation</em> 8 (7): 1341–90.
@@ -629,6 +923,9 @@ Wolpert, David H. 1996. <span>“The Lack of a Priori Distinctions Between Learn
 <li id="fn2"><p>https://themis.tidymodels.org<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p>https://parsnip.tidymodels.org<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p><code>lm()</code> is the built in function provided by R to perform ordinary least squares regression. You can learn more about it by checking out the help docs with <code>?lm</code>.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>This deviates slightly from the usual definition of MSE in ordinary linear regression, where we divide by <span class="math inline">\(n-p\)</span> (to adjust for bias) as opposed to <span class="math inline">\(n\)</span>.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>See this StackExchange thread (http://bit.ly/what-is-deviance) for a good overview of deviance for different models and in the context of regression versus classification.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>See more details at https://modeldata.tidymodels.org/reference/Chicago.html<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
