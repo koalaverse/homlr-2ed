@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 /* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
@@ -82,6 +116,8 @@ div.csl-indent {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -187,7 +223,36 @@ div.csl-indent {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link active" data-scroll-target="#prerequisites"><span class="header-section-number">2.1</span> Prerequisites</a></li>
+  <li><a href="#splitting" id="toc-splitting" class="nav-link" data-scroll-target="#splitting"><span class="header-section-number">2.2</span> Data splitting</a>
+  <ul class="collapse">
+  <li><a href="#simple-random-sampling" id="toc-simple-random-sampling" class="nav-link" data-scroll-target="#simple-random-sampling"><span class="header-section-number">2.2.1</span> Simple random sampling</a></li>
+  <li><a href="#stratified-sampling" id="toc-stratified-sampling" class="nav-link" data-scroll-target="#stratified-sampling"><span class="header-section-number">2.2.2</span> Stratified sampling</a></li>
+  <li><a href="#class-imbalances" id="toc-class-imbalances" class="nav-link" data-scroll-target="#class-imbalances"><span class="header-section-number">2.2.3</span> Class imbalances</a></li>
+  <li><a href="#knowledge-check" id="toc-knowledge-check" class="nav-link" data-scroll-target="#knowledge-check"><span class="header-section-number">2.2.4</span> Knowledge check</a></li>
+  </ul></li>
+  <li><a href="#building-models" id="toc-building-models" class="nav-link" data-scroll-target="#building-models"><span class="header-section-number">2.3</span> Building models</a>
+  <ul class="collapse">
+  <li><a href="#knowledge-check-1" id="toc-knowledge-check-1" class="nav-link" data-scroll-target="#knowledge-check-1"><span class="header-section-number">2.3.1</span> Knowledge check</a></li>
+  </ul></li>
+  <li><a href="#resampling-methods" id="toc-resampling-methods" class="nav-link" data-scroll-target="#resampling-methods"><span class="header-section-number">2.4</span> Resampling methods</a>
+  <ul class="collapse">
+  <li><a href="#k-fold-cross-validation" id="toc-k-fold-cross-validation" class="nav-link" data-scroll-target="#k-fold-cross-validation"><span class="header-section-number">2.4.1</span> <em>k</em>-fold cross validation</a></li>
+  <li><a href="#sec-bootstrapping" id="toc-sec-bootstrapping" class="nav-link" data-scroll-target="#sec-bootstrapping"><span class="header-section-number">2.4.2</span> Bootstrapping</a></li>
+  </ul></li>
+  <li><a href="#bias-variance-trade-off" id="toc-bias-variance-trade-off" class="nav-link" data-scroll-target="#bias-variance-trade-off"><span class="header-section-number">2.5</span> Bias variance trade-off</a>
+  <ul class="collapse">
+  <li><a href="#bias" id="toc-bias" class="nav-link" data-scroll-target="#bias"><span class="header-section-number">2.5.1</span> Bias</a></li>
+  <li><a href="#variance" id="toc-variance" class="nav-link" data-scroll-target="#variance"><span class="header-section-number">2.5.2</span> Variance</a></li>
+  <li><a href="#hyperparameter-tuning" id="toc-hyperparameter-tuning" class="nav-link" data-scroll-target="#hyperparameter-tuning"><span class="header-section-number">2.5.3</span> Hyperparameter tuning</a></li>
+  </ul></li>
+  <li><a href="#model-evaluation" id="toc-model-evaluation" class="nav-link" data-scroll-target="#model-evaluation"><span class="header-section-number">2.6</span> Model evaluation</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/koalaverse/homlr-2ed/edit/main/02-modeling-process.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/koalaverse/homlr-2ed/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -232,17 +297,338 @@ div.csl-indent {
 </div>
 </div>
 </div>
+<section id="prerequisites" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="prerequisites"><span class="header-section-number">2.1</span> Prerequisites</h2>
+<p>This chapter leverages the following packages.</p>
+<div class="cell" data-layout-align="center" data-hash="02-modeling-process_cache/html/ch2-library-imports_8e9f43306391cfbda18d2b347e7edf05">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Helper packages</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)     <span class="co"># for data manipulation</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)   <span class="co"># for awesome graphics</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Modeling process packages</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modeldata)  <span class="co"># accessing data</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels) <span class="co"># for modeling procedures</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To illustrate some of the concepts, we’ll use the Ames Housing and employee attrition data sets introduced in <a href="01-intro.html#sec-data-intro"><span>Section&nbsp;1.5</span></a>.</p>
+<div class="cell" data-layout-align="center" data-hash="02-modeling-process_cache/html/ch2-data-import_05580f0bc8c4728e4aabaf4afb8dae2f">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ames housing data</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>ames <span class="ot">&lt;-</span> modeldata<span class="sc">::</span>ames</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Job attrition data</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>attrition <span class="ot">&lt;-</span> modeldata<span class="sc">::</span>attrition</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="splitting" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="splitting"><span class="header-section-number">2.2</span> Data splitting</h2>
+<p>A major goal of the machine learning process is to find an algorithm <span class="math inline">\(f\left(X\right)\)</span> that most accurately predicts future values (<span class="math inline">\(\hat{Y}\)</span>) based on a set of features (<span class="math inline">\(X\)</span>). In other words, we want an algorithm that not only fits well to our past data, but more importantly, one that predicts a future outcome accurately. This is called the <strong><em>generalizability</em></strong> of our algorithm. How we “spend” our data will help us understand how well our algorithm generalizes to unseen data.</p>
+<p>To provide an accurate understanding of the generalizability of our final optimal model, we can split our data into training and test data sets:</p>
+<ul>
+<li><strong>Training set</strong>: these data are used to develop feature sets, train our algorithms, tune hyperparameters, compare models, and all of the other activities required to choose a final model (e.g., the model we want to put into production).</li>
+<li><strong>Test set</strong>: having chosen a final model, these data are used to estimate an unbiased assessment of the model’s performance, which we refer to as the <em>generalization error</em>.</li>
+</ul>
+<div class="callout callout-style-simple callout-warning">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>It is critical that the test set not be used prior to selecting your final model. Assessing results on the test set prior to final model selection biases the model selection process since the testing data will have become part of the model development process.</p>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center" data-hash="02-modeling-process_cache/html/fig-data-splitting-modeling-process_c402b2827c8b89800225c04ccaf5eced">
+<div class="cell-output-display">
+<div id="fig-data-splitting-modeling-process" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/data_split.png" class="img-fluid figure-img" width="112"></p>
+<figcaption class="figure-caption">Figure&nbsp;2.2: Splitting data into training and test sets..</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Given a fixed amount of data, typical recommendations for splitting your data into training-test splits include 60% (training)–40% (testing), 70%–30%, or 80%–20%. Generally speaking, these are appropriate guidelines to follow; however, it is good to keep the following points in mind:</p>
+<ul>
+<li>Spending too much in training (e.g., <span class="math inline">\(&gt;80\%\)</span>) won’t allow us to get a good assessment of predictive performance. We may find a model that fits the training data very well, but is not generalizable (<em>overfitting</em>).</li>
+<li>Sometimes too much spent in testing (<span class="math inline">\(&gt;40\%\)</span>) won’t allow us to get a good assessment of model parameters.</li>
+</ul>
+<p>Other factors should also influence the allocation proportions. For example, very large training sets (e.g., <span class="math inline">\(n &gt; 100\texttt{K}\)</span>) often result in only marginal gains compared to smaller sample sizes. Consequently, you may use a smaller training sample to increase computation speed (e.g., models built on larger training sets often take longer to score new data sets in production). In contrast, as <span class="math inline">\(p \geq n\)</span> (where <span class="math inline">\(p\)</span> represents the number of features), larger samples sizes are often required to identify consistent signals in the features.</p>
+<p>The two most common ways of splitting data include <strong><em>simple random sampling</em></strong> and <strong><em>stratified sampling</em></strong>.</p>
+<section id="simple-random-sampling" class="level3" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="simple-random-sampling"><span class="header-section-number">2.2.1</span> Simple random sampling</h3>
+<p>The simplest way to split the data into training and test sets is to take a simple random sample. This does not control for any data attributes, such as the distribution of your response variable (<span class="math inline">\(Y\)</span>).</p>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Sampling is a random process so setting the random number generator with a common seed allows for reproducible results. Throughout this course we’ll often use the seed <code>123</code> for reproducibility but the number itself has no special meaning.</p>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center" data-hash="02-modeling-process_cache/html/data-splitting-modeling-process_56b897bca4ee9bbd73244e87ac5ec235">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create train/test split</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)  <span class="co"># for reproducibility</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>split  <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(ames, <span class="at">prop =</span> <span class="fl">0.7</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>train  <span class="ot">&lt;-</span> <span class="fu">training</span>(split)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>test   <span class="ot">&lt;-</span> <span class="fu">testing</span>(split)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># dimensions of training data</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(train)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 2051   74</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># dimensions of test data</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(test)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 879  74</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>With sufficient sample size, this sampling approach will typically result in a similar distribution of <span class="math inline">\(Y\)</span> (e.g., <code>Sale_Price</code> in the <code>ames</code> data) between your <font color="blue">training</font> and <font color="red">test</font> sets, as illustrated below.</p>
+<div class="cell" data-layout-align="center" data-hash="02-modeling-process_cache/html/data-split-density-plot-modeling-process_aba88b9a304044f31846a51c397eb5ef">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>train <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id =</span> <span class="st">'train'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(test <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">id =</span> <span class="st">'test'</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Sale_Price, <span class="at">color =</span> id)) <span class="sc">+</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="02-modeling-process_files/figure-html/data-split-density-plot-modeling-process-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="stratified-sampling" class="level3" data-number="2.2.2">
+<h3 data-number="2.2.2" class="anchored" data-anchor-id="stratified-sampling"><span class="header-section-number">2.2.2</span> Stratified sampling</h3>
+<p>If we want to explicitly control the sampling so that our training and test sets have similar <span class="math inline">\(Y\)</span> distributions, we can use stratified sampling. This is more common with classification problems where the response variable may be severely imbalanced (e.g., 90% of observations with response “Yes” and 10% with response “No”). However, we can also apply stratified sampling to regression problems for data sets that have a small sample size and where the response variable deviates strongly from normality (i.e., positively skewed like <code>Sale_Price</code>). With a continuous response variable, stratified sampling will segment <span class="math inline">\(Y\)</span> into quantiles and randomly sample from each. Consequently, this will help ensure a balanced representation of the response distribution in both the training and test sets.</p>
+<p>To perform stratified sampling we simply apply the <code>strata</code> argument in <code>initial_split</code>.</p>
+<div class="cell" data-layout-align="center" data-hash="02-modeling-process_cache/html/data-splitting-attrition-modeling-process_2838a2944a24310a226de48248d0b539">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>split_strat <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(attrition, <span class="at">prop =</span> <span class="fl">0.7</span>, <span class="at">strata =</span> <span class="st">"Attrition"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>train_strat <span class="ot">&lt;-</span> <span class="fu">training</span>(split_strat)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>test_strat  <span class="ot">&lt;-</span> <span class="fu">testing</span>(split_strat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The following illustrates that in our original employee attrition data we have an imbalanced response (No: 84%, Yes: 16%). By enforcing stratified sampling, both our training and testing sets have approximately equal response distributions.</p>
+<div class="cell" data-layout-align="center" data-hash="02-modeling-process_cache/html/data-splitting-attrition-results-modeling-process_019bc0b38b1493f7d5f2b42fa2e85089">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># original response distribution</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(attrition<span class="sc">$</span>Attrition) <span class="sc">%&gt;%</span> <span class="fu">prop.table</span>()</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="do">##        No       Yes </span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 0.8387755 0.1612245</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># response distribution for training data</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(train_strat<span class="sc">$</span>Attrition) <span class="sc">%&gt;%</span> <span class="fu">prop.table</span>()</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="do">##        No       Yes </span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 0.8394942 0.1605058</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co"># response distribution for test data</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(test_strat<span class="sc">$</span>Attrition) <span class="sc">%&gt;%</span> <span class="fu">prop.table</span>()</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="do">##        No       Yes </span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="do">## 0.8371041 0.1628959</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-simple callout-tip">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>There is very little downside to using stratified sampling so when trying to decide if you should use random sampling versus stratified sampling, error on the side of safety with stratified sampling.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="class-imbalances" class="level3" data-number="2.2.3">
+<h3 data-number="2.2.3" class="anchored" data-anchor-id="class-imbalances"><span class="header-section-number">2.2.3</span> Class imbalances</h3>
+<p>Imbalanced data can have a significant impact on model predictions and performance <span class="citation" data-cites="apm">(<a href="references.html#ref-apm" role="doc-biblioref">Kuhn and Johnson 2013</a>)</span>. Most often this involves classification problems where one class has a very small proportion of observations (e.g., defaults - 5% versus nondefaults - 95%). Several sampling methods have been developed to help remedy class imbalance and most of them can be categorized as either <em>up-sampling</em> or <em>down-sampling</em>.</p>
+<p>Down-sampling balances the dataset by reducing the size of the abundant class(es) to match the frequencies in the least prevalent class. This method is used when the quantity of data is sufficient. By keeping all samples in the rare class and randomly selecting an equal number of samples in the abundant class, a balanced new dataset can be retrieved for further modeling. Furthermore, the reduced sample size reduces the computation burden imposed by further steps in the ML process.</p>
+<p>On the contrary, up-sampling is used when the quantity of data is insufficient. It tries to balance the dataset by increasing the size of rarer samples. Rather than getting rid of abundant samples, new rare samples are generated by using repetition or bootstrapping (described further in <a href="#sec-bootstrapping"><span>Section&nbsp;2.4.2</span></a>).</p>
+<p>Note that there is no absolute advantage of one sampling method over another. Application of these two methods depends on the use case it applies to and the data set itself. A combination of over- and under-sampling is often successful and a common approach is known as Synthetic Minority Over-Sampling Technique, or SMOTE <span class="citation" data-cites="chawla2002smote">(<a href="references.html#ref-chawla2002smote" role="doc-biblioref">Chawla et al. 2002</a>)</span>. This alternative sampling approach, as well as others, can be implemented in R with the <strong>themis</strong> package<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>, which provides additional sampling procedures on top of the <strong>rsample</strong> package.</p>
+</section>
+<section id="knowledge-check" class="level3" data-number="2.2.4">
+<h3 data-number="2.2.4" class="anchored" data-anchor-id="knowledge-check"><span class="header-section-number">2.2.4</span> Knowledge check</h3>
+<div class="callout callout-style-simple callout-caution no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<ol type="1">
+<li>Import the penguins data from the <strong>modeldata</strong> package</li>
+<li>Create a 70-30 stratified train-test split (<code>species</code> is the target variable).</li>
+<li>What are the response variable proportions for the train and test data sets?</li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="building-models" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="building-models"><span class="header-section-number">2.3</span> Building models</h2>
+<p>The R ecosystem provides a wide variety of ML algorithm implementations. This makes many powerful algorithms available at your fingertips. Moreover, there are almost always more than one package to perform each algorithm (e.g., there are over 20 packages for fitting random forests). There are pros and cons to this wide selection; some implementations may be more computationally efficient while others may be more flexible. This also has resulted in some drawbacks as there are inconsistencies in how algorithms allow you to define the formula of interest and how the results and predictions are supplied.</p>
+<p>Fortunately, the tidymodels ecosystem simplifies this and, in particular, the <a href="https://parsnip.tidymodels.org/index.html"><strong>parsnip</strong></a> package<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> provides one common interface to train many different models supplied by other packages. Consequently, we’ll focus on building models the tidymodels way.</p>
+<p>To create and fit a model with parsnip we follow 3 steps:</p>
+<ol type="1">
+<li>Create a model type</li>
+<li>Choose an “engine”</li>
+<li>Fit our model</li>
+</ol>
+<p>Let’s illustrate by building a linear regression model. For our first model we will simply use two features from our training data - total square feet of the home (<code>Gr_Liv_Area</code>) and year built (<code>Year_Built</code>) to predict the sale price (<code>Sale_Price</code>).</p>
+<div class="callout callout-style-simple callout-tip">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>We can use <code>tidy()</code> to get results of our model’s parameter estimates and their statistical properties. Although the <code>summary()</code> function can provide this output, it gives the results back in an unwieldy format. Go ahead, and run <code>summary(lm_ols)</code> to compare the results to what we see below.</p>
+<p>Many models have a <code>tidy()</code> method that provides the summary results in a more predictable and useful format (e.g.&nbsp;a data frame with standard column names)</p>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center" data-hash="02-modeling-process_cache/html/first-model-modeling-process_8b832994f3bcbf2e0dddea94274f65c0">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>lm_ols <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">fit</span>(Sale_Price <span class="sc">~</span> Gr_Liv_Area <span class="sc">+</span> Year_Built, <span class="at">data =</span> train)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(lm_ols)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 3 × 5</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   term          estimate std.error statistic   p.value</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;            &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 (Intercept) -2157423.   69234.       -31.2 8.09e-175</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 Gr_Liv_Area       94.4      2.12      44.4 2.54e-302</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 Year_Built      1114.      35.5       31.4 5.30e-177</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Don’t worry about what these parameters mean at this point; we’ll cover these details in a future chapter.</p>
+</div>
+</div>
+</div>
+<p>Now, you may have noticed that we only applied two of the three steps mentioned previously:</p>
+<ol type="1">
+<li>Create a model type</li>
+<li><del>Choose an “engine”</del></li>
+<li>Fit our model</li>
+</ol>
+<p>The reason is because most model objects (<code>linear_reg()</code> in this example) have a default engine. <code>linear_reg()</code> by default uses <code>stats::lm</code> for ordinary least squares.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> But we can always change the engine. For example, say you wanted to use <strong>keras</strong> to perform gradient descent linear regression, then you could change the engine to <strong>keras</strong> but use the same code workflow.</p>
+<div class="callout callout-style-simple callout-warning">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>For this code to run successfully on your end you need to have the <strong>keras</strong> and <strong>tensorflow</strong> packages installed on your machine. Depending on your current setup this could be an easy process or you could run into problems. If you run into problems don’t fret, this is primarily just to illustrate how we can change engines.</p>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center" data-hash="02-modeling-process_cache/html/first-model-keras-modeling-process_9079debbbf7f6ca271cf9ac60ac20c0d">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>lm_sgd <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">set_engine</span>(<span class="st">'keras'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">fit</span>(Sale_Price <span class="sc">~</span> Gr_Liv_Area <span class="sc">+</span> Year_Built, <span class="at">data =</span> train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-simple callout-tip">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>When we talk about ‘engines’ we’re really just referring to packages that provide the desired algorithm. Each model object has different engines available to use and they are all documented. For example check out the help file for <code>linear_reg</code> (<code>?linear_reg</code>) and you’ll see the different engines available (lm, brulee, glm, glmnet, etc.)</p>
+</div>
+</div>
+</div>
+<p>The beauty of this workflow is that if we want to explore different models we can simply change the model object. For example, say we wanted to run a K-nearest neighbor model. We can just use <code>nearest_neighbor()</code>.</p>
+<p>In this example we have pretty much the same code as above except we added the line of code <code>set_mode()</code>. This is because most algorithms require you to specify if you are building a regression model or a classification model.</p>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>When you run this code you’ll probably get an error message saying that <em>“This engine requires some package installs: ‘kknn’.”</em> This just means you need to <code>install.packages('kknn')</code> and then you should be able to successfully run this code.</p>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center" data-hash="02-modeling-process_cache/html/unnamed-chunk-11_9bd526173617515bd04261b87e74eb45">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>knn <span class="ot">&lt;-</span> <span class="fu">nearest_neighbor</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">set_engine</span>(<span class="st">"kknn"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">set_mode</span>(<span class="st">"regression"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">fit</span>(Sale_Price <span class="sc">~</span> Gr_Liv_Area <span class="sc">+</span> Year_Built, <span class="at">data =</span> train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-simple callout-tip">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>You can see all the different model objects available at https://parsnip.tidymodels.org/reference/index.html</p>
+</div>
+</div>
+</div>
+<section id="knowledge-check-1" class="level3" data-number="2.3.1">
+<h3 data-number="2.3.1" class="anchored" data-anchor-id="knowledge-check-1"><span class="header-section-number">2.3.1</span> Knowledge check</h3>
+<div class="callout callout-style-simple callout-caution no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<ol type="1">
+<li>If you haven’t already done so, create a 70-30 stratified train-test split on the <code>attrition</code> data (note: <code>Attrition</code> is the response variable).</li>
+<li>Using the <code>logistic_reg()</code> model object, fit a model using <code>Age</code>, <code>DistanceFromHome</code>, and <code>JobLevel</code> as the features.</li>
+<li>Now train a K-nearest neighbor model using the ‘kknn’ engine and be sure to set the mode to be a classification model.</li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="resampling-methods" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="resampling-methods"><span class="header-section-number">2.4</span> Resampling methods</h2>
+<section id="k-fold-cross-validation" class="level3" data-number="2.4.1">
+<h3 data-number="2.4.1" class="anchored" data-anchor-id="k-fold-cross-validation"><span class="header-section-number">2.4.1</span> <em>k</em>-fold cross validation</h3>
+</section>
+<section id="sec-bootstrapping" class="level3" data-number="2.4.2">
+<h3 data-number="2.4.2" class="anchored" data-anchor-id="sec-bootstrapping"><span class="header-section-number">2.4.2</span> Bootstrapping</h3>
+</section>
+</section>
+<section id="bias-variance-trade-off" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="bias-variance-trade-off"><span class="header-section-number">2.5</span> Bias variance trade-off</h2>
+<section id="bias" class="level3" data-number="2.5.1">
+<h3 data-number="2.5.1" class="anchored" data-anchor-id="bias"><span class="header-section-number">2.5.1</span> Bias</h3>
+</section>
+<section id="variance" class="level3" data-number="2.5.2">
+<h3 data-number="2.5.2" class="anchored" data-anchor-id="variance"><span class="header-section-number">2.5.2</span> Variance</h3>
+</section>
+<section id="hyperparameter-tuning" class="level3" data-number="2.5.3">
+<h3 data-number="2.5.3" class="anchored" data-anchor-id="hyperparameter-tuning"><span class="header-section-number">2.5.3</span> Hyperparameter tuning</h3>
+</section>
+</section>
+<section id="model-evaluation" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="model-evaluation"><span class="header-section-number">2.6</span> Model evaluation</h2>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-chawla2002smote" class="csl-entry" role="listitem">
+Chawla, Nitesh V, Kevin W Bowyer, Lawrence O Hall, and W Philip Kegelmeyer. 2002. <span>“SMOTE: Synthetic Minority over-Sampling Technique.”</span> <em>Journal of Artificial Intelligence Research</em> 16: 321–57.
+</div>
+<div id="ref-apm" class="csl-entry" role="listitem">
+Kuhn, Max, and Kjell Johnson. 2013. <em>Applied Predictive Modeling</em>. Vol. 26. Springer.
+</div>
 <div id="ref-wolpert1996lack" class="csl-entry" role="listitem">
 Wolpert, David H. 1996. <span>“The Lack of a Priori Distinctions Between Learning Algorithms.”</span> <em>Neural Computation</em> 8 (7): 1341–90.
 </div>
 </div>
+</section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn1"><p>See https://www.fatml.org/resources/relevant-scholarship for many discussions regarding implications of poorly applied and interpreted ML.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>https://themis.tidymodels.org<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>https://parsnip.tidymodels.org<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p><code>lm()</code> is the built in function provided by R to perform ordinary least squares regression. You can learn more about it by checking out the help docs with <code>?lm</code>.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
@@ -496,4 +882,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/koalaverse/homlr-2ed/edit/main/02-modeling-process.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/koalaverse/homlr-2ed/issues/new" class="toc-action">Report an issue</a></p></div></div></div></div></footer></body></html>
+</body></html>
