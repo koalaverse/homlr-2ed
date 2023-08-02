@@ -17,6 +17,7 @@ Imports:
   modeldata,
   pdp,
   plotly,
+  plotROC,
   rmarkdown,
   rsvg,
   sessioninfo,
