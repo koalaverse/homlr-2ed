@@ -34,10 +34,10 @@ jobs:
       - name: Install R packages
         uses: r-lib/actions/setup-r-dependencies@v2
 
-      - name: Install tensorflow
+      - name: Install keras and tensorflow
         run: |
-          library(tensorflow)
-          install_tensorflow()
+          library(keras)
+          install_keras(envname = "r-reticulate")
         shell: Rscript {0}
 
       - name: Install webshot dependency
