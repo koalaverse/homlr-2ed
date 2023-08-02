@@ -1,4 +1,4 @@
-# Modeling Process
+# First model with Tidymodels
 
 ```{r}
 #| label: setup
@@ -8,15 +8,14 @@ knitr::opts_chunk$set(
   fig.align = "center",
   message = FALSE,
   warning = FALSE,
-  collapse = TRUE,
-  cache = TRUE
+  collapse = TRUE
 )
 
 library(tidyverse)
 # Set the graphical theme
 theme_set(theme_light())
 ```
-Much like EDA, the ML process is very iterative and heurstic-based. With minimal knowledge
+Much like EDA, the ML process is very iterative and heuristic-based. With minimal knowledge
 of the problem or data at hand, it is difficult to know which ML method will perform best.
 This is known as the _no free lunch_\index{no free lunch} theorem for ML [@wolpert1996lack].
 Consequently, it is common for many ML approaches to be applied, evaluated, and modified
@@ -46,14 +45,7 @@ Before introducing specific algorithms, this chapter, and the next, introduce co
 that are fundamental to the ML modeling process and that you’ll see briskly covered in
 future modeling chapters. More specifically, this chapter is designed to get you acquainted
 with building predictive models using the [Tidymodels](https://www.tidymodels.org/) construct.
-We'll focus on the process of splitting our data and applying resampling procedures for
-improved generalizability, training a basic model, tuning a model's hyperparameter(s),
-and, finally, evaluating a model's performance.
-
-::: {.callout-note}
-Although the discussions in this chapter focus on supervised ML modeling, many of the topics
-also apply to unsupervised methods.
-:::
+We'll focus on the process of splitting our data for improved generalizability, using Tidymodel’s parsnip package for constructing our models, along with yardstick to measure model performance. Future chapters will build upon these concepts by focusing on other parts of the machine learning process illustrated above such as applying resampling procedures to give you a more robust assessment of model performance and performing hyperparameter tuning to control the complexity of machine learning algorithms.
 
 ## Prerequisites
 
@@ -78,7 +70,8 @@ To illustrate some of the concepts, we’ll use the Ames Housing and employee at
 ames <- modeldata::ames
 
 # Job attrition data
-attrition <- modeldata::attrition
+attrition <- modeldata::attrition %>%
+   mutate(Attrition = fct_relevel(Attrition, "Yes"))
 ```
 
 ## Data splitting {#splitting}
@@ -98,6 +91,8 @@ It is critical that the test set not be used prior to selecting your final model
 #| label: fig-data-splitting-modeling-process
 #| fig.cap: "Splitting data into training and test sets.."
 #| echo: FALSE
+#| out.height: "30%"
+#| out.width: "30%"
 knitr::include_graphics("figures/data_split.png")
 ```
 
@@ -201,7 +196,7 @@ Note that there is no absolute advantage of one sampling method over another. Ap
 3. What are the response variable proportions for the train and test data sets?
 :::
 
-## Building models
+## Building models {#sec-building-models}
 
 The R ecosystem provides a wide variety of ML algorithm implementations. This makes many powerful algorithms available at your fingertips. Moreover, there are almost always more than one package to perform each algorithm (e.g., there are over 20 packages for fitting random forests). There are pros and cons to this wide selection; some implementations may be more computationally efficient while others may be more flexible. This also has resulted in some drawbacks as there are inconsistencies in how algorithms allow you to define the formula of interest and how the results and predictions are supplied.
 
@@ -265,6 +260,7 @@ When you run this code you'll probably get an error message saying that _"This e
 :::
 
 ```{r}
+#| label: first-model-knn-modeling-process
 knn <- nearest_neighbor() %>%
    set_engine("kknn") %>%
    set_mode("regression") %>%
@@ -283,19 +279,247 @@ You can see all the different model objects available at https://parsnip.tidymod
 3. Now train a K-nearest neighbor model using the 'kknn' engine and be sure to set the mode to be a classification model.
 :::
 
-## Resampling methods
+## Making predictions
 
-### _k_-fold cross validation
+We have fit a few different models. Now, if we want to see our predictions we can simply apply `predict()` and feed it the data set we want to make predictions on. Here, we can see the predictions made on our training data for our ordinary least square linear regression model.
 
-### Bootstrapping {#sec-bootstrapping}
+```{r}
+#| label: making-predictions-ols-modeling-process
+lm_ols %>% predict(train)
+```
+
+And here we get the predicted values for our KNN model.
+
+```{r}
+#| label: making-predictions-knn-modeling-process
+knn %>% predict(train)
+```
+
+A similar process can be applied to make predictions for a classification model. For example, the following trains a classification model that predicts whether an employee will attrit based on their age.  When we make predictions, the output is the predicted class (employee attrition is `Yes` or `No`).
+
+```{r}
+#| label: making-classification-predictions-modeling-process
+simple_logit <- logistic_reg() %>%
+   fit(Attrition ~ Age, data = train_strat)
+
+simple_logit %>% predict(train_strat)
+```
+
+In general, machine learning classifiers don’t just give binary predictions, but instead provide some numerical value between 0 and 1 for their predictions. This number, sometimes called the model score or confidence, is a way for the model to express their certainty about what class the input data belongs to. In most applications, the exact probability is ignored and we use a threshold (typically $\geq 0.5$) to round the score to a binary answer, yes or no, employee attrition or not attrition. But in some cases we do want the prediction probabilities and we can get those by adding `type = "prob"` to our `predict` call.
+
+```{r}
+#| label: making-classification-probabiliy-predictions-modeling-process
+simple_logit %>% predict(train_strat, type = "prob")
+```
 
 
-## Bias variance trade-off
+### Knowledge check
 
-### Bias
-
-### Variance
-
-### Hyperparameter tuning
+::: {.callout-caution icon=false}
+1. Using the logistic regression model you trained in the previous exercise, make predictions on the attrition training data.
+2. Now make predictions using the K-nearest neighbor model.
+:::
 
 ## Model evaluation
+
+Historically, the performance of statistical models was largely based on goodness-of-fit tests and assessment of residuals. Unfortunately, misleading conclusions may follow from predictive models that pass these kinds of assessments [@breiman2001statistical]. Today, it has become widely accepted that a more sound approach to assessing model performance is to assess the predictive accuracy via _loss functions_\index{loss functions}. Loss functions are metrics that compare the predicted values to the actual value (the output of a loss function is often referred to as the _error_ or pseudo _residual_).
+
+If we look at our predicted outputs for our ordinary least squares model, we can see that the predicted home value (`.pred`) was \$149,091 for the first observation and the actual home value was \$172,000, resulting in an error of nearly \$23,000. The objective of the loss function is to aggregate the prediction errors for all the observations into a meaningful single value metric.
+
+```{r}
+#| label: model-evaluation-actuals-vs-predicted-modeling-process
+lm_ols %>%
+   predict(test) %>%
+   bind_cols(test %>% select(Sale_Price)) %>%
+   mutate(prediction_error = Sale_Price - .pred)
+```
+
+There are many loss functions to choose from when assessing the performance of a predictive model, each providing a unique understanding of the predictive accuracy and differing between regression and classification models. Furthermore, the way a loss function is computed will tend to emphasize certain types of errors over others and can lead to drastic differences in how we interpret the "optimal model".  Its important to consider the problem context when identifying the preferred performance metric to use.  And when comparing multiple models, we need to compare them across the same metric.
+
+### Regression models
+
+The most common loss functions for regression models include:
+
+* __MSE__: Mean squared error\index{mean squared error} is the average of the squared error ($MSE = \frac{1}{n} \sum^n_{i=1}(y_i - \hat y_i)^2$)^[This deviates slightly from the usual definition of MSE in ordinary linear regression, where we divide by $n-p$ (to adjust for bias) as opposed to $n$.]. The squared component results in larger errors having larger penalties. __Objective: minimize__
+
+* __RMSE__: Root mean squared error\index{root mean squared error}.  This simply takes the square root of the MSE metric ($RMSE = \sqrt{\frac{1}{n} \sum^n_{i=1}(y_i - \hat y_i)^2}$) so that your error is in the same units as your response variable. If your response variable units are dollars, the units of MSE are dollars-squared, but the RMSE will be in dollars. __Objective: minimize__
+
+* __$R^2$__\index{R squared}: This is a popular metric that represents the proportion of the variance in the dependent variable that is predictable from the independent variable(s). Unfortunately, it has several limitations. For example, two models built from two different data sets could have the exact same RMSE but if one has less variability in the response variable then it would have a lower $R^2$ than the other. You should not place too much emphasis on this metric. __Objective: maximize__
+
+Let's compute the RMSE of our OLS regression model. Remember, we want to assess our model's performance on the test data not the training data since that gives us a better idea of how our model generalizes. To do so, the following:
+
+1. Makes predictions with our test data,
+2. Adds the actual `Sale_Price` values from our test data,
+3. Computes the RMSE.
+
+```{r}
+#| label: model-evaluation-ols-modeling-process
+lm_ols %>%
+   predict(test) %>%
+   bind_cols(test %>% select(Sale_Price)) %>%
+   rmse(truth = Sale_Price, estimate = .pred)
+```
+
+The RMSE value suggests that, on average, our model mispredicts the expected sale price of a home by about \$45K.
+
+Other common loss functions for regression models include:
+
+* __Deviance__: Short for mean residual deviance\index{deviance}. In essence, it provides a degree to which a model explains the variation in a set of data when using maximum likelihood estimation. Essentially this compares a saturated model (i.e. fully featured model) to an unsaturated model (i.e. intercept only or average). If the response variable distribution is Gaussian, then it will be approximately equal to MSE.  When not, it usually gives a more useful estimate of error. Deviance is often used with classification models. ^[See this StackExchange thread (http://bit.ly/what-is-deviance) for a good overview of deviance for different models and in the context of regression versus classification.] __Objective: minimize__
+
+* __MAE__: Mean absolute error\index{mean absolute error}. Similar to MSE but rather than squaring, it just takes the mean absolute difference between the actual and predicted values ($MAE = \frac{1}{n} \sum^n_{i=1}(\vert y_i - \hat y_i \vert)$). This results in less emphasis on larger errors than MSE. __Objective: minimize__
+
+* __RMSLE__: Root mean squared logarithmic error\index{root mean squared logarithmic error}. Similar to RMSE but it performs a `log()` on the actual and predicted values prior to computing the difference ($RMSLE = \sqrt{\frac{1}{n} \sum^n_{i=1}(log(y_i + 1) - log(\hat y_i + 1))^2}$). When your response variable has a wide range of values, large response values with large errors can dominate the MSE/RMSE metric. RMSLE minimizes this impact so that small response values with large errors can have just as meaningful of an impact as large response values with large errors. __Objective: minimize__
+
+### Classification models {#sec-classification-models}
+
+When applying classification models, we often use a _confusion matrix_\index{confusion matrix} to evaluate certain performance measures. A confusion matrix is simply a matrix that compares actual categorical levels (or events) to the predicted categorical levels. When we predict the right level, we refer to this as a _true positive_.  However, if we predict a level or event that did not happen this is called a _false positive_ (i.e. we predicted a customer would redeem a coupon and they did not). Alternatively, when we do not predict a level or event and it does happen that this is called a _false negative_ (i.e. a customer that we did not predict to redeem a coupon does).
+
+```{r}
+#| label: fig-modeling-process-confusion-matrix1
+#| fig.cap: "Confusion matrix and relationships to terms such as true-positive and false-negative."
+#| echo: FALSE
+#| out.height: "100%"
+#| out.width: "100%"
+knitr::include_graphics("figures/confusion-matrix.png")
+```
+
+Let's go ahead and create a logistic regression classification model with the attrition data.
+
+::: {.callout-tip}
+In R, using a "."" as in `Attrition ~ .` is a shortcut for saying use all available features to predict `Attrition`.
+:::
+
+```{r}
+#| label: logistic-regression-model
+logit <- logistic_reg() %>%
+   fit(Attrition ~ ., data = train_strat)
+```
+
+We can use `conf_mat()` to view the confusion matrix for this model. In essence, this confusion matrix shows that our model has 34 true positive predictions, 353 true negative predictions, 17 false negative predictions, and 38 false predictions.
+
+```{r}
+#| label: logistic-regression-confusion-matrix
+logit %>%
+   predict(test_strat) %>%
+   bind_cols(test_strat %>% select(Attrition)) %>%
+   conf_mat(truth = Attrition, estimate = .pred_class, dnn = c("Truth", "Prediction"))
+```
+
+::: {.callout-note}
+Depending on the software and libraries used, you may see the prediction summaries on the rows and the actual value summaries in the columns or vice versa. `conf_mat` allows us to control that with the `dnn` argument to control the table dimension names.
+:::
+
+This confusion matrix allows us to extract different levels of performance for our classification model. For example, we can assess:
+
+* __Accuracy__\index{accuracy}: Overall, how often is the classifier correct? Accuracy is the proportion of the data that are predicted correctly. Example: $\frac{TP + TN}{total} = \frac{34+353}{442} = 0.867$.  __Objective: maximize__
+
+* __Precision__\index{precision}: How accurately does the classifier predict events (or positive events)? This metric is concerned with maximizing the true positives to false positive ratio. In other words, for the number of predictions that we made, how many were correct? This characterizes the "purity in retrieval performance" [@buckland1994relationship].  Example: $\frac{TP}{TP + FP} = \frac{34}{34+17} = 0.667$.  __Objective: maximize__
+
+* __Sensitivity\index{sensitivity} (aka recall)__: How accurately does the classifier classify actual events? The sensitivity is defined as the proportion of positive results out of the number of samples which were actually positive. This metric is concerned with maximizing the true positives to false negatives ratio. In other words, for the events that occurred, how many did we predict?  Example: $\frac{TP}{TP + FN} = \frac{34}{34+38} = 0.472$.  __Objective: maximize__
+
+* __Specificity__\index{specificity}: How accurately does the classifier classify actual non-events? The specificity measures the proportion of negatives that are correctly identified as negatives. Example: $\frac{TN}{TN + FP} = \frac{353}{353+17} = 0.954$.  __Objective: maximize__
+
+```{r}
+#| label: logit-model-accuracy-modeling-process
+predict_and_actuals <- logit %>%
+   predict(test_strat) %>%
+   bind_cols(test_strat %>% select(Attrition))
+
+# accuracy
+predict_and_actuals %>% accuracy(truth = Attrition, estimate = .pred_class)
+
+# precision
+predict_and_actuals %>% precision(truth = Attrition, estimate = .pred_class)
+
+# recall
+predict_and_actuals %>% sensitivity(truth = Attrition, estimate = .pred_class)
+
+# specificity
+predict_and_actuals %>% specificity(truth = Attrition, estimate = .pred_class)
+```
+
+Our results show that our model has high accuracy, which is mainly driven by our model's ability to predict non-events (employees that do not attrit) accurately. However, our model does not do a very good job of predicting positive events (employees that do attrit), represented by the low precision and sensitivity values.
+
+A good binary classifier will have high precision and sensitivity. This means the classifier does well when it predicts an event will and will not occur, which minimizes false positives and false negatives. To capture this balance, we often use a ***receiver operator curve*** (ROC) that plots the sensitivity on the y-axis and 1-specificity on the x-axis. A line that is diagonal from the lower left corner to the upper right corner represents a random guess. The higher the line is in the upper left-hand corner, the better.
+
+```{r}
+#| label: fig-modeling-process-roc
+#| echo: FALSE
+#| fig.cap: "ROC curve."
+#| fig.height: 3.5
+#| fig.width: 5
+
+library(plotROC)
+
+# Generate data
+set.seed(123)
+response <- rbinom(200, size = 1, prob = .5)
+set.seed(123)
+curve1   <- rnorm(200, mean = response, sd = .40)
+set.seed(123)
+curve2   <- rnorm(200, mean = response, sd = .75)
+set.seed(123)
+curve3   <- rnorm(200, mean = response, sd = 2.0)
+
+df <- tibble(response, curve1, curve2, curve3)
+
+ggplot(df) +
+  geom_roc(aes(d = response, m = curve1), n.cuts = 0, size = .5, color = "#1E56F9") +
+  geom_roc(aes(d = response, m = curve2), n.cuts = 0, size = .5, color = "#7194F9") +
+  geom_roc(aes(d = response, m = curve3), n.cuts = 0, size = .5, color = "#B6C7F9") +
+  geom_abline(lty = 'dashed') +
+  annotate("text", x = .48, y = .46, label = c("No better than guessing"),
+           vjust = 1, angle = 34) +
+  annotate("text", x = .3, y = .6, label = c("Ok"),
+           vjust = 1, angle = 33, color = "#B6C7F9") +
+  annotate("text", x = .20, y = .75, label = c("Better"),
+           vjust = 1, angle = 33, color = "#7194F9") +
+  annotate("text", x = .10, y = .96, label = c("Best"),
+           vjust = 1, angle = 33, color = "#1E56F9") +
+  xlab("1 - specificity") +
+  ylab("sensitivity")
+```
+
+To plot the ROC curve we actually need to predict the probability of our classification model's prediction. We then pass the predicted probabilities for the class we care about (here we are concerned with the probability of employees actually attriting) and the truth values to `roc_curve`.
+
+```{r}
+#| label: logit-model-predicted-probabilities-modeling-process
+logit %>%
+   predict(test_strat, type = "prob") %>%
+   bind_cols(test_strat %>% select(Attrition)) %>%
+   roc_curve(truth = Attrition, .pred_Yes) %>%
+   autoplot()
+```
+
+Another common metric is the ***area under the curve*** (AUC). Generally, an ROC AUC value is between 0.5 and 1, with 1 being a perfect prediction model. If your value is between 0 and 0.5, then this implies that you have meaningful information in your model, but it is being applied incorrectly because doing the opposite of what the model predicts would result in an AUC > 0.5. The benefit of the AUC metric is that it gives us a single metric value that incorporates both sensitivity and specificity of our model. The higher the AUC value, the more balanced our model is.
+
+```{r}
+#| label: logit-model-predicted-auc-modeling-process
+logit %>%
+   predict(test_strat, type = "prob") %>%
+   bind_cols(test_strat %>% select(Attrition)) %>%
+   roc_auc(truth = Attrition, .pred_Yes)
+```
+
+### Knowledge check
+
+::: {.callout-caution icon=false}
+1. Compute and compare the $R^2$ of the `lm_ols` and `knn` models trained in @sec-building-models.
+2. Now compute the accuracy rate and AUC of the `simple_logit` model trained in @sec-building-models and compare it to the `logit` model trained in @sec-classification-models.
+:::
+
+## Exercises
+
+::: {.callout-caution icon=false}
+For this exercise use the Chicago ridership data set provided by the modeldata library.^[See more details at https://modeldata.tidymodels.org/reference/Chicago.html]. This data set is derived from @kuhn2019feature and contains an abbreviated training set for modeling the number of people (in thousands) who enter the Clark and Lake L station. The objective is to use the available features (i.e. `temp` (temparature), `wind` (wind speed), `Bulls_Home` (is there a Chicago Bulls game at home), etc. to predict the the number of people (in thousands) represented by the `ridership` column.
+
+Modeling tasks:
+
+1. Load the Chicago ridership data set and remove the `date` column.
+2. Split the data into a training set and test set using a 70-30% split.
+3. How many observations are in the training set and test set?
+4. Compare the distribution of `ridership` between the training set and test set.
+5. Fit a linear regression model using all available features to predict `ridership` and compute the RMSE on the test data.
+6. Fit a K-nearest neighbor model that uses all available features to predict `ridership` and compute the RMSE on the test data.
+7. How do these models compare?
+:::
