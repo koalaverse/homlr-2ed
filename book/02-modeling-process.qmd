@@ -11,9 +11,8 @@ knitr::opts_chunk$set(
   collapse = TRUE
 )
 
-library(tidyverse)
 # Set the graphical theme
-theme_set(theme_light())
+ggplot2::theme_set(ggplot2::theme_light())
 ```
 Much like EDA, the ML process is very iterative and heuristic-based. With minimal knowledge
 of the problem or data at hand, it is difficult to know which ML method will perform best.
@@ -54,11 +53,10 @@ This chapter leverages the following packages.
 ```{r}
 #| label: ch2-library-imports
 # Helper packages
-library(dplyr)     # for data manipulation
-library(ggplot2)   # for awesome graphics
+library(tidyverse)  # for data manipulation & plotting
 
 # Modeling process packages
-library(modeldata)  # accessing data
+library(modeldata)  # for accessing data
 library(tidymodels) # for modeling procedures
 ```
 
@@ -484,6 +482,8 @@ To plot the ROC curve we actually need to predict the probability of our classif
 
 ```{r}
 #| label: logit-model-predicted-probabilities-modeling-process
+#| fig.height: 3.5
+#| fig.width: 5
 logit %>%
    predict(test_strat, type = "prob") %>%
    bind_cols(test_strat %>% select(Attrition)) %>%
