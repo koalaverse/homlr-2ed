@@ -17,7 +17,7 @@ book:
   chapters:
     - index.qmd
     - preface-2e.qmd
-    - part: "Fundamentals"
+    - part: "Supervised Learning"
       chapters:
         - 01-intro.qmd
         - 02-modeling-process.qmd
