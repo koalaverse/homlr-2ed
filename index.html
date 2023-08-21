@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Brad Boehmke &amp; Brandon Greenwell">
-<meta name="dcterms.date" content="2023-08-09">
+<meta name="dcterms.date" content="2023-08-21">
 
 <title>Hands-On Machine Learning with R, 2ed</title>
 <style>
@@ -262,7 +262,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 9, 2023</p>
+      <p class="date">August 21, 2023</p>
     </div>
   </div>
   
@@ -377,14 +377,14 @@ div.csl-indent {
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ─ Session info ───────────────────────────────────────────────────────────────</span></span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  setting  value</span></span>
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  version  R version 4.2.0 (2022-04-22)</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  os       Ubuntu 22.04.2 LTS</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  os       Ubuntu 22.04.3 LTS</span></span>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  system   x86_64, linux-gnu</span></span>
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ui       X11</span></span>
 <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  language (EN)</span></span>
 <span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  collate  C.UTF-8</span></span>
 <span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ctype    C.UTF-8</span></span>
 <span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  tz       UTC</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  date     2023-08-09</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  date     2023-08-21</span></span>
 <span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  pandoc   2.9.2.1 @ /usr/bin/ (via rmarkdown)</span></span>
 <span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ─ Packages ───────────────────────────────────────────────────────────────────</span></span>
@@ -398,7 +398,7 @@ div.csl-indent {
 <span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  codetools      0.2-18     2020-11-04 [3] CRAN (R 4.2.0)</span></span>
 <span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  colorspace     2.1-0      2023-01-23 [1] CRAN (R 4.2.0)</span></span>
 <span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  conflicted     1.2.0      2023-02-01 [1] CRAN (R 4.2.0)</span></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  cpp11          0.4.5      2023-07-20 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  cpp11          0.4.6      2023-08-10 [1] CRAN (R 4.2.0)</span></span>
 <span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  data.table     1.14.8     2023-02-17 [1] CRAN (R 4.2.0)</span></span>
 <span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  diagram        1.6.5      2020-09-30 [1] CRAN (R 4.2.0)</span></span>
 <span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  dials          1.2.0      2023-04-03 [1] CRAN (R 4.2.0)</span></span>
@@ -414,12 +414,12 @@ div.csl-indent {
 <span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  future         1.33.0     2023-07-01 [1] CRAN (R 4.2.0)</span></span>
 <span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  future.apply   1.11.0     2023-05-21 [1] CRAN (R 4.2.0)</span></span>
 <span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  generics       0.1.3      2022-07-05 [1] CRAN (R 4.2.0)</span></span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ggplot2        3.4.2      2023-04-03 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ggplot2        3.4.3      2023-08-14 [1] CRAN (R 4.2.0)</span></span>
 <span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  globals        0.16.2     2022-11-21 [1] CRAN (R 4.2.0)</span></span>
 <span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  glue           1.6.2      2022-02-24 [1] CRAN (R 4.2.0)</span></span>
 <span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  gower          1.0.1      2022-12-22 [1] CRAN (R 4.2.0)</span></span>
 <span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  GPfit          1.0-8      2019-02-08 [1] CRAN (R 4.2.0)</span></span>
-<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  gtable         0.3.3      2023-03-21 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  gtable         0.3.4      2023-08-21 [1] CRAN (R 4.2.0)</span></span>
 <span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  hardhat        1.3.0      2023-03-30 [1] CRAN (R 4.2.0)</span></span>
 <span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  infer          1.0.4      2022-12-02 [1] CRAN (R 4.2.0)</span></span>
 <span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ipred          0.9-14     2023-03-09 [1] CRAN (R 4.2.0)</span></span>
@@ -445,18 +445,18 @@ div.csl-indent {
 <span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  nnet           7.3-17     2022-01-16 [3] CRAN (R 4.2.0)</span></span>
 <span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  numDeriv       2016.8-1.1 2019-06-06 [1] CRAN (R 4.2.0)</span></span>
 <span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  parallelly     1.36.0     2023-05-26 [1] CRAN (R 4.2.0)</span></span>
-<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  parsnip        1.1.0      2023-04-12 [1] CRAN (R 4.2.0)</span></span>
-<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  patchwork      1.1.2      2022-08-19 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  parsnip        1.1.1      2023-08-17 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  patchwork      1.1.3      2023-08-14 [1] CRAN (R 4.2.0)</span></span>
 <span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  pillar         1.9.0      2023-03-22 [1] CRAN (R 4.2.0)</span></span>
 <span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  pkgconfig      2.0.3      2019-09-22 [1] CRAN (R 4.2.0)</span></span>
 <span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  prettyunits    1.1.1      2020-01-24 [1] CRAN (R 4.2.0)</span></span>
 <span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  prodlim        2023.03.31 2023-04-02 [1] CRAN (R 4.2.0)</span></span>
-<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  progressr      0.13.0     2023-01-10 [1] CRAN (R 4.2.0)</span></span>
-<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  purrr          1.0.1      2023-01-10 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  progressr      0.14.0     2023-08-10 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  purrr          1.0.2      2023-08-10 [1] CRAN (R 4.2.0)</span></span>
 <span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  R6             2.5.1      2021-08-19 [1] CRAN (R 4.2.0)</span></span>
 <span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  RColorBrewer   1.1-3      2022-04-03 [1] CRAN (R 4.2.0)</span></span>
 <span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Rcpp           1.0.11     2023-07-06 [1] CRAN (R 4.2.0)</span></span>
-<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  recipes        1.0.6      2023-04-25 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  recipes        1.0.7      2023-08-10 [1] CRAN (R 4.2.0)</span></span>
 <span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  rlang          1.1.1      2023-04-28 [1] CRAN (R 4.2.0)</span></span>
 <span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  rpart          4.1.16     2022-01-24 [3] CRAN (R 4.2.0)</span></span>
 <span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  rsample        1.1.1      2022-12-07 [1] CRAN (R 4.2.0)</span></span>
@@ -478,7 +478,7 @@ div.csl-indent {
 <span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  tzdb           0.4.0      2023-05-12 [1] CRAN (R 4.2.0)</span></span>
 <span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  utf8           1.2.3      2023-01-31 [1] CRAN (R 4.2.0)</span></span>
 <span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  vctrs          0.6.3      2023-06-14 [1] CRAN (R 4.2.0)</span></span>
-<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  vip            0.4.0      2023-07-19 [1] CRAN (R 4.2.0)</span></span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  vip            0.4.1      2023-08-21 [1] CRAN (R 4.2.0)</span></span>
 <span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  viridisLite    0.4.2      2023-05-02 [1] CRAN (R 4.2.0)</span></span>
 <span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  warp           0.2.0      2020-10-21 [1] CRAN (R 4.2.0)</span></span>
 <span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  withr          2.5.0      2022-03-03 [1] CRAN (R 4.2.0)</span></span>
