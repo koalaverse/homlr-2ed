@@ -24,7 +24,7 @@ marketing.
 * Predicting customer churn so an organization can perform preventative intervention.
 * And many more!
 
-In essence, these tasks all seek to learn from data.  To address each scenario, we can
+In essence, these tasks all seek to learn and draw inferences from patterns in data.  To address each scenario, we can
 use a given set of _features_\index{features} to train an algorithm and extract insights.
 These algorithms, or _learners_\index{learners}, can be classified according to the amount
 and type of supervision needed during training.  The two main groups this book focuses on
