@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 ```
 
 Machine learning (ML) continues to grow in importance for many organizations across
-nearly all domains. Some example applications of machine learning in practice include:
+nearly all domains. Some example applications of ML in practice include:
 
 * Predicting the likelihood of a patient returning to the hospital (_readmission_) within
 30 days of discharge.
@@ -99,9 +99,9 @@ values.  Consequently, the solutions can be used to help _supervise_ the trainin
 to find the optimal algorithm parameters.
 :::
 
-Most supervised learning problems can be bucketed into one of two categories,
-_regression_\index{regression} or _classification_\index{classification}, which we
-discuss next.
+Most supervised learning problems can be bucketed into one of two general categories,
+_regression_\index{regression} or _classification_\index{classification}, depending on the type of response variable. We'll
+briefly discuss both cases over the next two sections.
 
 ### Regression problems
 
@@ -119,18 +119,15 @@ z <- sweep(z, MARGIN = 2, c, `*`)
 
 ::: {.content-hidden unless-format="html"}
 
-When the objective of our supervised learning is to predict a numeric outcome, we refer
-to this as a ___regression problem___ (not to be confused with linear regression modeling).
-Regression problems revolve around predicting output that falls on a continuum. In the
-examples above, predicting home sales prices and time to market reflect a regression problem
-because the output is numeric and continuous.  This means, given the combination of predictor
-values, the response value could fall anywhere along some continuous spectrum (e.g., the
-predicted sales price of a particular home could be between \$80,000 and \$755,000).
-@fig-intro-regression-problem-html illustrates average home sales prices as a
-function of two home features: year built and total square footage. Depending on the
+When the objective is to predict a quantitative outcome, we generally refer
+to this as a _regression problem_ (not to be confused with linear regression modeling, which is a special case).
+Regression problems revolve around numeric output where both order and distance matters (e.g., sales or a discrete count, like the number of bike rentals in a given day). In the
+examples above, predicting home sale prices and time to market reflect a regression problem
+because the output is ordered and values closer to each other are closer in nature (e.g., the closer two sale prices are to each other the more similar the homes are in terms of sale value).
+@fig-intro-regression-problem-html shows a regression model's predicted sale price of homes in Ames, Iowa (from 2006--2010) as a
+function of two attributes: year built and total square footage. Depending on the
 combination of these two features, the expected home sales price could fall anywhere along
-a plane.
-
+the surface. We'll learn various ways of building such a model in Part II of this book (TODO: cross-reference "Part II").
 
 ```{r}
 #| label: fig-intro-regression-problem-html
@@ -143,9 +140,9 @@ plot_ly(x = as.vector(x), y = as.vector(y), z = z, showscale = FALSE) %>%
     add_surface() %>%
     layout(
         scene = list(
-            xaxis = list(title = "Feature: square footage"),
-            yaxis = list(title = "Feature: year built"),
-            zaxis = list(title = "Response: sale price")
+            xaxis = list(title = "Square footage"),
+            yaxis = list(title = "Year built"),
+            zaxis = list(title = "Sale price (dollars)")
         )
     )
 ```
@@ -153,17 +150,15 @@ plot_ly(x = as.vector(x), y = as.vector(y), z = z, showscale = FALSE) %>%
 
 ::: {.content-hidden unless-format="pdf"}
 
-When the objective of our supervised learning is to predict a numeric outcome, we refer
-to this as a ___regression problem___ (not to be confused with linear regression modeling).
-Regression problems revolve around predicting output that falls on a continuum. In the
-examples above, predicting home sales prices and time to market reflect a regression problem
-because the output is numeric and continuous.  This means, given the combination of predictor
-values, the response value could fall anywhere along some continuous spectrum (e.g., the
-predicted sales price of a particular home could be between \$80,000 and \$755,000).
-@fig-intro-regression-problem-pdf illustrates average home sales prices as a
-function of two home features: year built and total square footage. Depending on the
+When the objective is to predict a quantitative outcome, we generally refer
+to this as a _regression problem_ (not to be confused with linear regression modeling, which is a special case).
+Regression problems revolve around numeric output where both order and distance matters (e.g., sales or a discrete count, like the number of bike rentals in a given day). In the
+examples above, predicting home sale prices and time to market reflect a regression problem
+because the output is ordered and values closer to each other are closer in nature (e.g., the closer two sale prices are to each other the more similar the homes are in terms of sale value).
+@fig-intro-regression-problem-pdf shows a regression model's predicted sale price of homes in Ames, Iowa (from 2006--2010) as a
+function of two attributes: year built and total square footage. Depending on the
 combination of these two features, the expected home sales price could fall anywhere along
-a plane.
+the surface. We'll learn various ways of building such a model in Part II of this book (TODO: cross-reference "Part II").
 
 ```{r}
 #| label: fig-intro-regression-problem-pdf
@@ -189,8 +184,8 @@ persp(
 
 ### Classification problems
 
-When the objective of our supervised learning is to predict a categorical outcome, we
-refer to this as a ___classification problem___.  Classification problems most commonly
+When the objective of our supervised learning is to predict a qualitative (or categorical outcome), we
+refer to this generally as a _classification problem_.  Classification problems most commonly
 revolve around predicting a binary or multinomial response measure such as:
 
 * Did a customer redeem a coupon (coded as yes/no or 1/0)?
@@ -225,17 +220,17 @@ library(DiagrammeR)
  }")
 ```
 
-However, when we apply machine learning models for classification problems, rather than
-predict a particular class (i.e., "yes" or "no"), we often want to predict the _probability_
-of a particular class (i.e., yes: 0.65, no: 0.35).  By default, the class with the highest
-predicted probability becomes the predicted class.  Consequently, even though we are
-performing a classification problem, we are still predicting a numeric output (probability).
-However, the essence of the problem still makes it a classification problem.
+However, when we apply ML models to classification problems, rather than
+predict a particular class (i.e., "yes" or "no"), we often want to predict the _conditional probability_
+of a particular class (i.e., yes: 0.65, no: 0.35).^[Conditional on the set of input feature values.]  By default, the class with the highest
+predicted probability becomes the predicted class (called a classification).  Consequently, even though we
+classify it as a classification problem (pun intended), we're often still predicting a numeric output (i.e., a probability).
+However, the nature of the target variable is what makes it a classification problem. **TODO:** Reference Frank Harrell's discussion on classification vs. prediction at https://www.fharrell.com/post/classification/ (and just clarify that we knowingly abuse the term for brevity).
 
-Although there are machine learning algorithms that can be applied to regression problems
-but not classification and vice versa, most of the supervised learning algorithms we cover
-in this book can be applied to both.  These algorithms have become the most popular machine
-learning applications in recent years.
+Although there are ML algorithms that can be applied to regression problems
+but not classification and vice versa, most of the supervised learning algorithms we'll cover
+in this book can be applied to both. These algorithms have become some of the most popular machine
+learning models in recent years (often driven by their availability in both proprietary and open-source software).
 
 ### Knowledge check
 
@@ -249,7 +244,7 @@ the time since your previous purchase.
 * A bank wants to use a customers historical data such as the number of loans they've had,
 the time it took to payoff those loans, previous loan defaults, the number of new loans
 within the past two years, along with the customers income and level of education to
-determine if they should issue a new loan for a car.
+determine if they should issue them a new loan for a car.
 * If the bank above does issue a new loan, they want to use the same information to
 determine the interest rate of the new loan issued.
 * To better plan incoming and outgoing flights, an airline wants to use flight information
@@ -262,19 +257,19 @@ minutes a flight will arrive late or early?
 
 ## Unsupervised learning
 
-___Unsupervised learning___\index{unsupervised learning}, in contrast to supervised
+_Unsupervised learning_\index{unsupervised learning}, in contrast to supervised
 learning, includes a set of statistical tools to better understand and describe your data,
 but performs the analysis without a target variable.  In essence, unsupervised learning
 is concerned with identifying groups in a data set. The groups may be defined by the rows
 (i.e., *clustering*) or the columns (i.e., *dimension reduction*); however, the motive in
 each case is quite different.
 
-The goal of ___clustering___\index{clustering} is to segment observations into similar
-groups based on the observed variables; for example, to divide consumers into different
-homogeneous groups, a process known as market segmentation.  In __dimension
-reduction__\index{dimension reduction}, we are often concerned with reducing the number
+The goal of _clustering_\index{clustering} is to segment observations into similar
+groups based on the observed variables; for example, dividing consumers into different
+homogeneous groups, a process known as market segmentation.  In _dimension
+reduction_\index{dimension reduction}, we are often concerned with reducing the number
 of variables in a data set. For example, classical linear regression models break down
-in the presence of highly correlated features.  Some dimension reduction techniques can
+in the presence of highly correlated features, a situation known as *multicollinearity*.^[To be fair, and as we'll see later in the book, the interpretation of most fitted ML models becomes problematic in the presence of correlated or (otherwise dependent) fetures.] Some dimension reduction techniques can
 be used to reduce the feature set to a potentially smaller set of uncorrelated variables.
 Such a reduced feature set is often used as input to downstream supervised learning models
 (e.g., principal component regression).
@@ -283,10 +278,10 @@ Unsupervised learning is often performed as part of an exploratory data analysis
 However, the exercise tends to be more subjective, and there is no simple goal for the
 analysis, such as prediction of a response. Furthermore, it can be hard to assess the
 quality of results obtained from unsupervised learning methods. The reason for this is
-simple. If we fit a predictive model using a supervised learning technique (i.e., linear
+simple. If we fit a predictive model using a supervised learning technique (e.g., linear
 regression), then it is possible to check our work by seeing how well our model predicts
-the response _Y_ on observations not used in fitting the model. However, in unsupervised
-learning, there is no way to check our work because we don’t know the true answer---the
+the response $y$ on new observations not used in fitting the model. However, in unsupervised
+learning, there's no way to check our work because we don’t know the true answer---the
 problem is unsupervised!
 
 Despite its subjectivity, the importance of unsupervised learning should not be overlooked
@@ -380,11 +375,11 @@ can be used for:
 
 ## Roadmap
 
-The goal of this book is to provide effective tools for uncovering relevant and useful
+The goal of this book is to provide effective methods and tools for uncovering relevant and useful
 patterns in your data by using R's ML stack. We begin by providing an overview of the ML
 modeling process and discussing fundamental concepts that will carry through the rest of
 the book. These include feature engineering, data splitting, model validation and tuning,
-and performance measurement. These concepts will be discussed in Chapters ...
+and assessing model performance. These concepts will be discussed more thoroughly in Chapters ...
 
 ::: {.callout-warning}
 # TODO
@@ -394,7 +389,10 @@ Fill out roadmap as we progress
 
 ## Data sets {#sec-data-intro}
 
-TBD
+::: {.callout-warning}
+# TODO
+Revisit as we progress
+:::
 
 ## Exercises
 
@@ -410,9 +408,9 @@ TBD
    - What is determining if the problem is a regression or a classification
      problem?
 
-3. Identify three open source data sets suitable for machine learning (e.g.,
+3. Identify three open source data sets suitable for ML (e.g.,
    https://bit.ly/35wKu5c).
-   - Explain the type of machine learning models that could be constructed from
+   - Explain the type of ML models that could be constructed from
      the data (e.g., supervised versus unsupervised and regression versus
      classification).
    - What are the dimensions of the data?
@@ -422,5 +420,5 @@ TBD
      be considered as a useful target? Which variable(s) could be considered as
      features?
 
-4. Identify examples of misuse of machine learning in society. What was the
+4. Identify examples of misuse of ML in society. What was the
    ethical concern?
