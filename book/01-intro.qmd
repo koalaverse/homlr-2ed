@@ -14,79 +14,76 @@ knitr::opts_chunk$set(
 ```
 
 Machine learning (ML) continues to grow in importance for many organizations across
-nearly all domains. Some example applications of machine learning in practice include:
+nearly all domains.^[There's no shortage of definitions for the term machine learning. For the purposes of this book, we can think of it as a blended field with a focus on using algorithms to help *learn from data*.] Some example applications of machine learning in practice include:
 
 * Predicting the likelihood of a patient returning to the hospital (_readmission_) within
 30 days of discharge.
 * Segmenting customers based on common attributes or purchasing behavior for targeted
 marketing.
 * Predicting coupon redemption rates for a given marketing campaign.
-* Predicting customer churn so an organization can perform preventative intervention.
+* Predicting customer (or employee) churn so an organization can perform preventative intervention.
 * And many more!
 
 In essence, these tasks all seek to learn and draw inferences from patterns in data.  To address each scenario, we can
 use a given set of _features_\index{features} to train an algorithm and extract insights.
 These algorithms, or _learners_\index{learners}, can be classified according to the amount
-and type of supervision needed during training.  The two main groups this book focuses on
-are: ___supervised learners___ which construct predictive models, and ___unsupervised
-learners___ which build descriptive models. Which type you will need to use depends on
-the learning task you hope to accomplish.
+and type of supervision needed during training.  The two main groups of learners this book focuses on
+are: 
+
+* *Supervised learners*, which construct predictive models.
+* *Unsupervised learners*, which build descriptive models. 
+
+Which type you will need to use depends on the learning task you hope to accomplish.
 
 ## Supervised learning
 
 ::: {.content-hidden unless-format="html"}
 
-A ___predictive model___\index{predictive model} is used for tasks that involve the
-prediction of a given output (or target) using other variables (or features) in the data
-set. Or, as stated by @apm [p. 2], predictive modeling is "...the process of developing
+A *predictive model*\index{predictive model} is used for tasks that involve the
+prediction of a given output (or target variable) using a set of relevant input variables (often referred to as features or predictors). Or, as stated by @apm [p. 2], predictive modeling is "...the process of developing
 a mathematical tool or model that generates an accurate prediction."  The learning algorithm
 in a predictive model attempts to discover and model the relationships among the
 <font color="red">target</font> variable (the variable being predicted) and the other
-<font color="blue">features</font> (aka predictor variables). Examples of predictive modeling
-include:
+<font color="blue">features</font>. Examples of predictive modeling
+include the following:
 
-* using <font color="blue">customer attributes</font> to predict the probability of the
-<font color="red">customer churning</font> in the next 6 weeks;
-* using <font color="blue">home attributes</font> to predict the <font color="red">sales price</font>;
-* using <font color="blue">employee attributes</font> to predict the likelihood of
-<font color="red">attrition</font>;
-* using <font color="blue">patient attributes</font> and symptoms to predict the risk of
-<font color="red">readmission</font>;
-* using <font color="blue">production attributes</font> to predict <font color="red">time
+* Using <font color="blue">customer attributes</font> (e.g., age and recent shopping behavior) to predict the probability of the
+<font color="red">customer churning</font> in the next 6 weeks.
+* Using <font color="blue">various home attributes</font> to predict the <font color="red">sales price</font>.
+* Using <font color="blue">employee attributes</font> to predict the <font color="red">likelihood of
+attrition within the next six months</font>.
+* Using <font color="blue">patient attributes and symptoms</font> to predict the <font color="red">risk of
+being readmitted to the hospital within 30 days after release</font>.
+* Using <font color="blue">product attributes</font> to predict <font color="red">time
 to market</font>.
+* Using <font color="blue">weather conditions and relevant historical information</font> to predict the <font color="red">number of bikes that will be rented</font> out on a given day.
 
 :::
 
 ::: {.content-hidden unless-format="pdf"}
 
-A ___predictive model___\index{predictive model} is used for tasks that involve the
+A *predictive model*\index{predictive model} is used for tasks that involve the
 prediction of a given output (or target) using other variables (or features) in the data
 set. Or, as stated by @apm [p. 2], predictive modeling is "...the process of developing
 a mathematical tool or model that generates an accurate prediction."  The learning algorithm
 in a predictive model attempts to discover and model the relationships among the
 target variable (the variable being predicted) and the other features (aka predictor
-variables). Examples of predictive modeling include:
+variables). Examples of predictive modeling include the following:
 
-* using customer attributes to predict the probability of the customer churning in the
-next 6 weeks;
-* using home attributes to predict the sales price;
-* using employee attributes to predict the likelihood of attrition;
-* using patient attributes and symptoms to predict the risk of readmission;
-* using production attributes to predict time to market.
+* Using customer attributes to predict the probability of the customer churning in the
+next 6 weeks.
+* Using varous home attributes to predict the sales price.
+* Using employee attributes to predict the likelihood of attrition within the next six months.
+* Using patient attributes and symptoms to predict the risk of being readmitted to the hospital within 30 days after release.
+* Using product attributes to predict time to market.
+* Using weather conditions and relevant historical information to predict the number of bikes that will be rented out on a given day.
 
 :::
 
-Each of these examples has a defined learning task; they each intend to use attributes
-($X$) to predict an outcome measurement ($Y$).
+Each of these examples has a defined learning task; they each intend to use various features
+($X$) to predict a well-defined target ($Y$). Think about the hostpital readmission example. Predicting the liklihood of readmittance is not specific enough and will make pulling togethe relevant data a challenge, so we need to think carefully aabout how we define the features and response for modleing. Defining the target as *whether or not a patient was readmitted within 30 days after release* is something that can easily be measured, assuming it's relevant to the stakeholders.
 
-::: {.callout-note}
-Throughout this text we'll use various terms interchangeably for
-
-* $X$: "predictor variable", "independent variable", "attribute", "feature", "predictor"
-* $Y$: "target variable", "dependent variable", "response", "outcome measurement"
-:::
-
-The predictive modeling examples above describe what is known as _supervised learning_\index{supervised learning}.
+The scenarios listed above are examples of _supervised learning_\index{supervised learning}.
 The supervision refers to the fact that the target values provide a supervisory role,
 which indicates to the learner the task it needs to learn. Specifically, given a set of
 data, the learning algorithm attempts to optimize a function (the algorithmic steps) to
@@ -95,13 +92,22 @@ to the actual target output as possible.
 
 ::: {.callout-note}
 In supervised learning, the training data you feed the algorithm includes the target
-values.  Consequently, the solutions can be used to help _supervise_ the training process
-to find the optimal algorithm parameters.
+values. Consequently, the solutions can be used to help _supervise_ the training process
+to find the optimal algorithm parameters, called *hyperparameters*.
 :::
 
 Most supervised learning problems can be bucketed into one of two categories,
-_regression_\index{regression} or _classification_\index{classification}, which we
+_regression_\index{regression} or _classification_\index{classification}, which we'll
 discuss next.
+
+::: {.callout-note}
+Throughout this text we'll use various terms and notation interchangeably. In particular,
+
+* we'll use $X$ to denote a feature, predictor, or attribute (we may even use the more classic term *independent variable*);
+* bold notation may be used to denote a set of features, for example $\boldsymbol{X} = \left(X_1, X_2\right)$, where, in the case of the predicting sale price example, $X_1$ might represent square footage and $X_2$ represent the overall quality of the home;
+* we'll use $y$ when referring to response or target variable (again, we may sometimes use the more classic term *dependent variable*).
+:::
+
 
 ### Regression problems
 
