@@ -21,6 +21,7 @@ book:
     - part: "Supervised Learning"
       chapters:
         - 02-modeling-process.qmd
+        - 03-slr.qmd
         - references.qmd
 
 bibliography: references.bib
