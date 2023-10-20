@@ -318,7 +318,7 @@ simple_logit %>% predict(train_strat, type = "prob")
 2. Now make predictions using the K-nearest neighbor model.
 :::
 
-## Model evaluation
+## Model evaluation {#sec-model-eval}
 
 Historically, the performance of statistical models was largely based on goodness-of-fit tests and assessment of residuals. Unfortunately, misleading conclusions may follow from predictive models that pass these kinds of assessments [@breiman2001statistical]. Today, it has become widely accepted that a more sound approach to assessing model performance is to assess the predictive accuracy via _loss functions_\index{loss functions}. Loss functions are metrics that compare the predicted values to the actual value (the output of a loss function is often referred to as the _error_ or pseudo _residual_).
 
@@ -334,7 +334,7 @@ lm_ols %>%
 
 There are many loss functions to choose from when assessing the performance of a predictive model, each providing a unique understanding of the predictive accuracy and differing between regression and classification models. Furthermore, the way a loss function is computed will tend to emphasize certain types of errors over others and can lead to drastic differences in how we interpret the "optimal model".  Its important to consider the problem context when identifying the preferred performance metric to use.  And when comparing multiple models, we need to compare them across the same metric.
 
-### Regression models
+### Regression models {#sec-regression-model-eval}
 
 The most common loss functions for regression models include:
 
