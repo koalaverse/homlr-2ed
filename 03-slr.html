@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Hands-On Machine Learning with R, 2ed - 3&nbsp; Simple linear regression</title>
+<title>Hands-On Machine Learning with R, 2ed - 3&nbsp; Linear regression</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -130,7 +130,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02-modeling-process.html">Supervised Learning</a></li><li class="breadcrumb-item"><a href="./03-slr.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Simple linear regression</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02-modeling-process.html">Supervised Learning</a></li><li class="breadcrumb-item"><a href="./03-slr.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Linear regression</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -212,7 +212,7 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./03-slr.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Simple linear regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Linear regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -241,18 +241,14 @@ div.csl-indent {
   <li><a href="#simple-linear-regression" id="toc-simple-linear-regression" class="nav-link" data-scroll-target="#simple-linear-regression"><span class="header-section-number">3.3</span> Simple linear regression</a>
   <ul class="collapse">
   <li><a href="#best-fit-line" id="toc-best-fit-line" class="nav-link" data-scroll-target="#best-fit-line"><span class="header-section-number">3.3.1</span> Best fit line</a></li>
-  <li><a href="#estimating-best-fit" id="toc-estimating-best-fit" class="nav-link" data-scroll-target="#estimating-best-fit"><span class="header-section-number">3.3.2</span> Estimating “best fit”</a></li>
+  <li><a href="#estimation" id="toc-estimation" class="nav-link" data-scroll-target="#estimation"><span class="header-section-number">3.3.2</span> Estimation</a></li>
   <li><a href="#inference" id="toc-inference" class="nav-link" data-scroll-target="#inference"><span class="header-section-number">3.3.3</span> Inference</a></li>
-  <li><a href="#knowledge-check-1" id="toc-knowledge-check-1" class="nav-link" data-scroll-target="#knowledge-check-1"><span class="header-section-number">3.3.4</span> Knowledge check</a></li>
+  <li><a href="#making-predictions" id="toc-making-predictions" class="nav-link" data-scroll-target="#making-predictions"><span class="header-section-number">3.3.4</span> Making predictions</a></li>
+  <li><a href="#assessing-model-accuracy" id="toc-assessing-model-accuracy" class="nav-link" data-scroll-target="#assessing-model-accuracy"><span class="header-section-number">3.3.5</span> Assessing model accuracy</a></li>
+  <li><a href="#knowledge-check-1" id="toc-knowledge-check-1" class="nav-link" data-scroll-target="#knowledge-check-1"><span class="header-section-number">3.3.6</span> Knowledge check</a></li>
   </ul></li>
-  <li><a href="#making-predictions" id="toc-making-predictions" class="nav-link" data-scroll-target="#making-predictions"><span class="header-section-number">3.4</span> Making predictions</a></li>
-  <li><a href="#assessing-model-accuracy" id="toc-assessing-model-accuracy" class="nav-link" data-scroll-target="#assessing-model-accuracy"><span class="header-section-number">3.5</span> Assessing model accuracy</a>
-  <ul class="collapse">
-  <li><a href="#training-data-accuracy" id="toc-training-data-accuracy" class="nav-link" data-scroll-target="#training-data-accuracy"><span class="header-section-number">3.5.1</span> Training data accuracy</a></li>
-  <li><a href="#test-data-accuracy" id="toc-test-data-accuracy" class="nav-link" data-scroll-target="#test-data-accuracy"><span class="header-section-number">3.5.2</span> Test data accuracy</a></li>
-  <li><a href="#knowledge-check-2" id="toc-knowledge-check-2" class="nav-link" data-scroll-target="#knowledge-check-2"><span class="header-section-number">3.5.3</span> Knowledge check</a></li>
-  </ul></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">3.6</span> Exercises</a></li>
+  <li><a href="#multiple-linear-regression" id="toc-multiple-linear-regression" class="nav-link" data-scroll-target="#multiple-linear-regression"><span class="header-section-number">3.4</span> Multiple linear regression</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">3.5</span> Exercises</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/koalaverse/homlr-2ed/edit/main/03-slr.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/koalaverse/homlr-2ed/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -261,7 +257,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Simple linear regression</span></h1>
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Linear regression</span></h1>
 </div>
 
 
@@ -337,7 +333,7 @@ div.csl-indent {
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="do">##         &lt;dbl&gt;</span></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 1       0.708</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The value of the correlation coefficient varies between +1 and -1. In our example, the correlation coefficient is 0.71. When the value of the correlation coefficient lies around ±1, then it is said to be a perfect degree of association between the two variables (near +1 implies a strong positive association and near -1 implies a strong negative association). As the correlation coefficient nears 0, the relationship between the two variables weakens with a near 0 value implying no association between the two variables.</p>
+<p>The value of a correlation coefficient will always vary between +1 and -1. In our example, the correlation coefficient is 0.71. When the value of the correlation coefficient is +1 or -1, then it is said to be a perfect degree of association between the two variables (near +1 implies a strong positive association and near -1 implies a strong negative association). This simply means that when there is a one unit change in one variable we will always see a certain change change in units in the other variable. As the correlation coefficient nears 0, the relationship between the two variables weakens with a near 0 value implying no association between the two variables (a one unit change in one variable has no relationship to any level of change in the other variable).</p>
 <p>So, in our case we could say we have a moderate positive correlation between <code>Gr_Liv_Area</code> and <code>Sale_Price</code>. Let’s look at another relationship. In the following we look at the relationship between the unfinished basement square footage of homes (<code>Bsmt_Unf_SF</code>) and the <code>Sale_Price</code>.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ames_train, <span class="fu">aes</span>(Bsmt_Unf_SF, Sale_Price)) <span class="sc">+</span></span>
@@ -360,7 +356,7 @@ div.csl-indent {
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="do">##         &lt;dbl&gt;</span></span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 1       0.186</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Although a useful measure, correlation can be hard to imagine exactly what the association is between two variables based on this single statistic. Moreover, its important to realize that correlation assumes a <strong>linear</strong> relationship between two variables.</p>
+<p>Although a useful measure, correlation can be hard to imagine exactly what the association is between two variables based on this single statistic. Moreover, its important to realize that correlation typically assumes a <strong>linear</strong> relationship between two variables.</p>
 <p>For example, let’s check out the <code>anscombe</code> data, which is a built-in data set provided in R. If we look at each <code>x</code> and <code>y</code> relationship visually, we can see significant differences:</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">qplot</span>(<span class="at">x =</span> x1, <span class="at">y =</span> y1, <span class="at">data =</span> anscombe)</span>
@@ -401,9 +397,9 @@ div.csl-indent {
 </div>
 <p>There are actually several different ways to measure correlation. The most common, and the one we’ve been using here, is Pearson’s correlation, represented by <span class="math inline">\(r_{xy}\)</span>. Given paired data <span class="math inline">\(\left\{(x_{1},y_{1}),\ldots ,(x_{n},y_{n})\right\}\)</span> consisting of <span class="math inline">\(n\)</span> pairs, <span class="math inline">\(r_{xy}\)</span> is defined as</p>
 <p><span class="math display">\[
-r_{xy}={\frac {\sum _{i=1}^{n}(x_{i}-{\bar {x}})(y_{i}-{\bar {y}})}{{\sqrt {\sum _{i=1}^{n}(x_{i}-{\bar {x}})^{2}}}{\sqrt {\sum _{i=1}^{n}(y_{i}-{\bar {y}})^{2}}}}}
+r_{XY}={\frac {\sum_{i=1}^{n}(X_i-{\bar {X}})(Y_i-{\bar {Y}})}{{\sqrt {\sum_{i=1}^{n}(X_i-{\bar {X}})^{2}}}{\sqrt {\sum_{i=1}^{n}(Y_i-{\bar {Y}})^{2}}}}}
 \]</span></p>
-<p>where <span class="math inline">\(x_i\)</span> and <span class="math inline">\(y_i\)</span> are the individual sample points and <span class="math inline">\(\bar{x}\)</span> and <span class="math inline">\(\bar{y}\)</span> are the sample mean. There are alternative methods that allow us to loosen some assumptions such as assuming a linear relationship; however, in the next section we’ll see how simple linear regression fully characterizes this Pearson’s correlation.</p>
+<p>where <span class="math inline">\(X_i\)</span> and <span class="math inline">\(Y_i\)</span> represent the individual sample points and <span class="math inline">\(\bar{X}\)</span> and <span class="math inline">\(\bar{Y}\)</span> are the sample mean. There are alternative methods that allow us to loosen some assumptions such as assuming a linear relationship; however, in the next section we’ll see how simple linear regression fully characterizes this Pearson’s correlation.</p>
 <section id="knowledge-check" class="level3" data-number="3.2.1">
 <h3 data-number="3.2.1" class="anchored" data-anchor-id="knowledge-check"><span class="header-section-number">3.2.1</span> Knowledge check</h3>
 <div class="callout callout-style-simple callout-caution no-icon">
@@ -443,11 +439,15 @@ r_{xy}={\frac {\sum _{i=1}^{n}(x_{i}-{\bar {x}})(y_{i}-{\bar {y}})}{{\sqrt {\sum
 </div>
 </div>
 <p>The line in the above plot is called a “regression line.” The regression line is a visual summary of the linear relationship between two numerical variables, in our case the outcome variable <code>Sale_Price</code> and the explanatory variable <code>Gr_Liv_Area</code>. The positive slope of the blue line is consistent with our earlier observed correlation coefficient of 0.71 suggesting that there is a positive relationship between these two variables.</p>
-</section>
-<section id="estimating-best-fit" class="level3" data-number="3.3.2">
-<h3 data-number="3.3.2" class="anchored" data-anchor-id="estimating-best-fit"><span class="header-section-number">3.3.2</span> Estimating “best fit”</h3>
-<p>You may recall from secondary/high school algebra that the equation of a line is <span class="math inline">\(y = a + b \times x\)</span>. Often, in formulas like these we illustrate multiplication without the <span class="math inline">\(\times\)</span> symbol like the following <span class="math inline">\(y = a + bx\)</span>. The equation of our line is defined by two coefficients <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>. The intercept coefficient <span class="math inline">\(a\)</span> is the value of <span class="math inline">\(y\)</span> when <span class="math inline">\(x = 0\)</span>. The slope coefficient <span class="math inline">\(b\)</span> for <span class="math inline">\(x\)</span> is the increase in <span class="math inline">\(y\)</span> for every increase of one in <span class="math inline">\(x\)</span>. This is also called the “rise over run.”</p>
-<p>However, when defining a regression line like the regression line in the previous plot, we use slightly different notation: the equation of the regression line is <span class="math inline">\(\widehat{y} = b_0 + b_1 x\)</span>. The intercept coefficient is <span class="math inline">\(b_0\)</span>, so <span class="math inline">\(b_0\)</span> is the value of <span class="math inline">\(\widehat{y}\)</span> when <span class="math inline">\(x = 0\)</span>. The slope coefficient for <span class="math inline">\(x\)</span> is <span class="math inline">\(b_1\)</span>, i.e., the increase in <span class="math inline">\(\widehat{y}\)</span> for every increase of one unit in <span class="math inline">\(x\)</span>. Why do we put a “hat” on top of the <span class="math inline">\(y\)</span>? It’s a form of notation commonly used in regression to indicate that we have a “fitted value,” or the value of <span class="math inline">\(y\)</span> on the regression line for a given <span class="math inline">\(x\)</span> value.</p>
+<p>Mathematically, we can express this regression line as</p>
+<p><span id="eq-lm"><span class="math display">\[
+Y_i = \beta_0 + \beta_1 X_i + \epsilon_i, \quad \text{for } i = 1, 2, \dots, n,
+\tag{3.1}\]</span></span></p>
+<p>where <span class="math inline">\(Y_i\)</span> represents the <em>i</em>-th response value, <span class="math inline">\(X_i\)</span> represents the <em>i</em>-th feature value, <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> are fixed, but unknown constants (commonly referred to as coefficients or parameters) that represent the intercept and slope of the regression line, respectively, and <span class="math inline">\(\epsilon_i\)</span> represents noise or random error. In this chapter, we’ll assume that the errors are normally distributed with mean zero and constant variance <span class="math inline">\(\sigma^2\)</span>, denoted <span class="math inline">\(\stackrel{iid}{\sim} \left(0, \sigma^2\right)\)</span>. Since the random errors are centered around zero (i.e., <span class="math inline">\(E\left(\epsilon\right) = 0\)</span>), linear regression is really a problem of estimating a <em>conditional mean</em>:</p>
+<p><span class="math display">\[
+  E\left(Y_i | X_i\right) = \beta_0 + \beta_1 X_i.
+\]</span></p>
+<p>For brevity, we often drop the conditional piece and write <span class="math inline">\(E\left(Y | X\right) = E\left(Y\right)\)</span>. Consequently, the interpretation of the coefficients is in terms of the average, or mean response. For example, the intercept <span class="math inline">\(\beta_0\)</span> represents the average response value when <span class="math inline">\(X = 0\)</span> (it is often not meaningful or of interest and is sometimes referred to as a <em>bias term</em>). The slope <span class="math inline">\(\beta_1\)</span> represents the increase in the average response per one-unit increase in <span class="math inline">\(X\)</span> (i.e., it is a <em>rate of change</em>).</p>
 <p>So what are the coefficients of our best fit line that characterizes the relationship between <code>Gr_Liv_Area</code> and <code>Sale_Price</code>? We can get that by fitting an SLR model where <code>Sale_Price</code> is our response variable and <code>Gr_Liv_Area</code> is our single predictor variable.</p>
 <p>Once our model is fit we can extract our fitted model results with <code>tidy()</code>:</p>
 <div class="cell" data-layout-align="center">
@@ -462,7 +462,7 @@ r_{xy}={\frac {\sum _{i=1}^{n}(x_{i}-{\bar {x}})(y_{i}-{\bar {y}})}{{\sqrt {\sum
 <span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 Gr_Liv_Area     110.      2.42     45.3  5.17e-311</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The estimated coefficients from our model are <span class="math inline">\(b_0 =\)</span> 15938.17 and <span class="math inline">\(b_1 =\)</span> 109.67. To interpret, we estimate that the mean selling price increases by 109.67 for each additional one square foot of above ground living space.</p>
-<p>With these coefficients, we can look at our scatter plot again (this time with the x &amp; y axes formatted) and compare the characterization of our linear line with the coefficients. This simple description of the relationship between the sale price and square footage using a single number (i.e., the slope) is what makes linear regression such an intuitive and popular modeling tool.</p>
+<p>With these coefficients, we can look at our scatter plot again (this time with the x &amp; y axes formatted) and compare the characterization of our regression line with the coefficients. This simple description of the relationship between the sale price and square footage using a single number (i.e., the slope) is what makes linear regression such an intuitive and popular modeling tool.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ames_train, <span class="fu">aes</span>(Gr_Liv_Area, Sale_Price)) <span class="sc">+</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">1.5</span>, <span class="at">alpha =</span> .<span class="dv">25</span>) <span class="sc">+</span></span>
@@ -477,8 +477,11 @@ r_{xy}={\frac {\sum _{i=1}^{n}(x_{i}-{\bar {x}})(y_{i}-{\bar {y}})}{{\sqrt {\sum
 </div>
 </div>
 </div>
-<p>This is great but you may still be asking how we are estimating the coefficients? Ideally, we want estimates of <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span> that give us the “best fitting” line. But what is meant by “best fitting”? The most common approach is to use the method of <em>least squares</em> (LS) estimation; this form of linear regression is often referred to as ordinary least squares (OLS) regression. There are multiple ways to measure “best fitting”, but the LS criterion finds the “best fitting” line by minimizing the <em>residual sum of squares</em> (RSS).</p>
-<p>Before we define RSS, let’s first define what a residual is. Let’s look at a single home. This home has 3,608 square feet of living space and sold for $475,000. In other words, <span class="math inline">\(x = 3608\)</span> and <span class="math inline">\(y = 475000\)</span>.</p>
+</section>
+<section id="estimation" class="level3" data-number="3.3.2">
+<h3 data-number="3.3.2" class="anchored" data-anchor-id="estimation"><span class="header-section-number">3.3.2</span> Estimation</h3>
+<p>This is great but you may still be asking how we are estimating the coefficients? Ideally, we want estimates of <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span> that give us the “best fitting” line represented in the previous plot. But what is meant by “best fitting”? The most common approach is to use the method of <em>least squares</em> (LS) estimation; this form of linear regression is often referred to as ordinary least squares (OLS) regression. There are multiple ways to measure “best fitting”, but the LS criterion finds the “best fitting” line by minimizing the <em>residual sum of squares</em> (RSS).</p>
+<p>Before we mathematically define RSS, let’s first define what a residual is. Let’s look at a single home. This home has 3,608 square feet of living space and sold for $475,000. In other words, <span class="math inline">\(x = 3608\)</span> and <span class="math inline">\(y = 475000\)</span>.</p>
 <div class="cell" data-layout-align="center">
 <pre><code>## # A tibble: 1 × 2
 ##   Gr_Liv_Area Sale_Price
@@ -486,8 +489,8 @@ r_{xy}={\frac {\sum _{i=1}^{n}(x_{i}-{\bar {x}})(y_{i}-{\bar {y}})}{{\sqrt {\sum
 ## 1        3608     475000</code></pre>
 </div>
 <p>Based on our linear regression model (or the intercept and slope we identified from our model) our best fit line estimates that this house’s sale price is</p>
-<p><span class="math display">\[\widehat{y} = b_0 + b_1 \times x = 15938.1733 + 109.6675 \times 3608 = 411618.5\]</span></p>
-<p>We can visualize this in our plot where we have the actual <code>Sale_Price</code> (orange) and the estimated <code>Sale_Price</code> based on our fitted line. The difference between these two values (<span class="math inline">\(y - \widehat{y} = 475000 - 411618.5 = 63381.5\)</span>) is what we call our residual. It is considered the error for this observation, which we can visualize with the red line.</p>
+<p><span class="math display">\[\widehat{Y_i} = b_0 + b_1 \times X_i = 15938.1733 + 109.6675 \times 3608 = 411618.5\]</span></p>
+<p>We can visualize this in our plot where we have the actual <code>Sale_Price</code> (orange) and the estimated <code>Sale_Price</code> based on our fitted line. The difference between these two values (<span class="math inline">\(Y_i - \widehat{Y_i} = 475000 - 411618.5 = 63381.5\)</span>) is what we call our residual. It is considered the error for this observation, which we can visualize with the red line.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -510,22 +513,47 @@ r_{xy}={\frac {\sum _{i=1}^{n}(x_{i}-{\bar {x}})(y_{i}-{\bar {y}})}{{\sqrt {\sum
 </div>
 <p>The OLS criterion identifies the “best fitting” line that minimizes the sum of squares of these residuals. Mathematically, this is computed by taking the sum of the squared residuals (or as stated before the residual sum of squares –&gt; “RSS”).</p>
 <p><span class="math display">\[
-RSS = \sum_{i=1}^n\left(y_i - \widehat{y_i}\right)^2
+RSS = \sum_{i=1}^n\left(Y_i - \widehat{Y_i}\right)^2
 \]</span></p>
-<p>where <span class="math inline">\(y_i\)</span> and <span class="math inline">\(\widehat{y_i}\)</span> just mean the actual and predicted response values for the ith observation.</p>
+<p>where <span class="math inline">\(Y_i\)</span> and <span class="math inline">\(\widehat{Y_i}\)</span> just mean the actual and predicted response values for the ith observation.</p>
+<p>One drawback of the LS procedure in linear regression is that it only provides estimates of the coefficients; it does not provide an estimate of the error variance <span class="math inline">\(\sigma^2\)</span>! LS also makes no assumptions about the random errors. These assumptions are important for inference and in estimating the error variance which we’re assuming is a constant value <span class="math inline">\(\sigma^2\)</span>. One way to estimate <span class="math inline">\(\sigma^2\)</span> (which is required for characterizing the variability of our fitted model), is to use the method of <em>maximum likelihood</em> (ML) estimation (see <span class="citation" data-cites="kutner-2005-applied">Kutner et al. (<a href="references.html#ref-kutner-2005-applied" role="doc-biblioref">2005</a>)</span> Section 1.7 for details). The ML procedure requires that we assume a particular distribution for the random errors. Most often, we assume the errors to be normally distributed. In practice, under the usual assumptions stated above, an unbiased estimate of the error variance is given as the sum of the squared residuals divided by <span class="math inline">\(n - p\)</span> (where <span class="math inline">\(p\)</span> is the number of regression coefficients or parameters in the model):</p>
+<p><span class="math display">\[\begin{equation}
+  \widehat{\sigma}^2 = \frac{1}{n - p}\sum_{i = 1} ^ n r_i ^ 2,
+\end{equation}\]</span></p>
+<p>where <span class="math inline">\(r_i = \left(Y_i - \widehat{Y}_i\right)\)</span> is referred to as the <span class="math inline">\(i\)</span>th residual (i.e., the difference between the <span class="math inline">\(i\)</span>th observed and predicted response value). The quantity <span class="math inline">\(\widehat{\sigma}^2\)</span> is also referred to as the <em>mean square error</em> (MSE) and its square root is denoted RMSE (see Section <a href="02-modeling-process.html#sec-regression-model-eval"><span>Section&nbsp;2.5.1</span></a> for discussion on these metrics).</p>
+<p>For our SLR model, we can extract the RMSE metric and others using the <code>glance()</code> function:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(model1) <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">select</span>(sigma) <span class="sc">%&gt;%</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">RMSE =</span> sigma, <span class="at">MSE =</span> RMSE<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 × 3</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="do">##    sigma   RMSE         MSE</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;dbl&gt;  &lt;dbl&gt;       &lt;dbl&gt;</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 56788. 56788. 3224869786.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Typically, these error metrics are computed on a separate validation set discussed in Section <a href="02-modeling-process.html#sec-model-eval"><span>Section&nbsp;2.5</span></a> or using cross-validation as will be discussed in a future chapter; however, they can also be computed on the same training data the model was trained on as illustrated here.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="inference" class="level3" data-number="3.3.3">
 <h3 data-number="3.3.3" class="anchored" data-anchor-id="inference"><span class="header-section-number">3.3.3</span> Inference</h3>
 <p>Let’s go back to our <code>model1</code> results that show the <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span> coefficient values:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(model1)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 2 × 5</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="do">##   term        estimate std.error statistic   p.value</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 (Intercept)   15938.   3852.        4.14 3.65e-  5</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 Gr_Liv_Area     110.      2.42     45.3  5.17e-311</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(model1)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 2 × 5</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="do">##   term        estimate std.error statistic   p.value</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 (Intercept)   15938.   3852.        4.14 3.65e-  5</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 Gr_Liv_Area     110.      2.42     45.3  5.17e-311</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Note that we call these coefficient values “estimates.” Due to various reasons we should always assume that there is some variability in our estimated coefficient values. The variability of an estimate is often measured by its <em>standard error</em> (SE). When we fit our linear regression model the SE for each coefficient was computed for us and are displayed in the column labeled <code>std.error</code> in the output from <code>tidy()</code>.</p>
+<p>Note that we call these coefficient values “estimates.” Due to various reasons we should always assume that there is some variability in our estimated coefficient values. The variability of an estimate is often measured by its <em>standard error</em> (SE)—the square root of its variance. Since we assume that the errors in the linear regression model are <span class="math inline">\(\stackrel{iid}{\sim} \left(0, \sigma^2\right)\)</span>, then simple expressions for the SEs of the estimated coefficients exist and were computed for us and displayed in the column labeled <code>std.error</code> in the output from <code>tidy()</code>.</p>
 <p>From this, we can also derive simple <span class="math inline">\(t\)</span>-tests to understand if the individual coefficients are statistically significant from zero. The <em>t</em>-statistics for such a test are nothing more than the estimated coefficients divided by their corresponding estimated standard errors (i.e., in the output from <code>tidy()</code>, <code>t value (aka statistic)</code> = <code>estimate</code> / <code>std.error</code>). The reported <em>t</em>-statistics measure the number of standard deviations each coefficient is away from 0. Thus, large <em>t</em>-statistics (greater than two in absolute value, say) roughly indicate statistical significance at the <span class="math inline">\(\alpha = 0.05\)</span> level. The <em>p</em>-values for these tests are also reported by <code>tidy()</code> in the column labeled <code>p.value</code>.</p>
 <div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
@@ -537,110 +565,112 @@ RSS = \sum_{i=1}^n\left(y_i - \widehat{y_i}\right)^2
 </div>
 </div>
 </div>
-<p>When the <code>p.value</code> for a given coefficient is quite small (i.e.&nbsp;<code>p.value</code> &lt; 0.005), that is a good indication that the estimate for that coefficient is statistically different than zero. For example, the <code>p.value</code> for the <code>Gr_Liv_Area</code> coefficient is 5.17e-311 (basically zero). This means that the estimated coefficient value of 109.6675 is statistically different than zero. Let’s look at this from another perspective. We can compute the 95% confidence intervals for the coefficients in our SLR example.</p>
+<p>When the <code>p.value</code> for a given coefficient is quite small (i.e.&nbsp;<code>p.value</code> &lt; 0.005), that is a good indication that the estimate for that coefficient is statistically different than zero. For example, the <code>p.value</code> for the <code>Gr_Liv_Area</code> coefficient is 5.17e-311 (basically zero). This means that the estimated coefficient value of 109.6675 is statistically different than zero.</p>
+<p>Let’s look at this from another perspective. Under the same assumptions, we can also derive confidence intervals for the coefficients. The formula for the traditional <span class="math inline">\(100\left(1 - \alpha\right)\)</span>% confidence interval for <span class="math inline">\(\beta_j\)</span> is</p>
+<p><span id="eq-conf-int"><span class="math display">\[
+  \widehat{\beta}_j \pm t_{1 - \alpha / 2, n - p} \widehat{SE}\left(\widehat{\beta}_j\right).
+\tag{3.2}\]</span></span></p>
+<p>In R, we can construct such (one-at-a-time) confidence intervals for each coefficient using <code>confint()</code>. For example, a 95% confidence intervals for the coefficients in our SLR example can be computed using</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(model1<span class="sc">$</span>fit, <span class="at">level =</span> <span class="fl">0.95</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="do">##                2.5 %     97.5 %</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept) 8384.213 23492.1336</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Gr_Liv_Area  104.920   114.4149</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(model1<span class="sc">$</span>fit, <span class="at">level =</span> <span class="fl">0.95</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="do">##                2.5 %     97.5 %</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept) 8384.213 23492.1336</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Gr_Liv_Area  104.920   114.4149</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To interpret, we estimate with 95% confidence that the mean selling price increases between 104.92 and 114.41 for each additional one square foot of above ground living space. We can also conclude that the slope <span class="math inline">\(b_1\)</span> is significantly different from zero (or any other pre-specified value not included in the interval) at the <span class="math inline">\(\alpha = 0.05\)</span> level (<span class="math inline">\(\alpha = 0.05\)</span> because we just take 1 - confidence level we are computing so <span class="math inline">\(1 - 0.95 = 0.05\)</span>).</p>
-</section>
-<section id="knowledge-check-1" class="level3" data-number="3.3.4">
-<h3 data-number="3.3.4" class="anchored" data-anchor-id="knowledge-check-1"><span class="header-section-number">3.3.4</span> Knowledge check</h3>
-<div class="callout callout-style-simple callout-caution no-icon">
+<div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
+<i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
+<p>Most statistical software, including R, will include estimated standard errors, <em>t</em>-statistics, etc. as part of its regression output. However, it is important to remember that such quantities depend on three major assumptions of the linear regression model:</p>
 <ol type="1">
-<li>Visualize the relationship between these two variables.</li>
-<li>Compute their correlation.</li>
-<li>Create a simple linear regression model where <code>Sale_Price</code> is a function of <code>Year_Built</code>.</li>
-<li>Interpret the coefficient for <code>Year_Built</code>.</li>
-<li>What is the 95% confidence interval for this coefficient and can we confidently say it is statistically different than zero?</li>
+<li>Independent observations</li>
+<li>The random errors have mean zero, and constant variance</li>
+<li>The random errors are normally distributed</li>
 </ol>
+<p>If any or all of these assumptions are violated, then remedial measures need to be taken. For instance, <em>weighted least squares</em> (and other procedures) can be used when the constant variance assumption is violated. Transformations (of both the response and features) can also help to correct departures from these assumptions. The residuals are extremely useful in helping to identify how parametric models depart from such assumptions.</p>
 </div>
 </div>
 </div>
 </section>
-</section>
-<section id="making-predictions" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="making-predictions"><span class="header-section-number">3.4</span> Making predictions</h2>
+<section id="making-predictions" class="level3" data-number="3.3.4">
+<h3 data-number="3.3.4" class="anchored" data-anchor-id="making-predictions"><span class="header-section-number">3.3.4</span> Making predictions</h3>
 <p>We’ve created a simple linear regression model to describe the relationship between <code>Gr_Liv_Area</code> and <code>Sale_Price</code>. As we saw in the last chapter, we can make predictions with this model.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>model1 <span class="sc">%&gt;%</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">predict</span>(ames_train)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 2,049 × 1</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="do">##      .pred</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="do">##      &lt;dbl&gt;</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 135695.</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  2 135695.</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  3 107620.</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  4  98408.</span></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  5 126922.</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  6 224526.</span></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  7 114639.</span></span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  8 129992.</span></span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 205444.</span></span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 132515.</span></span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="do">## # ℹ 2,039 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>model1 <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">predict</span>(ames_train)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 2,049 × 1</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="do">##      .pred</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="do">##      &lt;dbl&gt;</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 135695.</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  2 135695.</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  3 107620.</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  4  98408.</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  5 126922.</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  6 224526.</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  7 114639.</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  8 129992.</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 205444.</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 132515.</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="do">## # ℹ 2,039 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>And we can always add these predictions back to our training data if we want to look at how the predicted values differ from the actual values.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>model1 <span class="sc">%&gt;%</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">predict</span>(ames_train) <span class="sc">%&gt;%</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">bind_cols</span>(ames_train) <span class="sc">%&gt;%</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">select</span>(Gr_Liv_Area, Sale_Price, .pred)</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 2,049 × 3</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="do">##    Gr_Liv_Area Sale_Price   .pred</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="do">##          &lt;int&gt;      &lt;int&gt;   &lt;dbl&gt;</span></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  1        1092     105500 135695.</span></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  2        1092      88000 135695.</span></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  3         836     120000 107620.</span></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  4         752     125000  98408.</span></span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  5        1012      67500 126922.</span></span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  6        1902     112000 224526.</span></span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  7         900     122000 114639.</span></span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  8        1040     127000 129992.</span></span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="do">##  9        1728      84900 205444.</span></span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="do">## 10        1063     128000 132515.</span></span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="do">## # ℹ 2,039 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="assessing-model-accuracy" class="level2" data-number="3.5">
-<h2 data-number="3.5" class="anchored" data-anchor-id="assessing-model-accuracy"><span class="header-section-number">3.5</span> Assessing model accuracy</h2>
-<p>This allows us to assess the accuracy of our model. Recall from the last module that for regression models we often use mean squared error (MSE) and root mean squared error (RMSE) to quantify the accuracy of our model. These two values are directly correlated to the RSS we discussed above, which determines the best fit line. Let’s illustrate.</p>
-<section id="training-data-accuracy" class="level3" data-number="3.5.1">
-<h3 data-number="3.5.1" class="anchored" data-anchor-id="training-data-accuracy"><span class="header-section-number">3.5.1</span> Training data accuracy</h3>
-<p>Recall that the residuals are the differences between the actual <span class="math inline">\(y\)</span> and the estimated <span class="math inline">\(\widehat{y}\)</span> based on the best fit line.</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>residuals <span class="ot">&lt;-</span> model1 <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>model1 <span class="sc">%&gt;%</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">predict</span>(ames_train) <span class="sc">%&gt;%</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">bind_cols</span>(ames_train) <span class="sc">%&gt;%</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">select</span>(Gr_Liv_Area, Sale_Price, .pred) <span class="sc">%&gt;%</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">residual =</span> Sale_Price <span class="sc">-</span> .pred)</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(residuals, <span class="dv">5</span>)</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 5 × 4</span></span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="do">##   Gr_Liv_Area Sale_Price   .pred residual</span></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="do">##         &lt;int&gt;      &lt;int&gt;   &lt;dbl&gt;    &lt;dbl&gt;</span></span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 1        1092     105500 135695.  -30195.</span></span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 2        1092      88000 135695.  -47695.</span></span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 3         836     120000 107620.   12380.</span></span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 4         752     125000  98408.   26592.</span></span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 5        1012      67500 126922.  -59422.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">select</span>(Gr_Liv_Area, Sale_Price, .pred)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 2,049 × 3</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="do">##    Gr_Liv_Area Sale_Price   .pred</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="do">##          &lt;int&gt;      &lt;int&gt;   &lt;dbl&gt;</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  1        1092     105500 135695.</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  2        1092      88000 135695.</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  3         836     120000 107620.</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  4         752     125000  98408.</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  5        1012      67500 126922.</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  6        1902     112000 224526.</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  7         900     122000 114639.</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  8        1040     127000 129992.</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="do">##  9        1728      84900 205444.</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="do">## 10        1063     128000 132515.</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="do">## # ℹ 2,039 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The RSS squares these values and then sums them.</p>
+</section>
+<section id="assessing-model-accuracy" class="level3" data-number="3.3.5">
+<h3 data-number="3.3.5" class="anchored" data-anchor-id="assessing-model-accuracy"><span class="header-section-number">3.3.5</span> Assessing model accuracy</h3>
+<p>This allows us to assess the accuracy of our model. Recall from the last module that for regression models we often use mean squared error (MSE) and root mean squared error (RMSE) to quantify the accuracy of our model. These two values are directly correlated to the RSS we discussed above, which determines the best fit line. Let’s illustrate.</p>
+<section id="training-data-accuracy" class="level4" data-number="3.3.5.1">
+<h4 data-number="3.3.5.1" class="anchored" data-anchor-id="training-data-accuracy"><span class="header-section-number">3.3.5.1</span> Training data accuracy</h4>
+<p>Recall that the residuals are the differences between the actual <span class="math inline">\(y\)</span> and the estimated <span class="math inline">\(\widehat{y}\)</span> based on the best fit line.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>residuals <span class="sc">%&gt;%</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">squared_residuals =</span> residual<span class="sc">^</span><span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">summarize</span>(<span class="at">sum_of_squared_residuals =</span> <span class="fu">sum</span>(squared_residuals))</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 × 1</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="do">##   sum_of_squared_residuals</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="do">##                      &lt;dbl&gt;</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 1                  6.60e12</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>residuals <span class="ot">&lt;-</span> model1 <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">predict</span>(ames_train) <span class="sc">%&gt;%</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">bind_cols</span>(ames_train) <span class="sc">%&gt;%</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">select</span>(Gr_Liv_Area, Sale_Price, .pred) <span class="sc">%&gt;%</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">residual =</span> Sale_Price <span class="sc">-</span> .pred)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(residuals, <span class="dv">5</span>)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 5 × 4</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="do">##   Gr_Liv_Area Sale_Price   .pred residual</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="do">##         &lt;int&gt;      &lt;int&gt;   &lt;dbl&gt;    &lt;dbl&gt;</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 1        1092     105500 135695.  -30195.</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 2        1092      88000 135695.  -47695.</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 3         836     120000 107620.   12380.</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 4         752     125000  98408.   26592.</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 5        1012      67500 126922.  -59422.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The RSS squares these values, sums them, and multiples by 1 divided by the number of observations minus the number of coefficients in our model, which is 2.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>residuals <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">squared_residuals =</span> residual<span class="sc">^</span><span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">summarize</span>(<span class="at">sum_of_squared_residuals =</span> <span class="fu">sum</span>(squared_residuals), <span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">RSS =</span> (<span class="dv">1</span> <span class="sc">/</span> (n<span class="dv">-2</span>)) <span class="sc">*</span> sum_of_squared_residuals)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 × 3</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   sum_of_squared_residuals     n         RSS</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="do">##                      &lt;dbl&gt; &lt;int&gt;       &lt;dbl&gt;</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 1                  6.60e12  2049 3224869786.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
@@ -655,31 +685,31 @@ RSS = \sum_{i=1}^n\left(y_i - \widehat{y_i}\right)^2
 <p>However, when expressing the performance of a model we rarely state the RSS. Instead it is more common to state the <em>average of the squared error</em>, or the MSE as discussed <a href="https://bradleyboehmke.github.io/uc-bana-4080/lesson-1b-first-model-with-tidymodels.html#regression-models">here</a>. Unfortunately, both the RSS and MSE are not very intuitive because the units the metrics are expressed in do have much meaning. So, we usually use the RMSE metric, which simply takes the square root of the MSE metric so that your error metric is in the same units as your response variable.</p>
 <p>We can manually compute this with the following, which tells us that on average, our linear regression model mispredicts the expected sale price of a home by about $56,760.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>residuals <span class="sc">%&gt;%</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">squared_residuals =</span> residual<span class="sc">^</span><span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">summarize</span>(</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">MSE =</span> <span class="fu">mean</span>(squared_residuals),</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">RMSE =</span> <span class="fu">sqrt</span>(MSE)</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 × 2</span></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="do">##           MSE   RMSE</span></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="do">##         &lt;dbl&gt;  &lt;dbl&gt;</span></span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 3221722037. 56760.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>residuals <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">squared_residuals =</span> residual<span class="sc">^</span><span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">summarize</span>(</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">MSE =</span> <span class="fu">mean</span>(squared_residuals),</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">RMSE =</span> <span class="fu">sqrt</span>(MSE)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 × 2</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="do">##           MSE   RMSE</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="do">##         &lt;dbl&gt;  &lt;dbl&gt;</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 3221722037. 56760.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We could also compute this using the <code>rmse()</code> function we saw in the last module:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>model1 <span class="sc">%&gt;%</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">predict</span>(ames_train) <span class="sc">%&gt;%</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">bind_cols</span>(ames_train) <span class="sc">%&gt;%</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">rmse</span>(<span class="at">truth =</span> Sale_Price, <span class="at">estimate =</span> .pred)</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 × 3</span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   .metric .estimator .estimate</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 rmse    standard      56760.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>model1 <span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">predict</span>(ames_train) <span class="sc">%&gt;%</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">bind_cols</span>(ames_train) <span class="sc">%&gt;%</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">rmse</span>(<span class="at">truth =</span> Sale_Price, <span class="at">estimate =</span> .pred)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 × 3</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   .metric .estimator .estimate</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 rmse    standard      56760.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="test-data-accuracy" class="level3" data-number="3.5.2">
-<h3 data-number="3.5.2" class="anchored" data-anchor-id="test-data-accuracy"><span class="header-section-number">3.5.2</span> Test data accuracy</h3>
+<section id="test-data-accuracy" class="level4" data-number="3.3.5.2">
+<h4 data-number="3.3.5.2" class="anchored" data-anchor-id="test-data-accuracy"><span class="header-section-number">3.3.5.2</span> Test data accuracy</h4>
 <p>Recall that a major goal of the machine learning process is to find a model that most accurately predicts future values based on a set of features. In other words, we want an algorithm that not only fits well to our past data, but more importantly, one that predicts a future outcome accurately. In the last chapter we called this our generalization error.</p>
 <p>So, ultimately, we want to understand how well our model will generalize to <em>unseen</em> data. To do this we need to compute the RMSE of our model on our test set.</p>
 <div class="callout callout-style-simple callout-note">
@@ -693,38 +723,46 @@ RSS = \sum_{i=1}^n\left(y_i - \widehat{y_i}\right)^2
 </div>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>model1 <span class="sc">%&gt;%</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">predict</span>(ames_test) <span class="sc">%&gt;%</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">bind_cols</span>(ames_test) <span class="sc">%&gt;%</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">rmse</span>(<span class="at">truth =</span> Sale_Price, <span class="at">estimate =</span> .pred)</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 × 3</span></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   .metric .estimator .estimate</span></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;</span></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 rmse    standard      55942.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>model1 <span class="sc">%&gt;%</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">predict</span>(ames_test) <span class="sc">%&gt;%</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">bind_cols</span>(ames_test) <span class="sc">%&gt;%</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">rmse</span>(<span class="at">truth =</span> Sale_Price, <span class="at">estimate =</span> .pred)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 × 3</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   .metric .estimator .estimate</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 rmse    standard      55942.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="knowledge-check-2" class="level3" data-number="3.5.3">
-<h3 data-number="3.5.3" class="anchored" data-anchor-id="knowledge-check-2"><span class="header-section-number">3.5.3</span> Knowledge check</h3>
+</section>
+<section id="knowledge-check-1" class="level3" data-number="3.3.6">
+<h3 data-number="3.3.6" class="anchored" data-anchor-id="knowledge-check-1"><span class="header-section-number">3.3.6</span> Knowledge check</h3>
 <div class="callout callout-style-simple callout-caution no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>Let’s revisit the simple linear regression model you created earlier with <code>Year_Built</code> and <code>Sale_Price</code>.</p>
+<p>Let’s revisit the relationship between <code>Year_Built</code> and <code>Sale_Price</code>. Using the <code>ames_train</code> data:</p>
 <ol type="1">
+<li>Visualize the relationship between these two variables.</li>
+<li>Compute their correlation.</li>
+<li>Create a simple linear regression model where <code>Sale_Price</code> is a function of <code>Year_Built</code>.</li>
+<li>Interpret the coefficient for <code>Year_Built</code>.</li>
+<li>What is the 95% confidence interval for this coefficient and can we confidently say it is statistically different than zero?</li>
 <li>Using this model, make predictions using the test data. What is the predicted value for the first home in the test data?</li>
-<li>Compute the generalization RMSE for this model.</li>
-<li>Interpret the generalization RMSE.</li>
-<li>How does this model compare to the model based on <code>Gr_Liv_Area</code>?</li>
+<li>Compute and interpret the generalization RMSE for this model. How does this model compare to the model based on <code>Gr_Liv_Area</code>?</li>
 </ol>
 </div>
 </div>
 </div>
 </section>
 </section>
-<section id="exercises" class="level2" data-number="3.6">
-<h2 data-number="3.6" class="anchored" data-anchor-id="exercises"><span class="header-section-number">3.6</span> Exercises</h2>
+<section id="multiple-linear-regression" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="multiple-linear-regression"><span class="header-section-number">3.4</span> Multiple linear regression</h2>
+<p>TBD</p>
+</section>
+<section id="exercises" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="exercises"><span class="header-section-number">3.5</span> Exercises</h2>
 <div class="callout callout-style-simple callout-caution no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">

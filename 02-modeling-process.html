@@ -212,7 +212,7 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./03-slr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Simple linear regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Linear regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -249,9 +249,9 @@ div.csl-indent {
   <ul class="collapse">
   <li><a href="#knowledge-check-2" id="toc-knowledge-check-2" class="nav-link" data-scroll-target="#knowledge-check-2"><span class="header-section-number">2.4.1</span> Knowledge check</a></li>
   </ul></li>
-  <li><a href="#model-evaluation" id="toc-model-evaluation" class="nav-link" data-scroll-target="#model-evaluation"><span class="header-section-number">2.5</span> Model evaluation</a>
+  <li><a href="#sec-model-eval" id="toc-sec-model-eval" class="nav-link" data-scroll-target="#sec-model-eval"><span class="header-section-number">2.5</span> Model evaluation</a>
   <ul class="collapse">
-  <li><a href="#regression-models" id="toc-regression-models" class="nav-link" data-scroll-target="#regression-models"><span class="header-section-number">2.5.1</span> Regression models</a></li>
+  <li><a href="#sec-regression-model-eval" id="toc-sec-regression-model-eval" class="nav-link" data-scroll-target="#sec-regression-model-eval"><span class="header-section-number">2.5.1</span> Regression models</a></li>
   <li><a href="#sec-classification-models" id="toc-sec-classification-models" class="nav-link" data-scroll-target="#sec-classification-models"><span class="header-section-number">2.5.2</span> Classification models</a></li>
   <li><a href="#knowledge-check-3" id="toc-knowledge-check-3" class="nav-link" data-scroll-target="#knowledge-check-3"><span class="header-section-number">2.5.3</span> Knowledge check</a></li>
   </ul></li>
@@ -524,45 +524,45 @@ div.csl-indent {
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">set_engine</span>(<span class="st">'keras'</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">fit</span>(Sale_Price <span class="sc">~</span> Gr_Liv_Area <span class="sc">+</span> Year_Built, <span class="at">data =</span> train)</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Epoch 1/20</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 65/65 - 1s - loss: 39844569088.0000 - 731ms/epoch - 11ms/step</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 65/65 - 1s - loss: 39844032512.0000 - 632ms/epoch - 10ms/step</span></span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Epoch 2/20</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 65/65 - 0s - loss: 39658676224.0000 - 147ms/epoch - 2ms/step</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 65/65 - 0s - loss: 39657447424.0000 - 124ms/epoch - 2ms/step</span></span>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Epoch 3/20</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 65/65 - 0s - loss: 39487991808.0000 - 136ms/epoch - 2ms/step</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 65/65 - 0s - loss: 39486423040.0000 - 110ms/epoch - 2ms/step</span></span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Epoch 4/20</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 65/65 - 0s - loss: 39331143680.0000 - 109ms/epoch - 2ms/step</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 65/65 - 0s - loss: 39329312768.0000 - 101ms/epoch - 2ms/step</span></span>
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="do">## Epoch 5/20</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 65/65 - 0s - loss: 39187447808.0000 - 110ms/epoch - 2ms/step</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 65/65 - 0s - loss: 39185186816.0000 - 98ms/epoch - 2ms/step</span></span>
 <span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="do">## Epoch 6/20</span></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 65/65 - 0s - loss: 39055187968.0000 - 117ms/epoch - 2ms/step</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 65/65 - 0s - loss: 39053402112.0000 - 125ms/epoch - 2ms/step</span></span>
 <span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="do">## Epoch 7/20</span></span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="do">## 65/65 - 0s - loss: 38933999616.0000 - 116ms/epoch - 2ms/step</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="do">## 65/65 - 0s - loss: 38932656128.0000 - 97ms/epoch - 1ms/step</span></span>
 <span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="do">## Epoch 8/20</span></span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="do">## 65/65 - 0s - loss: 38822387712.0000 - 122ms/epoch - 2ms/step</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="do">## 65/65 - 0s - loss: 38820302848.0000 - 102ms/epoch - 2ms/step</span></span>
 <span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="do">## Epoch 9/20</span></span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="do">## 65/65 - 0s - loss: 38717861888.0000 - 110ms/epoch - 2ms/step</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="do">## 65/65 - 0s - loss: 38715936768.0000 - 100ms/epoch - 2ms/step</span></span>
 <span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="do">## Epoch 10/20</span></span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="do">## 65/65 - 0s - loss: 38618316800.0000 - 109ms/epoch - 2ms/step</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="do">## 65/65 - 0s - loss: 38616842240.0000 - 98ms/epoch - 2ms/step</span></span>
 <span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="do">## Epoch 11/20</span></span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="do">## 65/65 - 0s - loss: 38522421248.0000 - 118ms/epoch - 2ms/step</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="do">## 65/65 - 0s - loss: 38521741312.0000 - 106ms/epoch - 2ms/step</span></span>
 <span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="do">## Epoch 12/20</span></span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a><span class="do">## 65/65 - 0s - loss: 38428266496.0000 - 113ms/epoch - 2ms/step</span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a><span class="do">## 65/65 - 0s - loss: 38427238400.0000 - 110ms/epoch - 2ms/step</span></span>
 <span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a><span class="do">## Epoch 13/20</span></span>
-<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a><span class="do">## 65/65 - 0s - loss: 38331830272.0000 - 115ms/epoch - 2ms/step</span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a><span class="do">## 65/65 - 0s - loss: 38331191296.0000 - 102ms/epoch - 2ms/step</span></span>
 <span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a><span class="do">## Epoch 14/20</span></span>
-<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a><span class="do">## 65/65 - 0s - loss: 38229553152.0000 - 112ms/epoch - 2ms/step</span></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a><span class="do">## 65/65 - 0s - loss: 38228844544.0000 - 99ms/epoch - 2ms/step</span></span>
 <span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a><span class="do">## Epoch 15/20</span></span>
-<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a><span class="do">## 65/65 - 0s - loss: 38118326272.0000 - 113ms/epoch - 2ms/step</span></span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a><span class="do">## 65/65 - 0s - loss: 38116986880.0000 - 97ms/epoch - 1ms/step</span></span>
 <span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a><span class="do">## Epoch 16/20</span></span>
-<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a><span class="do">## 65/65 - 0s - loss: 37992878080.0000 - 113ms/epoch - 2ms/step</span></span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a><span class="do">## 65/65 - 0s - loss: 37990371328.0000 - 100ms/epoch - 2ms/step</span></span>
 <span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a><span class="do">## Epoch 17/20</span></span>
-<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a><span class="do">## 65/65 - 0s - loss: 37847433216.0000 - 114ms/epoch - 2ms/step</span></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a><span class="do">## 65/65 - 0s - loss: 37846155264.0000 - 95ms/epoch - 1ms/step</span></span>
 <span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a><span class="do">## Epoch 18/20</span></span>
-<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a><span class="do">## 65/65 - 0s - loss: 37680074752.0000 - 110ms/epoch - 2ms/step</span></span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a><span class="do">## 65/65 - 0s - loss: 37678174208.0000 - 91ms/epoch - 1ms/step</span></span>
 <span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a><span class="do">## Epoch 19/20</span></span>
-<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a><span class="do">## 65/65 - 0s - loss: 37485367296.0000 - 109ms/epoch - 2ms/step</span></span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a><span class="do">## 65/65 - 0s - loss: 37483937792.0000 - 96ms/epoch - 1ms/step</span></span>
 <span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a><span class="do">## Epoch 20/20</span></span>
-<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a><span class="do">## 65/65 - 0s - loss: 37260599296.0000 - 122ms/epoch - 2ms/step</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a><span class="do">## 65/65 - 0s - loss: 37260275712.0000 - 98ms/epoch - 2ms/step</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-simple callout-tip">
 <div class="callout-body d-flex">
@@ -714,8 +714,8 @@ div.csl-indent {
 </div>
 </section>
 </section>
-<section id="model-evaluation" class="level2" data-number="2.5">
-<h2 data-number="2.5" class="anchored" data-anchor-id="model-evaluation"><span class="header-section-number">2.5</span> Model evaluation</h2>
+<section id="sec-model-eval" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="sec-model-eval"><span class="header-section-number">2.5</span> Model evaluation</h2>
 <p>Historically, the performance of statistical models was largely based on goodness-of-fit tests and assessment of residuals. Unfortunately, misleading conclusions may follow from predictive models that pass these kinds of assessments <span class="citation" data-cites="breiman2001statistical">(<a href="references.html#ref-breiman2001statistical" role="doc-biblioref">Breiman et al. 2001</a>)</span>. Today, it has become widely accepted that a more sound approach to assessing model performance is to assess the predictive accuracy via <em>loss functions</em>. Loss functions are metrics that compare the predicted values to the actual value (the output of a loss function is often referred to as the <em>error</em> or pseudo <em>residual</em>).</p>
 <p>If we look at our predicted outputs for our ordinary least squares model, we can see that the predicted home value (<code>.pred</code>) was $149,091 for the first observation and the actual home value was $172,000, resulting in an error of nearly $23,000. The objective of the loss function is to aggregate the prediction errors for all the observations into a meaningful single value metric.</p>
 <div class="cell" data-layout-align="center">
@@ -739,8 +739,8 @@ div.csl-indent {
 <span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="do">## # ℹ 869 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>There are many loss functions to choose from when assessing the performance of a predictive model, each providing a unique understanding of the predictive accuracy and differing between regression and classification models. Furthermore, the way a loss function is computed will tend to emphasize certain types of errors over others and can lead to drastic differences in how we interpret the “optimal model”. Its important to consider the problem context when identifying the preferred performance metric to use. And when comparing multiple models, we need to compare them across the same metric.</p>
-<section id="regression-models" class="level3" data-number="2.5.1">
-<h3 data-number="2.5.1" class="anchored" data-anchor-id="regression-models"><span class="header-section-number">2.5.1</span> Regression models</h3>
+<section id="sec-regression-model-eval" class="level3" data-number="2.5.1">
+<h3 data-number="2.5.1" class="anchored" data-anchor-id="sec-regression-model-eval"><span class="header-section-number">2.5.1</span> Regression models</h3>
 <p>The most common loss functions for regression models include:</p>
 <ul>
 <li><p><strong>MSE</strong>: Mean squared error is the average of the squared error (<span class="math inline">\(MSE = \frac{1}{n} \sum^n_{i=1}(y_i - \hat y_i)^2\)</span>)<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>. The squared component results in larger errors having larger penalties. <strong>Objective: minimize</strong></p></li>
@@ -1216,7 +1216,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
   <div class="nav-page nav-page-next">
       <a href="./03-slr.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Simple linear regression</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Linear regression</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
