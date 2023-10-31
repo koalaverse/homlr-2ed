@@ -13,11 +13,15 @@ knitr::opts_chunk$set(
 )
 ```
 
-Machine learning (ML) continues to grow in importance for many organizations across nearly all domains.^[There's no shortage of definitions for the term machine learning. For the purposes of this book, we can think of it as a blended field with a focus on using algorithms to help *learn from data*.] Some example applications of machine learning in practice include:
+Machine learning (ML) continues to grow in importance for many organizations across nearly all domains. There's no shortage of definitions for the term machine learning. For the purposes of this book, we can think of it as a blended field with a focus on using algorithms to help *learn from data*. This process of learning from data results in a model, which we can use to make predictions.
+
+Some example applications of machine learning in practice include:
 
 * Predicting the likelihood of a patient returning to the hospital (_readmission_) within
 30 days of discharge.
-* Segmenting customers based on common attributes or purchasing behavior for targeted
+* Predicting songs to recommend to listeners on a music app.
+* Predicting the estimated travel time to drive from your home to work.
+* Predicting a segmentation that a customer aligns to based on common attributes or purchasing behavior for targeted
 marketing.
 * Predicting coupon redemption rates for a given marketing campaign.
 * Predicting customer (or employee) churn so an organization can perform preventative intervention.
@@ -25,12 +29,12 @@ marketing.
 
 In essence, these tasks all seek to learn and draw inferences from patterns in data.  To address each scenario, we can
 use a given set of _features_\index{features} to train an algorithm and extract insights.
-These algorithms, or _learners_\index{learners}, can be classified according to the amount
-and type of supervision needed during training.  The two main groups of learners this book focuses on
-are:
+These algorithms, or _learners_\index{learners}, can be classified according to how they learn to make predictions and the four main groups of learners are:
 
-* *Supervised learners*, which construct predictive models.
-* *Unsupervised learners*, which build descriptive models.
+* Supervised learners
+* Unsupervised learners
+* Reinforcement learning
+* Generative artificial intelligence (AI)
 
 Which type you will need to use depends on the learning task you hope to accomplish.
 
@@ -38,10 +42,10 @@ Which type you will need to use depends on the learning task you hope to accompl
 
 ::: {.content-hidden unless-format="html"}
 
-A *predictive model*\index{predictive model} is used for tasks that involve the
-prediction of a given output (or target variable) using a set of relevant input variables (often referred to as features or predictors). Or, as stated by @apm [p. 2], predictive modeling is "...the process of developing
+_Supervised learning_\index{supervised learning} is a set of ML learners that learn the
+relationship between inputs (often referred to as features or predictors) and output(s) (often referred to as the target variable). Or, as stated by @apm [p. 2], supervised learning is "...the process of developing
 a mathematical tool or model that generates an accurate prediction."  The learning algorithm
-in a predictive model attempts to discover and model the relationships among the
+in a supervised learning model attempts to discover and model the relationships among the
 <font color="red">target</font> variable (the variable being predicted) and the other
 <font color="blue">features</font>. Examples of predictive modeling
 include the following:
@@ -61,17 +65,16 @@ to market</font>.
 
 ::: {.content-hidden unless-format="pdf"}
 
-A *predictive model*\index{predictive model} is used for tasks that involve the
-prediction of a given output (or target) using other variables (or features) in the data
-set. Or, as stated by @apm [p. 2], predictive modeling is "...the process of developing
+_Supervised learning_\index{supervised learning} is a set of ML learners that learn the
+relationship between inputs (often referred to as features or predictors) and output(s) (often referred to as the target variable). Or, as stated by @apm [p. 2], supervised learning is "...the process of developing
 a mathematical tool or model that generates an accurate prediction."  The learning algorithm
-in a predictive model attempts to discover and model the relationships among the
+in a supervised learning model attempts to discover and model the relationships among the
 target variable (the variable being predicted) and the other features (aka predictor
 variables). Examples of predictive modeling include the following:
 
 * Using customer attributes to predict the probability of the customer churning in the
 next 6 weeks.
-* Using varous home attributes to predict the sales price.
+* Using various home attributes to predict the sales price.
 * Using employee attributes to predict the likelihood of attrition within the next six months.
 * Using patient attributes and symptoms to predict the risk of being readmitted to the hospital within 30 days after release.
 * Using product attributes to predict time to market.
@@ -82,7 +85,7 @@ next 6 weeks.
 Each of these examples has a defined learning task; they each intend to use various features
 ($X$) to predict a well-defined target ($Y$). Think about the hospital readmission example. Predicting the liklihood of readmittance is not specific enough and will make pulling together relevant data a challenge, so we need to think carefully aabout how we define the features and response for modeling. Defining the target as *whether or not a patient was readmitted within 30 days after release* is something that can easily be measured, assuming it's relevant to the stakeholders.
 
-The scenarios listed above are examples of _supervised learning_\index{supervised learning}.
+The scenarios listed above are examples of supervised learning.
 The supervision refers to the fact that the target values provide a supervisory role,
 which indicates to the learner the task it needs to learn. Specifically, given a set of
 data, the learning algorithm attempts to optimize a function (the algorithmic steps) to
@@ -122,17 +125,18 @@ c <- matrix(c(.92, .95, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, .95), 1, 15)
 z <- sweep(z, MARGIN = 2, c, `*`)
 ```
 
-::: {.content-hidden unless-format="html"}
-
 When the objective is to predict a quantitative outcome, we generally refer
 to this as a _regression problem_ (not to be confused with linear regression modeling, which is a special case).
 Regression problems revolve around numeric output where both order and distance matters (e.g., sales or a discrete count, like the number of bike rentals in a given day). In the
-examples above, predicting home sale prices and time to market reflect a regression problem
+examples above, predicting home sale prices based home attributes is a regression problem
 because the output is ordered and values closer to each other are closer in nature (e.g., the closer two sale prices are to each other the more similar the homes are in terms of sale value).
+
+::: {.content-hidden unless-format="html"}
+
 @fig-intro-regression-problem-html shows a regression model's predicted sale price of homes in Ames, Iowa (from 2006--2010) as a
 function of two attributes: year built and total square footage. Depending on the
 combination of these two features, the expected home sales price could fall anywhere along
-the surface. We'll learn various ways of building such a model in Part II of this book (TODO: cross-reference "Part II").
+the surface.
 
 ```{r}
 #| label: fig-intro-regression-problem-html
@@ -155,15 +159,10 @@ plot_ly(x = as.vector(x), y = as.vector(y), z = z, showscale = FALSE) %>%
 
 ::: {.content-hidden unless-format="pdf"}
 
-When the objective is to predict a quantitative outcome, we generally refer
-to this as a _regression problem_ (not to be confused with linear regression modeling, which is a special case).
-Regression problems revolve around numeric output where both order and distance matters (e.g., sales or a discrete count, like the number of bike rentals in a given day). In the
-examples above, predicting home sale prices and time to market reflect a regression problem
-because the output is ordered and values closer to each other are closer in nature (e.g., the closer two sale prices are to each other the more similar the homes are in terms of sale value).
 @fig-intro-regression-problem-pdf shows a regression model's predicted sale price of homes in Ames, Iowa (from 2006--2010) as a
 function of two attributes: year built and total square footage. Depending on the
 combination of these two features, the expected home sales price could fall anywhere along
-the surface. We'll learn various ways of building such a model in Part II of this book (TODO: cross-reference "Part II").
+the surface.
 
 ```{r}
 #| label: fig-intro-regression-problem-pdf
@@ -187,16 +186,28 @@ persp(
 ```
 :::
 
+See @tbl-example-regression-problems for a few more examples of regression models:
+
+| Scenario | Potential features | Numeric prediction |
+|--------|--------|--------|
+| Predict home prices  | Square footage, zip code, number of bedrooms and bathrooms, lot size, mortgage interest rate, property tax rate, construction costs, and number of homes for sale in the area. | The home price in dollars. |
+| Predict ride time | Historical traffic conditions (gathered from smartphones, traffic sensors, ride-hailing and other navigation applications), distance from destination, and weather conditions. | The time in minutes and seconds to arrive at a destination. |
+| Predict loan interest rate | Customer credit score, number of loans outstanding, historical repayment history, size of loan requested, current inflation and treasury rates. | The interest rate to be applied to a loan. |
+
+: Example regression problems {#tbl-example-regression-problems} {tbl-colwidths="[25,50,25]"}
+
+We'll learn various ways of building such a model in Part II of this book (TODO: cross-reference "Part II").
+
 ### Classification problems
 
 When the objective of our supervised learning is to predict a qualitative (or categorical outcome), we
 refer to this generally as a _classification problem_.  Classification problems most commonly
 revolve around predicting a binary or multinomial response measure such as:
 
-* Did a customer redeem a coupon (coded as yes/no or 1/0)?
-* Did a customer churn (coded as yes/no or 1/0)?
-* Did a customer click on our online ad (coded as yes/no or 1/0)?
-* Classifying customer reviews:
+* Predicting if a customer will redeem a coupon (coded as yes/no or 1/0)?
+* Predicting if a customer will churn (coded as yes/no or 1/0)?
+* Predicting if a customer will click on our online ad (coded as yes/no or 1/0)?
+* Predicting if a customer review is:
     * Binary: positive vs. negative.
     * Multinomial: extremely negative to extremely positive on a 0--5 Likert scale.
 
@@ -230,7 +241,21 @@ predict a particular class (i.e., "yes" or "no"), we often want to predict the _
 of a particular class (i.e., yes: 0.65, no: 0.35).^[Conditional on the set of input feature values.]  By default, the class with the highest
 predicted probability becomes the predicted class (called a classification).  Consequently, even though we
 classify it as a classification problem (pun intended), we're often still predicting a numeric output (i.e., a probability).
-However, the nature of the target variable is what makes it a classification problem. Throughout this book we will commonly use the term classification for brevity; however, the distinction between predicting the probability of an output and classifying that prediction into a particular class is important and should not be overlooked. Frank Harrell's discussion on classification versus prediction [@herrell2015classification] is an excellent read to delve deeper into this distinction, along with why and when we should be focusing on probability prediction over classification and vice versa.
+However, the nature of the target variable is what makes it a classification problem.
+
+@tbl-example-classification-predictions illustrates some example classification predictions where the model predicts the conditional probability of "Yes" and "No" classes. A threshold of 0.5 probability is used to determine if the predicted class is "Yes" or "No".
+
+| Predicted "Yes" probability | Predicted "No" probability | Predicted class |
+|:------:|:------:|:------:|
+| 0.65 | 0.35 | Yes |
+| 0.15 | 0.85 | No |
+| 0.43 | 0.57 | No |
+| &#x22ee; | 	&#x22ee; | 	&#x22ee; |
+| 0.72 | 0.28 | Yes |
+
+: Example classification predictions {#tbl-example-classification-predictions} {tbl-colwidths="[35,35,30]"}
+
+Throughout this book we will commonly use the term classification for brevity; however, the distinction between predicting the probability of an output and classifying that prediction into a particular class is important and should not be overlooked. Frank Harrell's discussion on classification versus prediction [@herrell2015classification] is an excellent read to delve deeper into this distinction, along with why and when we should be focusing on probability prediction over classification and vice versa.
 
 Although there are ML algorithms that can be applied to regression problems
 but not classification and vice versa, most of the supervised learning algorithms we'll cover
@@ -271,7 +296,20 @@ each case is quite different.
 
 The goal of _clustering_\index{clustering} is to segment observations into similar
 groups based on the observed variables; for example, dividing consumers into different
-homogeneous groups, a process known as market segmentation.  In _dimension
+homogeneous groups, a process known as market segmentation.
+
+Clustering differs from classification because the categories aren't defined by you. For example, @fig-example-clustering shows how an unsupervised model might cluster a weather dataset based on temperature, revealing segmentations that define the seasons. You would then have to name those clusters based on your understanding of the dataset.
+
+::: {#fig-example-clustering layout-ncol=2}
+
+![Data containing similar weather patterns.](figures/clustering-01.png){#fig-surus}
+
+![Clusters of weather patterns labeled as snow, sleet, rain, and no rain.](figures/clustering-03.png){#fig-hanno}
+
+Clustering weather patterns which we would label the clusters based on our understanding of the data.
+:::
+
+In _dimension
 reduction_\index{dimension reduction}, we are often concerned with reducing the number
 of variables in a data set. For example, classical linear regression models break down
 in the presence of highly correlated features, a situation known as *multicollinearity*.^[To be fair, and as we'll see later in the book, the interpretation of most fitted ML models becomes problematic in the presence of correlated or (otherwise dependent) fetures.] Some dimension reduction techniques can
@@ -319,7 +357,42 @@ many of those features are highly correlated. They'd like to reduce the number o
 down by combining all those highly correlated features into groups.
 :::
 
-## Machine Learning in `r fontawesome::fa("r-project")`
+## Reinforcement learning
+
+Reinforcement learning (RL) refers to a family of algorithms that learn to make predictions by getting rewards or penalties based on actions performed within an environment. A reinforcement learning system generates a policy that defines the best strategy for getting the most rewards.
+
+This best strategy is learned through interactions with the environment and observations of how it responds. In the absence of a supervisor, the learner must independently discover the sequence of actions that maximize the reward. This discovery process is akin to a trial-and-error search. The quality of actions is measured by not just the immediate reward they return, but also the delayed reward they might fetch. As it can learn the actions that result in eventual success in an unseen environment without the help of a supervisor, reinforcement learning is a very powerful algorithm.
+
+A few examples of RL include:
+
+* **[Robotics](https://www.wired.com/2010/07/robot-learns-to-flip-pancakes/)**. Robots with pre-programmed behavior are useful in structured environments, such as the assembly line of an automobile manufacturing plant, where the task is repetitive in nature. In the real world, where the response of the environment to the behavior of the robot is uncertain, pre-programming accurate actions is nearly impossible. In such scenarios, RL provides an efficient way to build general-purpose robots. It has been successfully applied to robotic path planning, where a robot must find a short, smooth, and navigable path between two locations, void of collisions and compatible with the dynamics of the robot.
+* **[AlphaGo](https://deepmind.com/research/case-studies/alphago-the-story-so-far)**. One of the most complex strategic games is a 3,000-year-old Chinese board game called Go. Its complexity stems from the fact that there are 10^270 possible board combinations, several orders of magnitude more than the game of chess. In 2016, an RL-based Go agent called AlphaGo defeated the greatest human Go player. Much like a human player, it learned by experience, playing thousands of games with professional players. The latest RL-based Go agent has the capability to learn by playing against itself, an advantage that the human player doesn’t have.
+* **[Autonomous Driving](https://arxiv.org/pdf/2002.00444.pdf)**. An autonomous driving system must perform multiple perception and planning tasks in an uncertain environment. Some specific tasks where RL finds application include vehicle path planning and motion prediction. Vehicle path planning requires several low and high-level policies to make decisions over varying temporal and spatial scales. Motion prediction is the task of predicting the movement of pedestrians and other vehicles, to understand how the situation might develop based on the current state of the environment.
+
+## Generative AI
+
+Generative AI is a class of models that creates content from user input. For example, generative AI can create novel images, music compositions, and jokes; it can summarize articles, explain how to perform a task, or edit a photo.
+
+Generative AI can take a variety of inputs and create a variety of outputs, like text, images, audio, and video. It can also take and create combinations of these. For example, a model can take an image as input and create an image and text as output, or take an image and text as input and create a video as output.
+
+We can discuss generative models by their inputs and outputs, typically written as "type of input"-to-"type of output." For example, the following is a partial list of some inputs and outputs for generative models:
+
+Text-to-text
+Text-to-image
+Text-to-video
+Text-to-code
+Text-to-speech
+Image and text-to-image
+
+The following table list examples of generative models, their input, and an example of their possible output:
+
+TBD
+
+How does generative AI work? At a high-level, generative models learn patterns in data with the goal to produce new but similar data. To produce unique and creative outputs, generative models are initially trained using an unsupervised approach, where the model learns to mimic the data it's trained on. The model is sometimes trained further using supervised or reinforcement learning on specific data related to tasks the model might be asked to perform, for example, summarize an article or edit a photo.
+
+Generative AI is a quickly evolving technology with new use cases constantly being discovered. For example, generative models are helping businesses refine their ecommerce product images by automatically removing distracting backgrounds or improving the quality of low-resolution images.
+
+## Machine learning in `r fontawesome::fa("r-project")`
 
 Historically, the R ecosystem provides a wide variety of ML algorithm implementations.
 This has its benefits; however, this also has drawbacks as it requires the users to learn
