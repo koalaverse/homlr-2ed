@@ -31,12 +31,12 @@ In essence, these tasks all seek to learn and draw inferences from patterns in d
 use a given set of _features_\index{features} to train an algorithm and extract insights.
 These algorithms, or _learners_\index{learners}, can be classified according to how they learn to make predictions and the four main groups of learners are:
 
-* Supervised learners
-* Unsupervised learners
+* Supervised learning
+* Unsupervised learning
 * Reinforcement learning
 * Generative artificial intelligence (AI)
 
-Which type you will need to use depends on the learning task you hope to accomplish.
+Which type you will need to use depends on the learning task you hope to accomplish; and the primary focus of this book is on the first two groups of learners - supervised and unsupervised learning.
 
 ## Supervised learning
 
@@ -265,7 +265,7 @@ learning models in recent years (often driven by their availability in both prop
 ### Knowledge check
 
 ::: {.callout-caution icon=false}
-Identify the features, response variable, and the type of supervised model required for
+Identify the features, response variable, and the type of supervised model (regression or classification) required for
 the following tasks:
 
 * There is an online retailer that wants to predict whether you will click on a certain
@@ -309,8 +309,7 @@ Clustering differs from classification because the categories aren't defined by 
 Clustering weather patterns which we would label the clusters based on our understanding of the data.
 :::
 
-In _dimension
-reduction_\index{dimension reduction}, we are often concerned with reducing the number
+In _dimension reduction_\index{dimension reduction}, we are often concerned with reducing the number
 of variables in a data set. For example, classical linear regression models break down
 in the presence of highly correlated features, a situation known as *multicollinearity*.^[To be fair, and as we'll see later in the book, the interpretation of most fitted ML models becomes problematic in the presence of correlated or (otherwise dependent) fetures.] Some dimension reduction techniques can
 be used to reduce the feature set to a potentially smaller set of uncorrelated variables.
@@ -359,46 +358,59 @@ down by combining all those highly correlated features into groups.
 
 ## Reinforcement learning
 
-Reinforcement learning (RL) refers to a family of algorithms that learn to make predictions by getting rewards or penalties based on actions performed within an environment. A reinforcement learning system generates a policy that defines the best strategy for getting the most rewards.
+_Reinforcement learning_\index{reinforcement learning} (RL) refers to a family of algorithms that learn to make predictions by getting rewards or penalties based on actions performed within an environment. A reinforcement learning system generates a policy that defines the best strategy for getting the most rewards.
 
 This best strategy is learned through interactions with the environment and observations of how it responds. In the absence of a supervisor, the learner must independently discover the sequence of actions that maximize the reward. This discovery process is akin to a trial-and-error search. The quality of actions is measured by not just the immediate reward they return, but also the delayed reward they might fetch. As it can learn the actions that result in eventual success in an unseen environment without the help of a supervisor, reinforcement learning is a very powerful algorithm.
 
 A few examples of RL include:
 
-* **[Robotics](https://www.wired.com/2010/07/robot-learns-to-flip-pancakes/)**. Robots with pre-programmed behavior are useful in structured environments, such as the assembly line of an automobile manufacturing plant, where the task is repetitive in nature. In the real world, where the response of the environment to the behavior of the robot is uncertain, pre-programming accurate actions is nearly impossible. In such scenarios, RL provides an efficient way to build general-purpose robots. It has been successfully applied to robotic path planning, where a robot must find a short, smooth, and navigable path between two locations, void of collisions and compatible with the dynamics of the robot.
-* **[AlphaGo](https://deepmind.com/research/case-studies/alphago-the-story-so-far)**. One of the most complex strategic games is a 3,000-year-old Chinese board game called Go. Its complexity stems from the fact that there are 10^270 possible board combinations, several orders of magnitude more than the game of chess. In 2016, an RL-based Go agent called AlphaGo defeated the greatest human Go player. Much like a human player, it learned by experience, playing thousands of games with professional players. The latest RL-based Go agent has the capability to learn by playing against itself, an advantage that the human player doesn’t have.
-* **[Autonomous Driving](https://arxiv.org/pdf/2002.00444.pdf)**. An autonomous driving system must perform multiple perception and planning tasks in an uncertain environment. Some specific tasks where RL finds application include vehicle path planning and motion prediction. Vehicle path planning requires several low and high-level policies to make decisions over varying temporal and spatial scales. Motion prediction is the task of predicting the movement of pedestrians and other vehicles, to understand how the situation might develop based on the current state of the environment.
+* **[Robotics](https://lamarr-institute.org/blog/reinforcement-learning-and-robotics/)**. Robots with pre-programmed behavior are useful in structured environments, such as the assembly line of an automobile manufacturing plant, where the task is repetitive in nature. However, in the unpredictable real world, where the interaction between a robot's actions and the environment is uncertain, achieving precise pre-programmed actions becomes exceedingly challenging. In such situations, Reinforcement Learning (RL) offers an effective approach to develop versatile robots. RL has demonstrated success in the context of robotic path planning, where robots need to autonomously discover optimal, obstacle-free, and dynamically compatible paths between two locations.
+* **[AlphaGo](https://deepmind.com/research/case-studies/alphago-the-story-so-far)**. Go, a Chinese board game dating back 3,000 years, stands out as one of the most intricate strategic games known. Its complexity is attributed to the staggering number of possible board configurations, estimated at 10^270, surpassing the complexity of chess by several orders of magnitude. In 2016, AlphaGo, an artificial intelligence agent based on Reinforcement Learning (RL), achieved victory against the world's top human Go player. Much like a human player, AlphaGo learned through experience, engaging in thousands of games against professional opponents. Notably, the most recent RL-based Go agent possesses the unique ability to enhance its skills by playing against itself, a capability not available to human players.
+* **[Autonomous Driving](https://arxiv.org/pdf/2002.00444.pdf)**. An autonomous driving system faces the challenge of executing numerous perception and planning functions within an environment characterized by uncertainty. Reinforcement Learning (RL) is employed in various specific tasks, including vehicle path planning and motion prediction. Vehicle path planning entails the use of multiple low and high-level policies to make decisions that span different temporal and spatial scales. On the other hand, motion prediction involves the anticipation of pedestrian and other vehicle movements, thereby enabling an understanding of how the current environmental state might evolve.
+
+Reinforcement learning as field has existed for quite some time but it really gained mainstream popularity after DeepMind’s break through application of Q-learning to play Atari games [@rlatari2013]. Since then reinforcement learning has experienced several major breakthroughs and gains in popularity. Unfortunately, this topic is beyond the scope of this book but we recommend @sutton2018reinforcement, @powell2021reinforcement, and @szepesvari2022algorithms to learn more about RL.
 
 ## Generative AI
 
-Generative AI is a class of models that creates content from user input. For example, generative AI can create novel images, music compositions, and jokes; it can summarize articles, explain how to perform a task, or edit a photo.
+_Generative AI_\index{generative AI} represents a category of models that generate content based on user input. It possesses the capability to generate various forms of content, including original images, musical compositions, and humorous jokes. Additionally, it can summarize articles, provide instructions for performing tasks, or even enhance and modify photographs.
 
-Generative AI can take a variety of inputs and create a variety of outputs, like text, images, audio, and video. It can also take and create combinations of these. For example, a model can take an image as input and create an image and text as output, or take an image and text as input and create a video as output.
+Generative AI is versatile in its ability to work with a wide range of inputs and produce diverse outputs, encompassing text, images, audio, and video. Furthermore, it can handle combinations of these input and output types. For instance, a model can take an image as input and generate both an image and accompanying text as output, or it can accept input in the form of an image and text and produce a video as the output.
 
 We can discuss generative models by their inputs and outputs, typically written as "type of input"-to-"type of output." For example, the following is a partial list of some inputs and outputs for generative models:
 
-Text-to-text
-Text-to-image
-Text-to-video
-Text-to-code
-Text-to-speech
-Image and text-to-image
+- Text-to-text
+- Text-to-image
+- Text-to-video
+- Text-to-code
+- Text-to-speech
+- Image and text-to-image
 
-The following table list examples of generative models, their input, and an example of their possible output:
+@tbl-example-generative-models lists example use-cases of generative models.
 
-TBD
+| Model |	Input	| Example output |
+|:------|:------|:------|
+| Text-to-text | Who came up with the michelin star rating for restaurants? | The Michelin star rating system for restaurants was introduced by the French tire company Michelin. The system was first developed in the early 20th century as a means to promote travel and, by extension, the use of automobiles, in order to increase the demand for tires. Michelin began publishing restaurant and hotel guides in 1900, and in 1926, they started awarding stars to restaurants in recognition of their culinary excellence. The Michelin Guide is highly regarded in the culinary world, and Michelin stars have become a prestigious mark of quality for restaurants. [source: [ChatGPT](https://chat.openai.com) ]|
+| Text-to-image | A brain riding a rocketship heading towards the moon. | ![a-brain-riding-a-rocketship](figures/a-brain-riding-a-rocketship.jpg) [source: [Imagen](https://imagen.research.google) ] |
+| Text-to-code | Write a hello world statement in R | `print("Hello, World!")` [source: [Bard](https://bard.google.com/) ] |
+| Image-to-text | ![flamingo](figures/flamingo.png) | This is a flamingo. They are found in the Caribbean. [Source: [Google DeepMind](https://deepmind.google/)] |
+
+: Examples of generative models, their input, and an example of their possible output. {#tbl-example-generative-models} {tbl-colwidths="[20,30,50]"}
 
 How does generative AI work? At a high-level, generative models learn patterns in data with the goal to produce new but similar data. To produce unique and creative outputs, generative models are initially trained using an unsupervised approach, where the model learns to mimic the data it's trained on. The model is sometimes trained further using supervised or reinforcement learning on specific data related to tasks the model might be asked to perform, for example, summarize an article or edit a photo.
 
 Generative AI is a quickly evolving technology with new use cases constantly being discovered. For example, generative models are helping businesses refine their ecommerce product images by automatically removing distracting backgrounds or improving the quality of low-resolution images.
 
+Although this book does not delve into generative AI directly, the deep learning chapters do provide the foundation that many generative AI models are built upon.
+
 ## Machine learning in `r fontawesome::fa("r-project")`
 
-Historically, the R ecosystem provides a wide variety of ML algorithm implementations.
-This has its benefits; however, this also has drawbacks as it requires the users to learn
-many different formula interfaces and syntax nuances.
+The ML open-source ecosystem is a vibrant and rapidly evolving collection of software tools, libraries, frameworks, and platforms that are made freely available to the public for building, training, and deploying ML. This ecosystem has played a crucial role in democratizing ML and making ML accessible to a wide range of data scientists, researchers, and organizations.
 
-More recently, development on a group of packages called [**Tidymodels**](https://www.tidymodels.org/)
+Although this ecosystem expands multiple programming languages, our focus will predominately be with the R programming language. The R ecosystem provides a wide variety of ML algorithm implementations. This makes many powerful algorithms available at your fingertips. Moreover, there are almost always more than one package to perform each algorithm (e.g., there are over 20 packages for fitting random forests). There are pros and cons to this wide selection; some implementations may be more computationally efficient while others may be more flexible (i.e., have more hyperparameter tuning options).
+
+This book will expose you to many of the R packages and algorithms that perform and scale best to the kinds of data and problems encountered by most organizations while also showing you how to use implementations that provide more consistency.
+
+For example, more recently, development on a group of packages called [**Tidymodels**](https://www.tidymodels.org/)
 has helped to make implementation easier. The **tidymodels** collection allows you to perform
 discrete parts of the ML workflow with discrete packages:
 
@@ -409,12 +421,18 @@ discrete parts of the ML workflow with discrete packages:
 - [yardstick](https://yardstick.tidymodels.org/) for measuring model performance
 - and several others!
 
-Throughout this book you'll be exposed to several of these packages. Go ahead and make
-sure you have the following packages installed.
-
 ::: {.callout-note}
 The **tidymodels** package is a meta package, or a package of packages, that will install
 several packages that exist in the **tidymodels** ecosystem.
+:::
+
+Throughout this book you'll be exposed to several of these packages and more. Moreover, in some cases, ML algorithms are available in one language but not another. As data scientists, we need to be comfortable in finding alternative solutions to those available in our native programming language of choice. Consequently, we may even provide examples of implementations using other languages such as Python or Julia.
+
+Prior to moving on, let's take the time to make sure you have the required packages installed.
+
+::: {.callout-warning}
+# TODO
+Once book is complete provide link to DESCRIPTION file or alternative approach for an easy way for readers to install all requirements.  Maybe discuss `renv`??
 :::
 
 ```{r}
