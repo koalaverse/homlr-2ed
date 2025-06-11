@@ -67,8 +67,6 @@ At this time, we are not accepting direct pull requests for new content, but all
 
 ## Table of Contents (WIP)
 
----
-
 ### Part I: Foundations of the Machine Learning Process
 *Your toolkit for building robust and reproducible models.*
 
