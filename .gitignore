@@ -41,3 +41,8 @@ vignettes/*.pdf
 
 .DS_Store
 _book
+
+# Miscellaneous
+*_files/
+*.html
+/.quarto/
